@@ -5,5 +5,4 @@ void PIT1_IRQHandler(void);
 void ADC0_IRQHandler(void);
 void PORTA_IRQHandler(void);
 void PORTC_IRQHandler(void);
-void normalSet(void);
 #endif /* isr_H_ */

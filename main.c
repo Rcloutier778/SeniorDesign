@@ -48,6 +48,10 @@ void turnLeft(int index);
 void turnRight(int index);
 float calc(const float currentPWM, const float desiredPWM, const int State, const int wheel);
 void detectFinish(int maximumVal);
+void turn(float degree);
+void normalSet(void);
+void turnCalc(void);
+void distanceCalc(void);
 
 int aggro=0;
 
@@ -158,16 +162,6 @@ If debugcamdata is enabled, will print the values gathered
 by the NXP car campera to the terminal using uart. 
 */
 int main(void){
-    char str[100];
-    int maxval=0;
-    uint16_t smoothline[128];
-
-    for(int i=0;i<127;i++){
-        binline[i]=0;
-        line[i]=0;        \
-        line2[i]=0;
-    }
-    
     // Initialize everything
     initialize();
     
@@ -179,8 +173,7 @@ int main(void){
     SetDutyCycle(0,DC_freq,FORWARD);
     for(;;){
     while(!ready){
-        rugDetect:
-            continue;
+        delay(1);
     }
     for(;;){        
         //distance calc
@@ -215,7 +208,7 @@ void normalSet(void){
 Calculates distance between user and cart.
 Adjusts desired speed accordingly
 */
-void distanceCalc(){
+void distanceCalc(void){
     float distance = 0.0f;
     const float maxDistance=100.0f; //Max distance == max speed 
     float desiredSpeed = 0.0f;
@@ -231,7 +224,7 @@ void distanceCalc(){
 Calculates angle between user and current path of cart. 
 Angle range is [-90,90], with 0 being directly in front
 */
-void turnCalc(){
+void turnCalc(void){
     float angle = 0.0f;
     const int minAngle = 5.0f;
     
