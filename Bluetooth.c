@@ -1,14 +1,3 @@
-/*
-
-
-
-
-
-
-
-*/
-
-
 #include "stdio.h"
 #include <math.h>
 #include <stdlib.h>
@@ -40,23 +29,13 @@
     }\
 }
 
-extern float SL;
-extern float SH;
-extern float TL;
-extern float TH;
-extern float TURN_DESIRED;
-extern float STRAIGHT_DESIRED;
-extern float REV_BRAKE_DESIRED[3];
-extern float TURBO_DESIRED;
-extern float SUPER_DESIRED;
-extern float TURBO_L;
-extern float TURBO_H;
-extern float SUPER_L;
-extern float SUPER_H;
-extern int TESTING;
+extern float LB;
+extern float UB;
+extern float LEFT_DESIRED;
+extern float RIGHT_DESIRED;
 
 extern int ready;
-
+extern float manualDelta[2];
 int RX_lcv=0; //Current index of UART_TX_STR
 
 extern float KP;
@@ -88,40 +67,6 @@ void init_BT(void){
 }
 
 /*
-Adjust the desired straight speed by delta. 
-Uses the clip macro to prevent excessive speed. 
-*/
-void StraightHelper(float delta){
-	STRAIGHT_DESIRED+=delta;
-    clip(STRAIGHT_DESIRED,0.0f,100.0f);
-    SL=STRAIGHT_DESIRED-10.0f;
-    clip(SL,0.0f,100.0f);
-    SH=STRAIGHT_DESIRED+10.0f;
-    clip(SH,0.0f,100.0f);
-}
-
-/*
-Adjust the desired turning speed by delta. 
-Uses the clip macro to prevent excessive speed. 
-*/
-void TurnHelper(float delta){
-    TURN_DESIRED+=delta;
-    clip(TURN_DESIRED,0.0f,100.0f);
-    TL=TURN_DESIRED-10.0f;
-    clip(TL,0.0f,100.0f);
-    TH=TURN_DESIRED+10.0f;
-    clip(TH,0.0f,100.0f);
-    REV_BRAKE_DESIRED[0]=TURN_DESIRED-20.0f;
-    clip(REV_BRAKE_DESIRED[0],0.0f,100.0f);
-    REV_BRAKE_DESIRED[1]=TURN_DESIRED-30.0f;
-    clip(REV_BRAKE_DESIRED[0],0.0f,100.0f);
-    REV_BRAKE_DESIRED[2]=TURN_DESIRED-40.0f;
-    clip(REV_BRAKE_DESIRED[0],0.0f,100.0f);
-}
-
-
-
-/*
 Gets input from bluetooth.
 Styles:
     0 == stops car
@@ -145,51 +90,30 @@ void UART3_RX_TX_IRQHandler(void){
 	LEDon(YELLOW);
     if(temp2>=0 && temp2<=14){
         if(temp2==0){//stop car
-            REV_BRAKE_DESIRED[0]=0.0f;
-            REV_BRAKE_DESIRED[1]=0.0f;
-            REV_BRAKE_DESIRED[2]=0.0f;
-            TURN_DESIRED=0.0f;
-            STRAIGHT_DESIRED=0.0f;
-            TURBO_DESIRED=0.0f;
-            SUPER_DESIRED=0.0f;
-            TURBO_L=-100.0f;
-            TURBO_H=100.0f;
-            SL=-100.0f;
-            SH=100.0f;
-            TL=-100.0f;
-            TH=100.0f;
-            SUPER_L=-100.0f;
-            SUPER_H=100.0f;
+            LEFT_DESIRED=0.0f;
+            RIGHT_DESIRED=0.0f;
+            manualDelta[0]=0.0f;
+            manualDelta[1]=0.0f;
         }else if(temp2==1){//testing speed
             KP=0.45;
             KI=0.15;
             KD=0.25;
             TESTING=1;
-            TURN_DESIRED=25.0f;
-            STRAIGHT_DESIRED=30.0f;
-            TURBO_DESIRED=STRAIGHT_DESIRED+20.0f;
-            TURBO_L=TURBO_DESIRED-20.0f;
-            TURBO_H=TURBO_DESIRED+20.0f;
-            SL=STRAIGHT_DESIRED-20.0f;
-            SH=STRAIGHT_DESIRED+20.0f;
-            TL=TURN_DESIRED-20.0f;
-            TH=TURN_DESIRED+20.0f;
-            SUPER_DESIRED=STRAIGHT_DESIRED+10.0f;
-            SUPER_L=SUPER_DESIRED-20.0f;
-            SUPER_H=SUPER_DESIRED+20.0f;
-            REV_BRAKE_DESIRED[0]=20.0f;
-            REV_BRAKE_DESIRED[1]=10.0f;
-            REV_BRAKE_DESIRED[2]=0.0f;
+            RIGHT_DESIRED=25.0f;
+            LEFT_DESIRED=25.0f;
         }else if(temp2==2){ //normal speed
             normalSet();
         }else if(temp2==3){//+5 straight
+            manualDelta[0]+=5.0f;
+            manualDelta[1]+=5.0f;
             StraightHelper(5.0f);
         }else if(temp2==4){//-5 straight
-            StraightHelper(-5.0f);
-        }else if(temp2==5){//+5 turn
-            TurnHelper(5.0f);
-        }else if(temp2==6){//-5 turn
-            TurnHelper(-5.0f);
+            manualDelta[0]-=5.0f;
+            manualDelta[1]-=5.0f;
+        }else if(temp2==5){//+5 turn left
+            manualDelta[0]+=5.0f;
+        }else if(temp2==6){//-5 turn left
+            manualDelta[0]-=5.0f;
         }else if(temp2==7){
             ready=1;
         }else if(temp2==8){
@@ -204,7 +128,12 @@ void UART3_RX_TX_IRQHandler(void){
             KD-=0.05f;
         }else if(temp2==13){
             KD+=0.05f;
-        }
+        }else if(temp2==14){//+5 turn right
+            manualDelta[1]+=5.0f;
+        }else if(temp2==15){//-5 turn right
+            manualDelta[1]-=5.0f;
+        }else if(temp2==7){
+            ready=1;
         return;
     }
     

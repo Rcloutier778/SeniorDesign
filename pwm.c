@@ -104,34 +104,6 @@ void RightDuty(unsigned int DutyCycle, unsigned int Frequency, int dir){
 	FTM0_MOD = (CLOCK/Frequency);
 }
 
-
-
-
-
-/*
- * Change the Motor Duty Cycle and Frequency
- * @param DutyCycle (0 to 100)
- * @param Frequency (~1000 Hz to 20000 Hz)
- * @param dir: 1 for A1 active, else A2 active 
- */
-void ServoDutyCycle(unsigned int DutyCycle, unsigned int Frequency)
-{
-	//9 to 12
-	//4839 to 6417
-	//instead of clock/freq, did f * freq and prescaled by 1<<11
-	int f;
-	f=1052; //52600 = 1052*50
-	// Calculate the new cutoff value
-	//uint16_t mod = (uint16_t) ((((f*Frequency) * DutyCycle) / 100)+105);
-	uint16_t mod = (uint16_t) ((((f*Frequency) * 9) / 100)+105 +(15*DutyCycle));
-	// Set outputs 
-  FTM3_C2V = mod; FTM3_C3V=0;
-	
-	// Update the clock to the new frequency
-	FTM3_MOD = (f*Frequency);
-		
-}
-
 /*
  * Initialize the FlexTimer for PWM
  */

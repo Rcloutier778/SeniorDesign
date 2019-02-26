@@ -25,61 +25,6 @@
 #define INTEGRATION_TIME .0075f
 #define BAUD_RATE 9600      //default baud rate 
 #define SYS_CLOCK 20485760 //default system clock (see DEFAULT_SYSTEM_CLOCK  in system_MK64F12.c)
-extern int TESTING;
-
-extern float SL;
-extern float SH;
-extern float TL; 
-extern float TH;
-extern float TURN_DESIRED;
-extern float STRAIGHT_DESIRED;
-extern float REV_BRAKE_DESIRED[3];
-extern float TURBO_DESIRED;
-extern float SUPER_DESIRED;
-extern float TURBO_L;
-extern float TURBO_H;
-extern float SUPER_L;
-extern float SUPER_H;
-
-extern float KP;
-extern float KI;
-extern float KD;
-
-extern int RevBrake[2];
-
-void normalSet(void){
-    
-    
-    TESTING=0;
-    RevBrake[0]=90;
-    RevBrake[1]=50;
-    TURN_DESIRED=65.0f;//75.0f; 
-    STRAIGHT_DESIRED=75.0f;//80.0f
-    REV_BRAKE_DESIRED[0]=-30.0f;//-10.0f;//20.0f;
-    REV_BRAKE_DESIRED[1]=-50.0f;//-5.0f;//0.0f; //-25
-    REV_BRAKE_DESIRED[2]=-70.0f;//-10.0f;//-55.0f; //-50
-    
-    TURBO_DESIRED=STRAIGHT_DESIRED+20.0f;
-    TURBO_L=TURBO_DESIRED-20.0f;
-    TURBO_H=100.0f;
-    
-    SL=STRAIGHT_DESIRED-20.0f;
-    SH=STRAIGHT_DESIRED+20.0f;
-    
-    TL=TURN_DESIRED-20.0f;
-    TH=TURN_DESIRED+20.0f;
-    
-    SUPER_DESIRED=STRAIGHT_DESIRED+10.0f;
-    SUPER_L=SUPER_DESIRED-20.0f;
-    SUPER_H=100.0f;
-    
-    KP=0.70f; //77
-    KI=0.70f; //70
-    KD=0.20f; //20
-    
-}
-
-
 
 
 /* Initialization of FTM2 for camera */
