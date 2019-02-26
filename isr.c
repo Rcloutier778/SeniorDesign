@@ -5,9 +5,6 @@
  * Created:  
  * Modified:  
 */
-
-
-
 #include "stdio.h"
 #include <math.h>
 //#include <string>
@@ -71,14 +68,11 @@ void PORTC_IRQHandler(void){ //For switch 2
     return;
 }
 
-
 /* ADC0 Conversion Complete ISR  */
 void ADC0_IRQHandler(void) {
 	// Reading ADC0_RA clears the conversion complete flag
 	ADC0VAL = ADC0_RA;
-    
 }
-
 
 /* 
 * FTM2 handles the camera driving logic
@@ -164,7 +158,7 @@ void PIT0_IRQHandler(void){
 	
 	// Setting mod resets the FTM counter
 	//PIT_MCR |= PIT_MCR_MDIS_MASK;
-  FTM2_MOD = (DEFAULT_SYSTEM_CLOCK)/100000;
+    FTM2_MOD = (DEFAULT_SYSTEM_CLOCK)/100000;
 	
 	// Enable FTM2 interrupts (camera)
 	FTM2_SC |= FTM_SC_TOIE_MASK;

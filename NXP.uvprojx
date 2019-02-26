@@ -445,6 +445,21 @@
               <FileType>1</FileType>
               <FilePath>.\LEDS.c</FilePath>
             </File>
+            <File>
+              <FileName>ultrasonic.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ultrasonic.c</FilePath>
+            </File>
+            <File>
+              <FileName>ultrasonic.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ultrasonic.h</FilePath>
+            </File>
+            <File>
+              <FileName>camera_FTM_blank.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\camera_FTM_blank.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

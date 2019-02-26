@@ -28,7 +28,7 @@
         n=upper;\
     }\
 }
-
+extern void normalSet(void);
 extern float LB;
 extern float UB;
 extern float LEFT_DESIRED;
@@ -98,7 +98,6 @@ void UART3_RX_TX_IRQHandler(void){
             KP=0.45;
             KI=0.15;
             KD=0.25;
-            TESTING=1;
             RIGHT_DESIRED=25.0f;
             LEFT_DESIRED=25.0f;
         }else if(temp2==2){ //normal speed
@@ -106,7 +105,6 @@ void UART3_RX_TX_IRQHandler(void){
         }else if(temp2==3){//+5 straight
             manualDelta[0]+=5.0f;
             manualDelta[1]+=5.0f;
-            StraightHelper(5.0f);
         }else if(temp2==4){//-5 straight
             manualDelta[0]-=5.0f;
             manualDelta[1]-=5.0f;
@@ -134,7 +132,9 @@ void UART3_RX_TX_IRQHandler(void){
             manualDelta[1]-=5.0f;
         }else if(temp2==7){
             ready=1;
+        }
         return;
+            
     }
     
     return;

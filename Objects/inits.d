@@ -1,0 +1,9 @@
+.\objects\inits.o: inits.c
+.\objects\inits.o: MK64F12.h
+.\objects\inits.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\inits.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.1.1\CMSIS\Include\core_cm4.h
+.\objects\inits.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.1.1\CMSIS\Include\cmsis_version.h
+.\objects\inits.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.1.1\CMSIS\Include\cmsis_compiler.h
+.\objects\inits.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.1.1\CMSIS\Include\cmsis_armcc.h
+.\objects\inits.o: C:\Keil_v5\ARM\PACK\Keil\Kinetis_K60_DFP\1.5.0\Device\Include\system_MK64F12.h
+.\objects\inits.o: inits.h

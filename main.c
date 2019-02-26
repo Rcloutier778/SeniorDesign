@@ -38,6 +38,7 @@
 #include "isr.h"
 #include "Bluetooth.h"
 #include "LEDS.h"
+#include "ultrasonic.h"
 
 void initialize(void);
 void en_interrupts();
@@ -46,13 +47,13 @@ void printBinline(void);
 void printLine(void);
 void turnLeft(int index);
 void turnRight(int index);
-float calc(const float currentPWM, const float desiredPWM, const int State, const int wheel);
+float calc(const float currentPWM, const float desiredPWM, const int wheel);
 void detectFinish(int maximumVal);
 void normalSet(void);
 void turnCalc(void);
 void distanceCalc(void);
+void demo(void);
 
-int aggro=0;
 
 const int FORWARD=0;
 const int REVERSE=1;
@@ -111,21 +112,22 @@ float KD; //25
 float PWMErrOld1[2] = {0.0,0.0}; //e(n-1)
 float PWMErrOld2[2] = {0.0,0.0}; //e(n-2)
 
-float sPWMErrOld1 = 0.0; //e(n-1)
-float sPWMErrOld2 = 0.0; //e(n-2)
-
 float LB=0.0; //Lower bound of wheel speed
 float UB=70.0; //Upper bound of wheel speed
 
 //Desired PWM of left and right wheels
-float RIGHT_DESIRED=0.0;
 float LEFT_DESIRED=0.0;
+float RIGHT_DESIRED=0.0;
 
+//PWM of left/right wheels
 float LPWM=0.0; //PWM of left wheel
 float RPWM=0.0; //PWM of right wheel
 
 //Manual PWM delta. Controlled by bluetooth to manually boost/retard motors
 float manualDelta[2] = {0.0,0.0};
+
+int ready=0;
+
 /*
 Limit n to the lower and upper bounds only. 
 */
@@ -136,26 +138,6 @@ Limit n to the lower and upper bounds only.
         n=upper;\
     }\
 }
-/*
-Calculate the PID PWM value based on the current PWM value,
-the desired PWM value, and if the car is going straight or turning.
-    Wheel=0: Left wheel
-    Wheel=1: Right wheel
-*/
-float calc(const float currentPWM, const float desiredPWM, const int wheel){
-    float err = desiredPWM - currentPWM; //e(n)
-    float newPWM = currentPWM +\
-    (KP * (err-PWMErrOld1[wheel])) + \
-    (KI * ((err+PWMErrOld1[wheel])/2.0f)) + \
-    (KD * (err - (2.0f * PWMErrOld1[wheel]) + PWMErrOld2[wheel])) + \
-    manualDelta[wheel]; 
-    
-    clip(newPWM,LB,UB);
-    
-    PWMErrOld2[wheel]=PWMErrOld1[wheel];
-    PWMErrOld1[wheel]=err;
-    return newPWM;
-}
 
 /*
 Initializes the uart, GPIO pins, FTM, ADC0, and PIT. 
@@ -165,6 +147,7 @@ by the NXP car campera to the terminal using uart.
 int main(void){
     //Run demo
     int demov=1;
+    
     // Initialize everything
     initialize();
     
@@ -178,37 +161,20 @@ int main(void){
         while(!ready){
             delay(10);
         }
+        
+        //Demo code
         if (demov==1){
-            int demoi;
-            int demoj;
-            for (demoi=0; demoi<=1; demoi++){
-                for (demoj=1; demoj<=10; demoj++){
-                    if (demoi==0){//left
-                        LPWM=calc(LPWM, 10*demoj, LEFT);
-                        LeftDuty((int)LPWM,DC_freq,FORWARD);
-                    }else{//right
-                        LPWM=calc(LPWM, 0.0, LEFT);
-                        LeftDuty((int)LPWM,DC_freq,FORWARD);
-                        RPWM=calc(RPWM, 10*demoj, RIGHT);
-                        RightDuty((int)RPWM,DC_freq,FORWARD);
-                    }
-                }
-            }
-            for(;;){
-                LPWM=calc(LPWM, 0.0, LEFT);
-                LeftDuty((int)LPWM,DC_freq,FORWARD);
-                RPWM=calc(RPWM, 0.0, RIGHT);
-                RightDuty((int)RPWM,DC_freq,FORWARD);
-            }
-            
+            demo();
             
         }
+        
+        //Main code
         for(;;){        
             //distance calc
             distanceCalc();
             
             //turn calc
-            degrees=turnCalc();
+            turnCalc();
             
             //set duty cycles
             LPWM=calc(LPWM, LEFT_DESIRED, LEFT);
@@ -218,9 +184,38 @@ int main(void){
                 
             delay(1);
       }
-}
+    }
     return 0;
 }
+
+/*
+Demo code
+*/
+void demo(void){
+    int demoi;
+    int demoj;
+    for (demoi=0; demoi<=1; demoi++){
+        for (demoj=1; demoj<=10; demoj++){
+            if (demoi==0){//left
+                LPWM=calc(LPWM, 10*demoj, LEFT);
+                LeftDuty((int)LPWM,DC_freq,FORWARD);
+            }else{//right
+                LPWM=calc(LPWM, 0.0, LEFT);
+                LeftDuty((int)LPWM,DC_freq,FORWARD);
+                RPWM=calc(RPWM, 10*demoj, RIGHT);
+                RightDuty((int)RPWM,DC_freq,FORWARD);
+            }
+        }
+    }
+    for(;;){
+        LPWM=calc(LPWM, 0.0, LEFT);
+        LeftDuty((int)LPWM,DC_freq,FORWARD);
+        RPWM=calc(RPWM, 0.0, RIGHT);
+        RightDuty((int)RPWM,DC_freq,FORWARD);
+    }
+}
+
+
 
 /*
 Reset all vars to nominal/safe values
@@ -245,11 +240,15 @@ void distanceCalc(void){
     float desiredSpeed = 0.0f;
     
     //TODO distance calculations
+    //GPS = long
+    //Camera = med
+    //Ultrasonic = med/short 
     
     //linear calc
-    desired = clip((UB*distance)/maxDistance,LB,UB);
-    LEFT_DESIRED=desired;
-    RIGHT_DESIRED=desired;
+    desiredSpeed=(UB*distance)/maxDistance;
+    clip(desiredSpeed,LB,UB);
+    LEFT_DESIRED=desiredSpeed;
+    RIGHT_DESIRED=desiredSpeed;
 }
 
 /*
@@ -269,15 +268,17 @@ void turnCalc(void){
         Max slow speed == 0
         Slow speed dictated by speed of other wheel
         */
-        if(degree > 0.0f){ //Right turn
-            LEDon(RED)
-            RIGHT_DESIRED = clip((LEFT_DESIRED*degree)/90.0f,LB,UB);
-        }else if(degree < 0.0f){ //Left
-            LEDon(BLUE)
-            LEFT_DESIRED = clip((RIGHT_DESIRED*degree)/90.0f,LB,UB);
+        if(angle > 0.0f){ //Right turn
+            LEDon(RED);
+            RIGHT_DESIRED = (LEFT_DESIRED*angle)/90.0f;
+            clip(RIGHT_DESIRED,LB,UB);
+        }else if(angle < 0.0f){ //Left
+            LEDon(BLUE);
+            LEFT_DESIRED = (RIGHT_DESIRED*angle)/90.0f;
+            clip(LEFT_DESIRED,LB,UB);
         }
     }else{
-        LEDon(GREEN)
+        LEDon(GREEN);
     }
 }
 
@@ -315,6 +316,27 @@ void printLine(void){
 }
 
 /*
+Calculate the PID PWM value based on the current PWM value,
+the desired PWM value, and if the car is going straight or turning.
+    Wheel=0: Left wheel
+    Wheel=1: Right wheel
+*/
+float calc(const float currentPWM, const float desiredPWM, const int wheel){
+    float err = desiredPWM - currentPWM; //e(n)
+    float newPWM = currentPWM +\
+    (KP * (err-PWMErrOld1[wheel])) + \
+    (KI * ((err+PWMErrOld1[wheel])/2.0f)) + \
+    (KD * (err - (2.0f * PWMErrOld1[wheel]) + PWMErrOld2[wheel])) + \
+    manualDelta[wheel]; 
+    
+    clip(newPWM,LB,UB);
+    
+    PWMErrOld2[wheel]=PWMErrOld1[wheel];
+    PWMErrOld1[wheel]=err;
+    return newPWM;
+}
+
+/*
 Initializes all required modules
 */
 void initialize(void){
@@ -329,5 +351,6 @@ void initialize(void){
     init_ADC0();
     init_PIT();    // To trigger camera read based on integration time
     init_LEDS();
-  if(BLUETOOTH){init_BT();} //Initialize the bluetooth controller
+    if(BLUETOOTH){init_BT();} //Initialize the bluetooth controller
+    init_ultrasonic();
 }

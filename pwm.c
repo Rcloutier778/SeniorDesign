@@ -31,20 +31,18 @@ void SetDutyCycle(unsigned int DutyCycle, unsigned int Frequency, int dir)
 	uint16_t mod = (uint16_t) (((CLOCK/Frequency) * DutyCycle) / 100);
   
 	// Set outputs 
-	if(dir==1)
-    {
+	if(dir==1){ //reverse
 		FTM0_C2V = mod;
 		FTM0_C6V = mod;
 		FTM0_C3V=0;
 		FTM0_C7V=0;
-		}
-  else
-    {
+	}
+    else{
 		FTM0_C3V = mod;
 		FTM0_C7V = mod;
 		FTM0_C2V=0;
 		FTM0_C6V=0;
-		}
+	}
 
 	// Update the clock to the new frequency
 	FTM0_MOD = (CLOCK/Frequency);
@@ -62,13 +60,11 @@ void LeftDuty(unsigned int DutyCycle, unsigned int Frequency, int dir){
 	uint16_t mod = (uint16_t) (((CLOCK/Frequency) * DutyCycle) / 100);
   
 	// Set outputs 
-	if(dir==1)//reverse
-    {
+	if(dir==1){ //reverse
 		FTM0_C2V = mod;
 		FTM0_C3V=0;
 		}
-  else
-    {
+    else{
 		FTM0_C3V = mod;
 		FTM0_C2V=0;
 		}
@@ -89,16 +85,14 @@ void RightDuty(unsigned int DutyCycle, unsigned int Frequency, int dir){
 	uint16_t mod = (uint16_t) (((CLOCK/Frequency) * DutyCycle) / 100);
   
 	// Set outputs 
-	if(dir==1)//reverse
-    {
+	if(dir==1){//reverse
 		FTM0_C6V = mod;
 		FTM0_C7V=0;
-		}
-  else
-    {
+    }
+    else{
 		FTM0_C7V = mod;
 		FTM0_C6V=0;
-		}
+    }
 
 	// Update the clock to the new frequency
 	FTM0_MOD = (CLOCK/Frequency);
@@ -184,28 +178,28 @@ void InitPWM(void)
 
 	// Enable Interrupt Vector for FTM
     //NVIC_EnableIRQ(FTM0_IRQn);
-		//NVIC_EnableIRQ(FTM3_IRQn);
+    //NVIC_EnableIRQ(FTM3_IRQn);
 
 }
 
 /*OK to remove this ISR?*/
 void FTM0_IRQHandler(void){ //For FTM timer
+    FTM0_SC &= ~FTM_SC_TOF_MASK;
 
-  FTM0_SC &= ~FTM_SC_TOF_MASK;
-  
-	//if motor tick less than 255 count up... 
-	if (PWMTick < 0xff)
-		PWMTick++;
-  return;
+    //if motor tick less than 255 count up... 
+    if (PWMTick < 0xff){
+        PWMTick++;
+    }
+    return;
 	
 }
 
 void FTM3_IRQHandler(void){ //For FTM timer
+    FTM3_SC &= ~FTM_SC_TOF_MASK;
 
-  FTM3_SC &= ~FTM_SC_TOF_MASK;
-  
-	//if motor tick less than 255 count up... 
-	if (PWMTick2 < 0xff)
-		PWMTick2++;
-	return;
+    //if motor tick less than 255 count up... 
+    if (PWMTick2 < 0xff){
+        PWMTick2++;
+    }
+    return;
 }
