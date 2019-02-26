@@ -48,7 +48,6 @@ void turnLeft(int index);
 void turnRight(int index);
 float calc(const float currentPWM, const float desiredPWM, const int State, const int wheel);
 void detectFinish(int maximumVal);
-void turn(float degree);
 void normalSet(void);
 void turnCalc(void);
 void distanceCalc(void);
@@ -104,9 +103,11 @@ uint16_t ADC0VAL;
 
 int binline[128]; //binary smoothed line 
 
+//Set Kp,Ki,Kd values in normalSet function
 float KP; //60
 float KI; //70
 float KD; //25
+
 float PWMErrOld1[2] = {0.0,0.0}; //e(n-1)
 float PWMErrOld2[2] = {0.0,0.0}; //e(n-2)
 
@@ -116,7 +117,7 @@ float sPWMErrOld2 = 0.0; //e(n-2)
 float LB=0.0; //Lower bound of wheel speed
 float UB=70.0; //Upper bound of wheel speed
 
-
+//Desired PWM of left and right wheels
 float RIGHT_DESIRED=0.0;
 float LEFT_DESIRED=0.0;
 
@@ -172,28 +173,31 @@ int main(void){
     normalSet();
     SetDutyCycle(0,DC_freq,FORWARD);
     for(;;){
-    while(!ready){
-        delay(1);
-    }
-    for(;;){        
-        //distance calc
-        distanceCalc();
-        
-        //turn calc
-        degrees=turnCalc();
-        
-        //set duty cycles
-        LPWM=calc(LPWM, LEFT_DESIRED, LEFT);
-        RPWM=calc(RPWM, RIGHT_DESIRED, RIGHT);
-        RightDuty((int)RPWM,DC_freq,FORWARD);
-        LeftDuty((int)LPWM,DC_freq,FORWARD);
+        while(!ready){
+            delay(1);
+        }
+        for(;;){        
+            //distance calc
+            distanceCalc();
             
-        delay(0.5);
-  }
+            //turn calc
+            degrees=turnCalc();
+            
+            //set duty cycles
+            LPWM=calc(LPWM, LEFT_DESIRED, LEFT);
+            RPWM=calc(RPWM, RIGHT_DESIRED, RIGHT);
+            RightDuty((int)RPWM,DC_freq,FORWARD);
+            LeftDuty((int)LPWM,DC_freq,FORWARD);
+                
+            delay(0.5);
+      }
 }
     return 0;
 }
 
+/*
+Reset all vars to nominal/safe values
+*/
 void normalSet(void){
     LEFT_DESIRED=0.0f;//75.0f; 
     LEFT_DESIRED=0.0f;//80.0f
@@ -212,6 +216,7 @@ void distanceCalc(void){
     float distance = 0.0f;
     const float maxDistance=100.0f; //Max distance == max speed 
     float desiredSpeed = 0.0f;
+    
     //TODO distance calculations
     
     //linear calc
@@ -231,25 +236,21 @@ void turnCalc(void){
     //TODO angle calculations
     
     if (abs(angle) > minAngle) {
-        turn(angle);
+        /*
+        degree = -90 to 90
+        Slows inner wheel.
+        Max slow speed == 0
+        Slow speed dictated by speed of other wheel
+        */
+        if(degree > 0.0f){ //Right turn
+            LEDon(RED)
+            RIGHT_DESIRED = clip((LEFT_DESIRED*degree)/90.0f,LB,UB);
+        }else if(degree < 0.0f){ //Left
+            LEDon(BLUE)
+            LEFT_DESIRED = clip((RIGHT_DESIRED*degree)/90.0f,LB,UB);
+        }
     }else{
         LEDon(GREEN)
-    }
-}
-
-/*
-degree = -90 to 90
-Slows inner wheel.
-Max slow speed == 0
-Slow speed dictated by speed of other wheel
-*/
-void turn(float degree){
-    if(degree > 0.0f){ //Right turn
-        LEDon(RED)
-        RIGHT_DESIRED = clip((LEFT_DESIRED*degree)/90.0f,LB,UB);
-    }else if(degree < 0.0f){ //Left
-        LEDon(BLUE)
-        LEFT_DESIRED = clip((RIGHT_DESIRED*degree)/90.0f,LB,UB);
     }
 }
 
@@ -284,14 +285,12 @@ void printLine(void){
                 capcnt = 0;
             }
         }
-
 }
 
 /*
 Initializes all required modules
 */
-void initialize(void)
-{
+void initialize(void){
     // Initialize UART
     uart_init();    
     
