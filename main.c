@@ -163,6 +163,8 @@ If debugcamdata is enabled, will print the values gathered
 by the NXP car campera to the terminal using uart. 
 */
 int main(void){
+    //Run demo
+    int demov=1;
     // Initialize everything
     initialize();
     
@@ -174,7 +176,32 @@ int main(void){
     SetDutyCycle(0,DC_freq,FORWARD);
     for(;;){
         while(!ready){
-            delay(1);
+            delay(10);
+        }
+        if (demov==1){
+            int demoi;
+            int demoj;
+            for (demoi=0; demoi<=1; demoi++){
+                for (demoj=1; demoj<=10; demoj++){
+                    if (demoi==0){//left
+                        LPWM=calc(LPWM, 10*demoj, LEFT);
+                        LeftDuty((int)LPWM,DC_freq,FORWARD);
+                    }else{//right
+                        LPWM=calc(LPWM, 0.0, LEFT);
+                        LeftDuty((int)LPWM,DC_freq,FORWARD);
+                        RPWM=calc(RPWM, 10*demoj, RIGHT);
+                        RightDuty((int)RPWM,DC_freq,FORWARD);
+                    }
+                }
+            }
+            for(;;){
+                LPWM=calc(LPWM, 0.0, LEFT);
+                LeftDuty((int)LPWM,DC_freq,FORWARD);
+                RPWM=calc(RPWM, 0.0, RIGHT);
+                RightDuty((int)RPWM,DC_freq,FORWARD);
+            }
+            
+            
         }
         for(;;){        
             //distance calc
@@ -189,7 +216,7 @@ int main(void){
             RightDuty((int)RPWM,DC_freq,FORWARD);
             LeftDuty((int)LPWM,DC_freq,FORWARD);
                 
-            delay(0.5);
+            delay(1);
       }
 }
     return 0;
