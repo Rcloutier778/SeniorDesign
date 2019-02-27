@@ -289,7 +289,7 @@ void init_PIT(void){
 	// Setup periodic interrupt timer (PIT)
 	
 	// Enable clock for timers
-  SIM_SCGC6 |= SIM_SCGC6_PIT_MASK;
+    SIM_SCGC6 |= SIM_SCGC6_PIT_MASK;
 	PIT_MCR &= ~PIT_MCR_MDIS_MASK;
 	
 	// Enable timers to continue in debug mode

@@ -23,6 +23,10 @@
 
 #define MAX_BUF_SZ 128
 
+int ultrasonic_counter=0;
+float ultrasonic_distance=0.0f;
+int ultrasonic_ready_flag=0;
+
 /*
 Initialize UART3 on pins PTC 14 and PTC 15. 
 Enables recieve interrupts at 9600 baud. 
@@ -50,12 +54,74 @@ void init_ultrasonic(void){
 void UART4_RX_TX_IRQHandler(void){
     uint8_t temp;
     char str[100];
-    int temp2=0;
+	
     UART4_S1; //clears interrupt
     temp=UART4_D; //data received
-    
+    if (temp==1){
+        ultrasonic_counter++;
+		ultrasonic_ready_flag=0;
+    }else if(temp==0){
+        ultrasonic_distance=ultrasonic_counter/52.0f;
+        ultrasonic_counter=0;
+		ultrasonic_ready_flag=1;
+    }
+	UART4_C2 &= ~UART_C2_RIE_MASK; //Disable recieve interrupts 
+    //UART4_C2 &= ~(UART_C2_TE_MASK | UART_C2_RE_MASK);
+    return;
+}
+
+/* Initialization of PIT timer to control 
+* 		integration period
+*/
+void init_PIT(void){
+	// Setup periodic interrupt timer (PIT)
+	
+	// Enable clock for timers
+    SIM_SCGC6 |= SIM_SCGC6_PIT_MASK;
+	PIT_MCR &= ~PIT_MCR_MDIS_MASK;
+	
+	// Enable timers to continue in debug mode
+	PIT_MCR &= ~PIT_MCR_FRZ_MASK; // In case you need to debug
+	
+	// PIT clock frequency is the system clock
+	// Load the value that the timer will count down from
+	PIT_LDVAL0 = (uint32_t) DEFAULT_SYSTEM_CLOCK * INTEGRATION_TIME;
+	
+	// Enable timer interrupts
+	PIT_TCTRL0 |= PIT_TCTRL_TIE_MASK;
+	
+	// Enable the timer 0,1,2,3?
+	PIT_TCTRL0 |= PIT_TCTRL_TEN_MASK;
+
+	// Clear interrupt flag
+	PIT_TFLG0 |= PIT_TFLG_TIF_MASK;
+
+	// Enable PIT interrupt in the interrupt controller
+	NVIC_EnableIRQ(PIT0_IRQn);
+	return;
 }
 
 
+/* PIT0 determines the integration period
+*		When it overflows, it triggers the clock logic from
+*		FTM2. Note the requirement to set the MOD register
+* 	to reset the FTM counter because the FTM counter is 
+*		always counting, I am just enabling/disabling FTM2 
+*		interrupts to control when the line capture occurs
+*/
+void PIT0_IRQHandler(void){
+	// Clear interrupt
+	PIT_TFLG0 |= PIT_TFLG_TIF_MASK;
+	
+	// Setting mod resets the FTM counter
+	//PIT_MCR |= PIT_MCR_MDIS_MASK;
+    //FTM2_MOD = (DEFAULT_SYSTEM_CLOCK)/100000;
+	
+	// Enable FTM2 interrupts (camera)
+	UART4_C2 |= UART_C2_RIE_MASK; //Enable recieve interrupts 
+    UART4_C2 |= (UART_C2_TE_MASK | UART_C2_RE_MASK);
+	
+	return;
+}
 
 
