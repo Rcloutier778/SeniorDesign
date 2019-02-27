@@ -54,7 +54,8 @@ extern uint16_t ADC0VAL;
 extern int binline[128];
 
 void PORTA_IRQHandler(void){ //For switch 3
-    
+    PORTA_ISFR = PORT_ISFR_ISF_MASK;
+    ready=1;
 	return;
 }
 	

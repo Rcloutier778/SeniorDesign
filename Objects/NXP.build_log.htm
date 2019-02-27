@@ -17,27 +17,42 @@ Library Manager: ArmAr.exe V5.06 update 5 (build 528)
 Hex Converter:   FromElf.exe V5.06 update 5 (build 528)
 CPU DLL:         SARMCM3.DLL V5.24.1
 Dialog DLL:      DCM.DLL V1.16.0.0
-Target DLL:      UL2CM3.DLL V1.160.3.0
+Target DLL:      CMSIS_AGDI.dll V1.28.3.0
 Dialog DLL:      TCM.DLL V1.32.0.0
  
 <h2>Project:</h2>
 C:\Users\Richard\Documents\RIT\Y5S2\Senior Design II\Code\NXP.uvprojx
-Project File Date:  12/11/2017
+Project File Date:  02/27/2019
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 5 (build 528)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Target 1'
+compiling pwm.c...
+compiling uart.c...
+compiling inits.c...
 compiling main.c...
-main.c(43): warning:  #1295-D: Deprecated declaration en_interrupts - give arg types
+main.c(44): warning:  #1295-D: Deprecated declaration en_interrupts - give arg types
   void en_interrupts();
-main.c(187): warning:  #111-D: statement is unreachable
+main.c(190): warning:  #111-D: statement is unreachable
       return 0;
-main.c(263): warning:  #223-D: function "abs" declared implicitly
+main.c(264): warning:  #223-D: function "abs" declared implicitly
       if (abs(angle) > minAngle) {
 main.c: 3 warnings, 0 errors
+compiling ultrasonic.c...
+ultrasonic.c(38): warning:  #177-D: variable "str"  was declared but never referenced
+      char str[100];
+ultrasonic.c: 1 warning, 0 errors
+compiling isr.c...
+compiling LEDS.c...
+compiling Bluetooth.c...
+Bluetooth.c(85): warning:  #177-D: variable "str"  was declared but never referenced
+      char str[100];
+Bluetooth.c: 1 warning, 0 errors
+assembling startup_MK64F12.s...
+compiling system_MK64F12.c...
 linking...
-Program Size: Code=5048 RO-data=1056 RW-data=108 ZI-data=2244  
-".\Objects\NXP.axf" - 0 Error(s), 3 Warning(s).
+Program Size: Code=5032 RO-data=1056 RW-data=128 ZI-data=2248  
+".\Objects\NXP.axf" - 0 Error(s), 5 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -65,7 +80,7 @@ Package Vendor: Keil
       Source file:   Device\Source\system_MK64F12.c
 
    * Component: ARM::CMSIS:CORE:5.0.2
-Build Time Elapsed:  00:00:00
+Build Time Elapsed:  00:00:04
 </pre>
 </body>
 </html>

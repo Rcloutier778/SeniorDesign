@@ -17,10 +17,10 @@
  *    PTB23         - camera SI     J2-19
  *  ADC0_DP1(bottom left)     - camera AOut   J2-4
  *  3.3V      - camera Vdd
- *    PTC3    A1  J1-5
- *    PTC4    A2  J1-7
- *    PTA2    B1  J10-12
- *    PTA1    B2  J10-10
+ *    PTC3    A1  J1-5    reverse signal
+ *    PTC4    A2  J1-7    pwm signal
+ *    PTA2    B1  J10-12  pwm signal
+ *    PTA1    B2  J10-10  reverse signal
  *    PTD2    Servo J10-2
  *  PTB10 UART3_RX (Blue)
  *  PTB11 UART3_TX (Red)
@@ -128,6 +128,10 @@ float manualDelta[2] = {0.0,0.0};
 
 int ready=0;
 
+extern float ultrasonic_distance;
+extern int ultrasonic_ready;
+
+
 /*
 Limit n to the lower and upper bounds only. 
 */
@@ -147,13 +151,11 @@ by the NXP car campera to the terminal using uart.
 int main(void){
     //Run demo
     int demov=1;
-    
     // Initialize everything
     initialize();
     
     // Print welcome over serial
     put("Running... \n\r");
-    
     
     normalSet();
     SetDutyCycle(0,DC_freq,FORWARD);
@@ -197,14 +199,12 @@ void demo(void){
     for (demoi=0; demoi<=1; demoi++){
         for (demoj=1; demoj<=10; demoj++){
             if (demoi==0){//left
-                LPWM=calc(LPWM, 10*demoj, LEFT);
-                LeftDuty((int)LPWM,DC_freq,FORWARD);
+                LeftDuty(10*demoj,DC_freq,FORWARD);
             }else{//right
-                LPWM=calc(LPWM, 0.0, LEFT);
-                LeftDuty((int)LPWM,DC_freq,FORWARD);
-                RPWM=calc(RPWM, 10*demoj, RIGHT);
-                RightDuty((int)RPWM,DC_freq,FORWARD);
+                LeftDuty(0,DC_freq,FORWARD);
+                RightDuty(10*demoj,DC_freq,FORWARD);
             }
+            delay(300);
         }
     }
     for(;;){
@@ -347,9 +347,8 @@ void initialize(void){
     InitPWM();
     
     init_GPIO(); // For CLK and SI output on GPIO
-    init_FTM2(); // To generate CLK, SI, and trigger ADC
-    init_ADC0();
-    init_PIT();    // To trigger camera read based on integration time
+    //init_FTM2(); // To generate CLK, SI, and trigger ADC
+    //init_ADC0();
     init_LEDS();
     if(BLUETOOTH){init_BT();} //Initialize the bluetooth controller
     init_ultrasonic();

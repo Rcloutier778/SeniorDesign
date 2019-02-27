@@ -1,0 +1,15 @@
+.\objects\ultrasonic.o: ultrasonic.c
+.\objects\ultrasonic.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\ultrasonic.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+.\objects\ultrasonic.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\objects\ultrasonic.o: isr.h
+.\objects\ultrasonic.o: MK64F12.h
+.\objects\ultrasonic.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\ultrasonic.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.1.1\CMSIS\Include\core_cm4.h
+.\objects\ultrasonic.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.1.1\CMSIS\Include\cmsis_version.h
+.\objects\ultrasonic.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.1.1\CMSIS\Include\cmsis_compiler.h
+.\objects\ultrasonic.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.1.1\CMSIS\Include\cmsis_armcc.h
+.\objects\ultrasonic.o: C:\Keil_v5\ARM\PACK\Keil\Kinetis_K60_DFP\1.5.0\Device\Include\system_MK64F12.h
+.\objects\ultrasonic.o: uart.h
+.\objects\ultrasonic.o: LEDS.h
+.\objects\ultrasonic.o: inits.h

@@ -14,3 +14,4 @@
 .\objects\main.o: isr.h
 .\objects\main.o: Bluetooth.h
 .\objects\main.o: LEDS.h
+.\objects\main.o: ultrasonic.h
