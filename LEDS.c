@@ -77,3 +77,9 @@ void LEDon(int color){
 		GPIOB_PCOR=cr;
 	}
 }
+
+void LEDoff(void){
+    GPIOE_PSOR = cg;
+    GPIOB_PSOR = cb;
+    GPIOB_PSOR=cr;
+}

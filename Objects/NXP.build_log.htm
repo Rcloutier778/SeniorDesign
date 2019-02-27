@@ -26,32 +26,32 @@ Project File Date:  02/27/2019
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 5 (build 528)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
-Build target 'Target 1'
+Rebuild target 'Target 1'
 compiling pwm.c...
-compiling uart.c...
 compiling inits.c...
+compiling uart.c...
 compiling main.c...
 main.c(44): warning:  #1295-D: Deprecated declaration en_interrupts - give arg types
   void en_interrupts();
-main.c(190): warning:  #111-D: statement is unreachable
+main.c(189): warning:  #111-D: statement is unreachable
       return 0;
-main.c(264): warning:  #223-D: function "abs" declared implicitly
+main.c(263): warning:  #223-D: function "abs" declared implicitly
       if (abs(angle) > minAngle) {
 main.c: 3 warnings, 0 errors
-compiling ultrasonic.c...
-ultrasonic.c(38): warning:  #177-D: variable "str"  was declared but never referenced
-      char str[100];
-ultrasonic.c: 1 warning, 0 errors
-compiling isr.c...
 compiling LEDS.c...
+compiling isr.c...
 compiling Bluetooth.c...
 Bluetooth.c(85): warning:  #177-D: variable "str"  was declared but never referenced
       char str[100];
 Bluetooth.c: 1 warning, 0 errors
+compiling ultrasonic.c...
+ultrasonic.c(38): warning:  #177-D: variable "str"  was declared but never referenced
+      char str[100];
+ultrasonic.c: 1 warning, 0 errors
 assembling startup_MK64F12.s...
 compiling system_MK64F12.c...
 linking...
-Program Size: Code=5032 RO-data=1056 RW-data=128 ZI-data=2248  
+Program Size: Code=5076 RO-data=1056 RW-data=128 ZI-data=2248  
 ".\Objects\NXP.axf" - 0 Error(s), 5 Warning(s).
 
 <h2>Software Packages used:</h2>
@@ -80,7 +80,7 @@ Package Vendor: Keil
       Source file:   Device\Source\system_MK64F12.c
 
    * Component: ARM::CMSIS:CORE:5.0.2
-Build Time Elapsed:  00:00:04
+Build Time Elapsed:  00:00:02
 </pre>
 </body>
 </html>

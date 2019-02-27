@@ -143,11 +143,7 @@ Limit n to the lower and upper bounds only.
     }\
 }
 
-/*
-Initializes the uart, GPIO pins, FTM, ADC0, and PIT. 
-If debugcamdata is enabled, will print the values gathered
-by the NXP car campera to the terminal using uart. 
-*/
+
 int main(void){
     //Run demo
     int demov=1;
@@ -161,7 +157,10 @@ int main(void){
     SetDutyCycle(0,DC_freq,FORWARD);
     for(;;){
         while(!ready){
-            delay(10);
+            LEDon(RED);
+            delay(5);
+            LEDoff();
+            delay(5);
         }
         
         //Demo code

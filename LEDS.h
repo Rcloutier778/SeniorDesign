@@ -3,6 +3,7 @@
 
 void init_LEDS(void);
 void LEDon(int color);
+void LEDoff(void);
 #define RED 0
 #define GREEN 1
 #define BLUE 2
