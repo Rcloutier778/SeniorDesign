@@ -3,9 +3,9 @@
 <title>Static Call Graph - [.\Objects\NXP.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\NXP.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060300: Last Updated: Thu Feb 28 15:12:08 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060528: Last Updated: Thu Feb 28 16:01:00 2019
 <BR><P>
-<H3>Maximum Stack Usage =        320 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =        324 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
 _printf_g &rArr; _printf_fp_dec &rArr; _printf_fp_dec_real &rArr; _fp_digits &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
 <P>
@@ -75,7 +75,7 @@ Function Pointers
  <LI><a href="#[37]">FTM0_IRQHandler</a> from pwm.o(i.FTM0_IRQHandler) referenced from startup_mk64f12.o(RESET)
  <LI><a href="#[38]">FTM1_IRQHandler</a> from startup_mk64f12.o(.text) referenced from startup_mk64f12.o(RESET)
  <LI><a href="#[39]">FTM2_IRQHandler</a> from isr.o(i.FTM2_IRQHandler) referenced from startup_mk64f12.o(RESET)
- <LI><a href="#[54]">FTM3_IRQHandler</a> from ultrasonic.o(i.FTM3_IRQHandler) referenced from startup_mk64f12.o(RESET)
+ <LI><a href="#[54]">FTM3_IRQHandler</a> from startup_mk64f12.o(.text) referenced from startup_mk64f12.o(RESET)
  <LI><a href="#[5]">HardFault_Handler</a> from startup_mk64f12.o(.text) referenced from startup_mk64f12.o(RESET)
  <LI><a href="#[25]">I2C0_IRQHandler</a> from startup_mk64f12.o(.text) referenced from startup_mk64f12.o(RESET)
  <LI><a href="#[26]">I2C1_IRQHandler</a> from startup_mk64f12.o(.text) referenced from startup_mk64f12.o(RESET)
@@ -120,7 +120,7 @@ Function Pointers
  <LI><a href="#[2f]">UART1_ERR_IRQHandler</a> from startup_mk64f12.o(.text) referenced from startup_mk64f12.o(RESET)
  <LI><a href="#[2e]">UART1_RX_TX_IRQHandler</a> from startup_mk64f12.o(.text) referenced from startup_mk64f12.o(RESET)
  <LI><a href="#[31]">UART2_ERR_IRQHandler</a> from startup_mk64f12.o(.text) referenced from startup_mk64f12.o(RESET)
- <LI><a href="#[30]">UART2_RX_TX_IRQHandler</a> from ultrasonic.o(i.UART2_RX_TX_IRQHandler) referenced from startup_mk64f12.o(RESET)
+ <LI><a href="#[30]">UART2_RX_TX_IRQHandler</a> from startup_mk64f12.o(.text) referenced from startup_mk64f12.o(RESET)
  <LI><a href="#[33]">UART3_ERR_IRQHandler</a> from startup_mk64f12.o(.text) referenced from startup_mk64f12.o(RESET)
  <LI><a href="#[32]">UART3_RX_TX_IRQHandler</a> from bluetooth.o(i.UART3_RX_TX_IRQHandler) referenced from startup_mk64f12.o(RESET)
  <LI><a href="#[50]">UART4_ERR_IRQHandler</a> from startup_mk64f12.o(.text) referenced from startup_mk64f12.o(RESET)
@@ -166,7 +166,7 @@ Global Symbols
 <P><STRONG><a name="[b0]"></a>__scatterload_zeroinit</STRONG> (Thumb, 28 bytes, Stack size unknown bytes, __scatter_zi.o(!!handler_zi), UNUSED)
 
 <P><STRONG><a name="[6e]"></a>_printf_g</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, _printf_g.o(.ARM.Collect$$_printf_percent$$00000005))
-<BR><BR>[Stack]<UL><LI>Max Depth = 320 + Unknown Stack Size
+<BR><BR>[Stack]<UL><LI>Max Depth = 324 + Unknown Stack Size
 <LI>Call Chain = _printf_g &rArr; _printf_fp_dec &rArr; _printf_fp_dec_real &rArr; _fp_digits &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_dec
@@ -483,6 +483,9 @@ Global Symbols
 <P><STRONG><a name="[38]"></a>FTM1_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_mk64f12.o(.text))
 <BR>[Address Reference Count : 1]<UL><LI> startup_mk64f12.o(RESET)
 </UL>
+<P><STRONG><a name="[54]"></a>FTM3_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_mk64f12.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_mk64f12.o(RESET)
+</UL>
 <P><STRONG><a name="[25]"></a>I2C0_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_mk64f12.o(.text))
 <BR>[Address Reference Count : 1]<UL><LI> startup_mk64f12.o(RESET)
 </UL>
@@ -579,6 +582,9 @@ Global Symbols
 <P><STRONG><a name="[31]"></a>UART2_ERR_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_mk64f12.o(.text))
 <BR>[Address Reference Count : 1]<UL><LI> startup_mk64f12.o(RESET)
 </UL>
+<P><STRONG><a name="[30]"></a>UART2_RX_TX_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_mk64f12.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_mk64f12.o(RESET)
+</UL>
 <P><STRONG><a name="[33]"></a>UART3_ERR_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_mk64f12.o(.text))
 <BR>[Address Reference Count : 1]<UL><LI> startup_mk64f12.o(RESET)
 </UL>
@@ -635,7 +641,7 @@ Global Symbols
 <P><STRONG><a name="[d4]"></a>__lib_sel_fp_printf</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, _printf_fp_dec.o(.text), UNUSED)
 
 <P><STRONG><a name="[8b]"></a>_printf_fp_dec_real</STRONG> (Thumb, 620 bytes, Stack size 104 bytes, _printf_fp_dec.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 320<LI>Call Chain = _printf_fp_dec_real &rArr; _fp_digits &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
+<BR><BR>[Stack]<UL><LI>Max Depth = 324<LI>Call Chain = _printf_fp_dec_real &rArr; _fp_digits &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
 </UL>
 <BR>[Calls]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_digits
 <LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_fpclassify
@@ -676,8 +682,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_dec_real
 </UL>
 
-<P><STRONG><a name="[86]"></a>_btod_etento</STRONG> (Thumb, 216 bytes, Stack size 72 bytes, bigflt0.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = _btod_etento &rArr; _btod_emul &rArr; _e2e
+<P><STRONG><a name="[86]"></a>_btod_etento</STRONG> (Thumb, 224 bytes, Stack size 72 bytes, bigflt0.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 124<LI>Call Chain = _btod_etento &rArr; _btod_emul &rArr; _e2e
 </UL>
 <BR>[Calls]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_btod_emul
 <LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_btod_ediv
@@ -748,15 +754,15 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_btod_ediv
 </UL>
 
-<P><STRONG><a name="[94]"></a>_e2e</STRONG> (Thumb, 198 bytes, Stack size 24 bytes, btod.o(CL$$btod_e2e))
+<P><STRONG><a name="[94]"></a>_e2e</STRONG> (Thumb, 220 bytes, Stack size 24 bytes, btod.o(CL$$btod_e2e))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = _e2e
 </UL>
 <BR>[Called By]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_btod_emul
 <LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_btod_ediv
 </UL>
 
-<P><STRONG><a name="[88]"></a>_btod_ediv</STRONG> (Thumb, 40 bytes, Stack size 24 bytes, btod.o(CL$$btod_ediv))
-<BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = _btod_ediv &rArr; _e2e
+<P><STRONG><a name="[88]"></a>_btod_ediv</STRONG> (Thumb, 42 bytes, Stack size 28 bytes, btod.o(CL$$btod_ediv))
+<BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = _btod_ediv &rArr; _e2e
 </UL>
 <BR>[Calls]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_e2e
 <LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__btod_div_common
@@ -765,8 +771,8 @@ Global Symbols
 <LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_btod_etento
 </UL>
 
-<P><STRONG><a name="[89]"></a>_btod_emul</STRONG> (Thumb, 40 bytes, Stack size 24 bytes, btod.o(CL$$btod_emul))
-<BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = _btod_emul &rArr; _e2e
+<P><STRONG><a name="[89]"></a>_btod_emul</STRONG> (Thumb, 42 bytes, Stack size 28 bytes, btod.o(CL$$btod_emul))
+<BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = _btod_emul &rArr; _e2e
 </UL>
 <BR>[Calls]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__btod_mult_common
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_e2e
@@ -790,9 +796,6 @@ Global Symbols
 <P><STRONG><a name="[39]"></a>FTM2_IRQHandler</STRONG> (Thumb, 310 bytes, Stack size 0 bytes, isr.o(i.FTM2_IRQHandler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_mk64f12.o(RESET)
 </UL>
-<P><STRONG><a name="[54]"></a>FTM3_IRQHandler</STRONG> (Thumb, 32 bytes, Stack size 0 bytes, ultrasonic.o(i.FTM3_IRQHandler))
-<BR>[Address Reference Count : 1]<UL><LI> startup_mk64f12.o(RESET)
-</UL>
 <P><STRONG><a name="[a1]"></a>InitPWM</STRONG> (Thumb, 156 bytes, Stack size 0 bytes, pwm.o(i.InitPWM))
 <BR><BR>[Called By]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initialize
 </UL>
@@ -810,7 +813,7 @@ Global Symbols
 <P><STRONG><a name="[4a]"></a>PORTC_IRQHandler</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, isr.o(i.PORTC_IRQHandler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_mk64f12.o(RESET)
 </UL>
-<P><STRONG><a name="[4b]"></a>PORTD_IRQHandler</STRONG> (Thumb, 144 bytes, Stack size 0 bytes, ultrasonic.o(i.PORTD_IRQHandler))
+<P><STRONG><a name="[4b]"></a>PORTD_IRQHandler</STRONG> (Thumb, 148 bytes, Stack size 0 bytes, ultrasonic.o(i.PORTD_IRQHandler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_mk64f12.o(RESET)
 </UL>
 <P><STRONG><a name="[a5]"></a>SetDutyCycle</STRONG> (Thumb, 62 bytes, Stack size 12 bytes, pwm.o(i.SetDutyCycle))
@@ -821,9 +824,6 @@ Global Symbols
 
 <P><STRONG><a name="[64]"></a>SystemInit</STRONG> (Thumb, 136 bytes, Stack size 0 bytes, system_mk64f12.o(i.SystemInit))
 <BR>[Address Reference Count : 1]<UL><LI> startup_mk64f12.o(.text)
-</UL>
-<P><STRONG><a name="[30]"></a>UART2_RX_TX_IRQHandler</STRONG> (Thumb, 124 bytes, Stack size 0 bytes, ultrasonic.o(i.UART2_RX_TX_IRQHandler))
-<BR>[Address Reference Count : 1]<UL><LI> startup_mk64f12.o(RESET)
 </UL>
 <P><STRONG><a name="[32]"></a>UART3_RX_TX_IRQHandler</STRONG> (Thumb, 486 bytes, Stack size 16 bytes, bluetooth.o(i.UART3_RX_TX_IRQHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = UART3_RX_TX_IRQHandler
@@ -873,7 +873,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_ultrasonic
 </UL>
 
-<P><STRONG><a name="[9e]"></a>init_ultrasonic</STRONG> (Thumb, 160 bytes, Stack size 8 bytes, ultrasonic.o(i.init_ultrasonic))
+<P><STRONG><a name="[9e]"></a>init_ultrasonic</STRONG> (Thumb, 66 bytes, Stack size 8 bytes, ultrasonic.o(i.init_ultrasonic))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = init_ultrasonic &rArr; init_FTM &rArr; __aeabi_d2uiz
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_PIT
@@ -981,7 +981,7 @@ Global Symbols
 <P><STRONG><a name="[db]"></a>__fplib_config_pureend_doubles</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, fpinit.o(x$fpl$fpinit), UNUSED)
 
 <P><STRONG><a name="[6f]"></a>_printf_fp_dec</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, printf1.o(x$fpl$printf1))
-<BR><BR>[Stack]<UL><LI>Max Depth = 320<LI>Call Chain = _printf_fp_dec &rArr; _printf_fp_dec_real &rArr; _fp_digits &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
+<BR><BR>[Stack]<UL><LI>Max Depth = 324<LI>Call Chain = _printf_fp_dec &rArr; _printf_fp_dec_real &rArr; _fp_digits &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
 </UL>
 <BR>[Calls]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_dec_real
 </UL>
@@ -1000,8 +1000,8 @@ Local Symbols
 <LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_ultrasonic
 </UL>
 
-<P><STRONG><a name="[85]"></a>_fp_digits</STRONG> (Thumb, 428 bytes, Stack size 96 bytes, _printf_fp_dec.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 216<LI>Call Chain = _fp_digits &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
+<P><STRONG><a name="[85]"></a>_fp_digits</STRONG> (Thumb, 432 bytes, Stack size 96 bytes, _printf_fp_dec.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 220<LI>Call Chain = _fp_digits &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
 </UL>
 <BR>[Calls]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_btod_emul
 <LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_btod_ediv

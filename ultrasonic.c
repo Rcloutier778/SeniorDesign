@@ -32,13 +32,9 @@ int ultrasonic_counter=0;
 float ultrasonic_distance=0.0f;
 int ultrasonic_ready_flag=0;
 
-
-void UART2_RX_TX_IRQHandler(void){
-    uint8_t temp;
-	
-    UART2_S1; //clears interrupt
-    temp=UART2_D; //data received
-    if (temp==1){
+void PORTD_IRQHandler(void){ 
+    PORTD_ISFR = PORT_ISFR_ISF_MASK; //clear interrupt
+    if (ultrasonic_c==0){
         // Enable timer interrupts
         PIT_TCTRL0 |= PIT_TCTRL_TIE_MASK;
         
@@ -46,34 +42,28 @@ void UART2_RX_TX_IRQHandler(void){
         PIT_TCTRL0 |= PIT_TCTRL_TEN_MASK;
 
 		ultrasonic_ready_flag=0;
-    }else if(temp==0 && ultrasonic_counter>0.0f){
+        ultrasonic_c=1;
+    }else if(ultrasonic_c==1 && ultrasonic_counter>0){
         PIT_TCTRL0 &= ~PIT_TCTRL_TIE_MASK;
         PIT_TCTRL0 &= ~PIT_TCTRL_TEN_MASK;
 
-        ultrasonic_distance=ultrasonic_counter/14.80f;
+        ultrasonic_distance=(ultrasonic_counter*INTEGRATION_TIME*1000000)/148;
         ultrasonic_counter=0;
 		ultrasonic_ready_flag=1;
+        ultrasonic_c=0;
 		
     }
-    
-    return;
+	return;
 }
 
-
-/* PIT0 determines the integration period
-*		When it overflows, it triggers the clock logic from
-*		FTM2. Note the requirement to set the MOD register
-* 	to reset the FTM counter because the FTM counter is 
-*		always counting, I am just enabling/disabling FTM2 
-*		interrupts to control when the line capture occurs
-fire every ms
-*/
+//Used to time output pulse
 void PIT0_IRQHandler(void){
 	// Clear interrupt
 	PIT_TFLG0 |= PIT_TFLG_TIF_MASK;
 	ultrasonic_counter++;
 	return;
 }
+
 
 /* Initialization of PIT timer to control 
 * 		integration period
@@ -161,64 +151,18 @@ void init_FTM(void){
 
 }
 
-void FTM3_IRQHandler(void){ //For FTM timer
-    FTM3_SC &= ~FTM_SC_TOF_MASK; //clear overflow flag
-
-    //if motor tick less than 255 count up... 
-    if (PWMTick2 < 0xff){
-        PWMTick2++;
-    }
-    return;
-}
-
-void PORTD_IRQHandler(void){ 
-    PORTD_ISFR = PORT_ISFR_ISF_MASK;
-    if (ultrasonic_c==0){
-        // Enable timer interrupts
-        PIT_TCTRL0 |= PIT_TCTRL_TIE_MASK;
-        
-        // Enable the timer 0,1,2,3?
-        PIT_TCTRL0 |= PIT_TCTRL_TEN_MASK;
-
-		ultrasonic_ready_flag=0;
-        ultrasonic_c=1;
-    }else if(ultrasonic_c==1 && ultrasonic_counter>0.0f){
-        PIT_TCTRL0 &= ~PIT_TCTRL_TIE_MASK;
-        PIT_TCTRL0 &= ~PIT_TCTRL_TEN_MASK;
-
-        ultrasonic_distance=ultrasonic_counter/14.80f;
-        ultrasonic_counter=0;
-		ultrasonic_ready_flag=1;
-        ultrasonic_c=0;
-		
-    }
-	return;
-}
-
 /*
 Initialize UART3 on pins PTC 14 and PTC 15. 
 Enables recieve interrupts at 9600 baud. 
 */
 void init_ultrasonic(void){
-    uint16_t ubd, brfa;
-    SIM_SCGC4 |= SIM_SCGC4_UART2_MASK;
     SIM_SCGC5 |= SIM_SCGC5_PORTD_MASK;
     
     PORTD_PCR2 |= PORT_PCR_MUX(1); //UART2 RX
     GPIOD_PDDR |= (0<<2);
     
 	PORTD_PCR2 |= PORT_PCR_IRQC(11);
-    UART2_C2 &= ~(UART_C2_TE_MASK | UART_C2_RE_MASK);
-    UART2_C1 = 0;
-    UART2_BDH &= ~UART_BDH_SBR_MASK;
-    ubd = (uint16_t)((SYS_CLOCK)/(BAUD_RATE * 16));
-    UART2_BDH = (((ubd & 0x1F00) >> 8));
-    UART2_BDL = (uint8_t)(ubd & UART_BDL_SBR_MASK);
-    UART2_C4 &= ~(UART_C4_BRFA_MASK);
-    UART2_C4 |= UART_C4_BRFA(brfa);
-    UART2_C2 |= UART_C2_RIE_MASK; //Enable recieve interrupts 
-    UART2_C2 |= (UART_C2_TE_MASK | UART_C2_RE_MASK);
-    NVIC_EnableIRQ(UART2_RX_TX_IRQn);    
+    
     init_PIT();
     init_FTM();
     NVIC_EnableIRQ(PORTD_IRQn);
