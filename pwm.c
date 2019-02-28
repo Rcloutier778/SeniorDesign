@@ -13,9 +13,8 @@
 /*From clock setup 0 in system_MK64f12.c*/
 #define DEFAULT_SYSTEM_CLOCK 20485760u /* Default System clock value */
 #define CLOCK					20485760u
-#define PWM_FREQUENCY			10000
+#define PWM_FREQUENCY			25000
 #define FTM0_MOD_VALUE			(CLOCK/PWM_FREQUENCY)
-#define FTM3_MOD_VALUE			(CLOCK/200)
 
 static volatile unsigned int PWMTick = 0;
 static volatile unsigned int PWMTick2 = 0;
@@ -105,7 +104,6 @@ void InitPWM(void)
 {
 	// 12.2.13 Enable the Clock to the FTM0 Module
 	SIM_SCGC6 |= SIM_SCGC6_FTM0_MASK;
-	SIM_SCGC3 |= SIM_SCGC3_FTM3_MASK;
 	
 	// Enable clock on PORT A so it can output
 	SIM_SCGC5 |= SIM_SCGC5_PORTA_MASK 
@@ -122,26 +120,20 @@ void InitPWM(void)
 	
 	PORTA_PCR2  = PORT_PCR_MUX(3)  | PORT_PCR_DSE_MASK; //Ch7 B1
     PORTA_PCR1  = PORT_PCR_MUX(3)  | PORT_PCR_DSE_MASK;//Ch6 B2
-	
-	PORTD_PCR2  = PORT_PCR_MUX(4)  | PORT_PCR_DSE_MASK; //Ch2
-		
+			
 	
 	// 39.3.10 Disable Write Protection
 	FTM0_MODE |= FTM_MODE_WPDIS_MASK;
-	FTM3_MODE |= FTM_MODE_WPDIS_MASK;
 	
 	// 39.3.4 FTM Counter Value
 	// Initialize the CNT to 0 before writing to MOD
 	FTM0_CNT = 0;
-	FTM3_CNT = 0;
 	
 	// 39.3.8 Set the Counter Initial Value to 0
 	FTM0_CNTIN = 0;
-	FTM3_CNTIN = 0;
 	
 	// 39.3.5 Set the Modulo resister
 	FTM0_MOD = FTM0_MOD_VALUE;
-	FTM3_MOD = FTM3_MOD_VALUE;
 	//FTM0->MOD = (DEFAULT_SYSTEM_CLOCK/(1<<7))/1000;
 
 	// 39.3.6 Set the Status and Control of both channels
@@ -153,8 +145,6 @@ void InitPWM(void)
 	FTM0_C6SC |= FTM_CnSC_MSB_MASK | FTM_CnSC_ELSB_MASK;
 	FTM0_C6SC &= ~FTM_CnSC_ELSA_MASK;
 	
-	FTM3_C3SC |= FTM_CnSC_MSB_MASK | FTM_CnSC_ELSB_MASK;
-	FTM3_C3SC &= ~FTM_CnSC_ELSA_MASK;
 	
 	// See Table 39-67,  Edge-aligned PWM, Low-true pulses (clear out on match)
 	FTM0_C2SC |= FTM_CnSC_MSB_MASK | FTM_CnSC_ELSB_MASK;
@@ -163,8 +153,6 @@ void InitPWM(void)
 	FTM0_C7SC |= FTM_CnSC_MSB_MASK | FTM_CnSC_ELSB_MASK;
 	FTM0_C7SC &= ~FTM_CnSC_ELSA_MASK;
 	
-	FTM3_C2SC |= FTM_CnSC_MSB_MASK | FTM_CnSC_ELSB_MASK;
-	FTM3_C2SC &= ~FTM_CnSC_ELSA_MASK;
 	
 	// 39.3.3 FTM Setup
 	// Set prescale value to 1 
@@ -173,7 +161,6 @@ void InitPWM(void)
 	FTM0_SC = FTM_SC_PS(0) | FTM_SC_CLKS(1);
 	//| FTM_SC_TOIE_MASK;
 	
-	FTM3_SC = FTM_SC_PS(11) | FTM_SC_CLKS(1);
 	//| FTM_SC_TOIE_MASK;
 
 	// Enable Interrupt Vector for FTM
@@ -193,12 +180,3 @@ void FTM0_IRQHandler(void){ //For FTM timer
 	
 }
 
-void FTM3_IRQHandler(void){ //For FTM timer
-    FTM3_SC &= ~FTM_SC_TOF_MASK; //clear overflow flag
-
-    //if motor tick less than 255 count up... 
-    if (PWMTick2 < 0xff){
-        PWMTick2++;
-    }
-    return;
-}

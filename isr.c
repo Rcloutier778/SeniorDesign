@@ -53,7 +53,7 @@ extern uint16_t ADC0VAL;
 
 extern int binline[128];
 
-void PORTA_IRQHandler(void){ //For switch 3
+void PORTA_IRQHandler(void){ //For switch 3 (next to LED)
     PORTA_ISFR = PORT_ISFR_ISF_MASK;
     ready=1;
 	return;
@@ -65,7 +65,7 @@ Clears the interrupt flag and toggles the ready switch
 */
 void PORTC_IRQHandler(void){ //For switch 2
     PORTC_ISFR = PORT_ISFR_ISF_MASK; //clear interrupt
-    ready=1;
+    //ready=1;
     return;
 }
 

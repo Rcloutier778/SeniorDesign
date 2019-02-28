@@ -60,7 +60,7 @@ const int REVERSE=1;
 const int STRAIGHT = 1;
 const int TURNING = 0;
 
-const int DC_freq = 10000;
+const int DC_freq = 25000;
 const int BLUETOOTH=1;
 const int LEFT=0;
 const int RIGHT=1;
@@ -129,7 +129,7 @@ float manualDelta[2] = {0.0,0.0};
 int ready=0;
 
 extern float ultrasonic_distance;
-extern int ultrasonic_ready;
+extern int ultrasonic_ready_flag;
 
 
 /*
@@ -145,6 +145,7 @@ Limit n to the lower and upper bounds only.
 
 
 int main(void){
+    char c[50];
     //Run demo
     int demov=1;
     // Initialize everything
@@ -155,6 +156,16 @@ int main(void){
     
     normalSet();
     SetDutyCycle(0,DC_freq,FORWARD);
+    
+    for(;;){
+        if(ultrasonic_ready_flag==1){
+            sprintf(c,"%g",ultrasonic_distance);
+            put(c);
+            put("\r\n");
+        }
+    }
+    
+    
     for(;;){
         while(!ready){
             LEDon(RED);
@@ -162,6 +173,7 @@ int main(void){
             LEDoff();
             delay(5);
         }
+        LEDon(GREEN);
         
         //Demo code
         if (demov==1){
@@ -180,8 +192,8 @@ int main(void){
             //set duty cycles
             LPWM=calc(LPWM, LEFT_DESIRED, LEFT);
             RPWM=calc(RPWM, RIGHT_DESIRED, RIGHT);
-            RightDuty((int)RPWM,DC_freq,FORWARD);
             LeftDuty((int)LPWM,DC_freq,FORWARD);
+            RightDuty((int)RPWM,DC_freq,FORWARD);
                 
             delay(1);
       }
@@ -191,21 +203,33 @@ int main(void){
 
 /*
 Demo code
+Used to spool up motors
 */
 void demo(void){
     int demoi;
     int demoj;
+
+    for(demoi=3; demoi>=0; demoi--){
+        LEDon(YELLOW);
+        delay(30*demoi);
+        LEDoff();
+        delay(30*demoi);
+        
+    }
+    LEDon(GREEN);
     for (demoi=0; demoi<=1; demoi++){
-        for (demoj=1; demoj<=10; demoj++){
+        for (demoj=1; demoj<=4; demoj++){
             if (demoi==0){//left
-                LeftDuty(10*demoj,DC_freq,FORWARD);
+                LeftDuty( 10*demoj,DC_freq,FORWARD);
             }else{//right
-                LeftDuty(0,DC_freq,FORWARD);
+                LPWM=calc(LPWM, 0.0, LEFT);
+                LeftDuty((int)LPWM,DC_freq,FORWARD);
                 RightDuty(10*demoj,DC_freq,FORWARD);
             }
             delay(300);
         }
     }
+    LEDon(BLUE);
     for(;;){
         LPWM=calc(LPWM, 0.0, LEFT);
         LeftDuty((int)LPWM,DC_freq,FORWARD);
@@ -221,10 +245,10 @@ Reset all vars to nominal/safe values
 */
 void normalSet(void){
     LEFT_DESIRED=0.0f;//75.0f; 
-    LEFT_DESIRED=0.0f;//80.0f
-    KP=0.60f; //0.45
-    KI=0.70f; //0.63
-    KD=0.25f; //0.15
+    RIGHT_DESIRED=0.0f;//80.0f
+    KP=0.45f; //0.45
+    KI=0.63f; //0.63
+    KD=0.15f; //0.15
     manualDelta[0]=0.0f;
     manualDelta[1]=0.0f;
 }
@@ -288,7 +312,7 @@ void turnCalc(void){
  */
 void delay(int del){
     int i;
-    for (i=0; i<del*50000; i++){
+    for (i=0; i<del*(DEFAULT_SYSTEM_CLOCK/1000); i++){
         // Do nothing
     }
 }

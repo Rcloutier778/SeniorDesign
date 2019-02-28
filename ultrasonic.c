@@ -17,46 +17,48 @@
 // Must be above 1.25 ms based on camera clk 
 //    (camera clk is the mod value set in FTM2)
 // default = .0075f
-#define INTEGRATION_TIME 0.00001f
+#define INTEGRATION_TIME 0.000001f
 #define BAUD_RATE 9600      //default baud rate 
 #define SYS_CLOCK 20485760 //default system clock (see DEFAULT_SYSTEM_CLOCK  in system_MK64F12.c)
+#define FTM3_MOD_VALUE (DEFAULT_SYSTEM_CLOCK/200)
 
 #define MAX_BUF_SZ 128
 
+static volatile unsigned int PWMTick2 = 0;
+
+int ultrasonic_c=0;
 int ultrasonic_counter=0;
 //  uS/58=centimeter   uS/148=inch
 float ultrasonic_distance=0.0f;
 int ultrasonic_ready_flag=0;
 
 
-
-
-
-
-void UART4_RX_TX_IRQHandler(void){
+void UART2_RX_TX_IRQHandler(void){
     uint8_t temp;
-    char str[100];
 	
-    UART4_S1; //clears interrupt
-    temp=UART4_D; //data received
+    UART2_S1; //clears interrupt
+    temp=UART2_D; //data received
     if (temp==1){
-        ultrasonic_counter++;
+        // Enable timer interrupts
+        PIT_TCTRL0 |= PIT_TCTRL_TIE_MASK;
+        
+        // Enable the timer 0,1,2,3?
+        PIT_TCTRL0 |= PIT_TCTRL_TEN_MASK;
+
 		ultrasonic_ready_flag=0;
-    }else if(temp==0){
+    }else if(temp==0 && ultrasonic_counter>0.0f){
+        PIT_TCTRL0 &= ~PIT_TCTRL_TIE_MASK;
+        PIT_TCTRL0 &= ~PIT_TCTRL_TEN_MASK;
+
         ultrasonic_distance=ultrasonic_counter/14.80f;
         ultrasonic_counter=0;
 		ultrasonic_ready_flag=1;
 		
     }
-	UART4_C2 &= ~UART_C2_RIE_MASK; //Disable recieve interrupts 
-    //UART4_C2 &= ~(UART_C2_TE_MASK | UART_C2_RE_MASK);
+    
     return;
 }
 
-
-//internal
-int ultrasonic_input_counter=0; //counter for input trigger
-int ultrasonic_input_sending=1; //sending high input signal
 
 /* PIT0 determines the integration period
 *		When it overflows, it triggers the clock logic from
@@ -69,34 +71,7 @@ fire every ms
 void PIT0_IRQHandler(void){
 	// Clear interrupt
 	PIT_TFLG0 |= PIT_TFLG_TIF_MASK;
-	
-	// Setting mod resets the FTM counter
-	//PIT_MCR |= PIT_MCR_MDIS_MASK;
-	
-	//Send high input trigger pulse for 10 uS
-	if (ultrasonic_input_sending==1){
-		//Since timer counts in increments in 10 uS, only wait 1 count
-		if (ultrasonic_input_counter == 100000){
-			ultrasonic_input_counter=0;
-			ultrasonic_input_sending=0;
-			GPIOC_PCOR |= (1<<15);
-		}
-	}else{
-		if (ultrasonic_input_counter == 100000){
-			ultrasonic_input_sending=1;
-			ultrasonic_input_counter=0;
-            GPIOC_PSOR |= (1<<15);
-		}
-	}
-	
-	ultrasonic_input_counter++;
-	
-	
-	// Enable uart4 interrupts (ultrasonic)
-	UART4_C2 |= UART_C2_RIE_MASK; //Enable recieve interrupts 
-    UART4_C2 |= (UART_C2_TE_MASK | UART_C2_RE_MASK);
-	
-	
+	ultrasonic_counter++;
 	return;
 }
 
@@ -118,16 +93,105 @@ void init_PIT(void){
 	PIT_LDVAL0 = (uint32_t) DEFAULT_SYSTEM_CLOCK * INTEGRATION_TIME; //10 uS
 		
 	// Enable timer interrupts
-	PIT_TCTRL0 |= PIT_TCTRL_TIE_MASK;
+	//PIT_TCTRL0 |= PIT_TCTRL_TIE_MASK;
 	
 	// Enable the timer 0,1,2,3?
-	PIT_TCTRL0 |= PIT_TCTRL_TEN_MASK;
+	//PIT_TCTRL0 |= PIT_TCTRL_TEN_MASK;
 
 	// Clear interrupt flag
-	PIT_TFLG0 |= PIT_TFLG_TIF_MASK;
+	//PIT_TFLG0 |= PIT_TFLG_TIF_MASK;
 
 	// Enable PIT interrupt in the interrupt controller
 	NVIC_EnableIRQ(PIT0_IRQn);
+	return;
+}
+
+void init_FTM(void){
+
+// 12.2.13 Enable the Clock to the FTM0 Module
+	SIM_SCGC3 |= SIM_SCGC3_FTM3_MASK;
+	
+	
+	// 11.4.1 Route the output of FTM channel 0 to the pins
+	// Use drive strength enable flag to high drive strength
+	//These port/pins may need to be updated for the K64 <Yes, they do. Here are two that work.>
+    PORTD_PCR3  = PORT_PCR_MUX(4)  | PORT_PCR_DSE_MASK;//Ch3
+			
+	// 39.3.10 Disable Write Protection
+	FTM3_MODE |= FTM_MODE_WPDIS_MASK;
+	
+	// 39.3.4 FTM Counter Value
+	// Initialize the CNT to 0 before writing to MOD
+	FTM3_CNT = 0;
+	
+	// 39.3.8 Set the Counter Initial Value to 0
+	FTM3_CNTIN = 0;
+	
+	// 39.3.5 Set the Modulo resister
+	FTM3_MOD = FTM3_MOD_VALUE;
+	//FTM0->MOD = (DEFAULT_SYSTEM_CLOCK/(1<<7))/1000;
+
+	// 39.3.6 Set the Status and Control of both channels
+	// Used to configure mode, edge and level selection
+	// See Table 39-67,  Edge-aligned PWM, High-true pulses (clear out on match)
+	FTM3_C3SC |= FTM_CnSC_MSB_MASK | FTM_CnSC_ELSB_MASK;
+	FTM3_C3SC &= ~FTM_CnSC_ELSA_MASK;
+	
+	// See Table 39-67,  Edge-aligned PWM, Low-true pulses (clear out on match)
+	FTM3_C2SC |= FTM_CnSC_MSB_MASK | FTM_CnSC_ELSB_MASK;
+	FTM3_C2SC &= ~FTM_CnSC_ELSA_MASK;
+	
+	// 39.3.3 FTM Setup
+	// Set prescale value to 1 
+	// Chose system clock source
+	// Timer Overflow Interrupt Enable
+	//| FTM_SC_TOIE_MASK;
+	
+	FTM3_SC = FTM_SC_PS(11) | FTM_SC_CLKS(1);
+	//| FTM_SC_TOIE_MASK;
+
+	// Enable Interrupt Vector for FTM
+    //NVIC_EnableIRQ(FTM0_IRQn);
+    //NVIC_EnableIRQ(FTM3_IRQn);
+        
+    FTM3_C3V = (uint16_t) (((DEFAULT_SYSTEM_CLOCK*16.6667)*0.01));
+
+	// Update the clock to the new frequency
+	FTM3_MOD = (uint16_t) (DEFAULT_SYSTEM_CLOCK*16.6667);
+
+}
+
+void FTM3_IRQHandler(void){ //For FTM timer
+    FTM3_SC &= ~FTM_SC_TOF_MASK; //clear overflow flag
+
+    //if motor tick less than 255 count up... 
+    if (PWMTick2 < 0xff){
+        PWMTick2++;
+    }
+    return;
+}
+
+void PORTD_IRQHandler(void){ 
+    PORTD_ISFR = PORT_ISFR_ISF_MASK;
+    if (ultrasonic_c==0){
+        // Enable timer interrupts
+        PIT_TCTRL0 |= PIT_TCTRL_TIE_MASK;
+        
+        // Enable the timer 0,1,2,3?
+        PIT_TCTRL0 |= PIT_TCTRL_TEN_MASK;
+
+		ultrasonic_ready_flag=0;
+        ultrasonic_c=1;
+    }else if(ultrasonic_c==1 && ultrasonic_counter>0.0f){
+        PIT_TCTRL0 &= ~PIT_TCTRL_TIE_MASK;
+        PIT_TCTRL0 &= ~PIT_TCTRL_TEN_MASK;
+
+        ultrasonic_distance=ultrasonic_counter/14.80f;
+        ultrasonic_counter=0;
+		ultrasonic_ready_flag=1;
+        ultrasonic_c=0;
+		
+    }
 	return;
 }
 
@@ -137,26 +201,26 @@ Enables recieve interrupts at 9600 baud.
 */
 void init_ultrasonic(void){
     uint16_t ubd, brfa;
-    SIM_SCGC1 |= SIM_SCGC1_UART4_MASK;
-    SIM_SCGC5 |= SIM_SCGC5_PORTC_MASK;
-    PORTC_PCR14 |= PORT_PCR_MUX(3); //UART4 RX
-	
-	// 0/3.3v pin for transmit pulses
-    PORTC_PCR15 |= PORT_PCR_MUX(1);
-	PORTC_PCR15 |= PORT_PCR_PE_MASK;
-	GPIOC_PDDR |= (1<<15);
-	
-    UART4_C2 &= ~(UART_C2_TE_MASK | UART_C2_RE_MASK);
-    UART4_C1 = 0;
-    UART4_BDH &= ~UART_BDH_SBR_MASK;
+    SIM_SCGC4 |= SIM_SCGC4_UART2_MASK;
+    SIM_SCGC5 |= SIM_SCGC5_PORTD_MASK;
+    
+    PORTD_PCR2 |= PORT_PCR_MUX(1); //UART2 RX
+    GPIOD_PDDR |= (0<<2);
+    
+	PORTD_PCR2 |= PORT_PCR_IRQC(11);
+    UART2_C2 &= ~(UART_C2_TE_MASK | UART_C2_RE_MASK);
+    UART2_C1 = 0;
+    UART2_BDH &= ~UART_BDH_SBR_MASK;
     ubd = (uint16_t)((SYS_CLOCK)/(BAUD_RATE * 16));
-    UART4_BDH = (((ubd & 0x1F00) >> 8));
-    UART4_BDL = (uint8_t)(ubd & UART_BDL_SBR_MASK);
-    UART4_C4 &= ~(UART_C4_BRFA_MASK);
-    UART4_C4 |= UART_C4_BRFA(brfa);
-    UART4_C2 |= UART_C2_RIE_MASK; //Enable recieve interrupts 
-    UART4_C2 |= (UART_C2_TE_MASK | UART_C2_RE_MASK);
-    NVIC_EnableIRQ(UART4_RX_TX_IRQn);    
+    UART2_BDH = (((ubd & 0x1F00) >> 8));
+    UART2_BDL = (uint8_t)(ubd & UART_BDL_SBR_MASK);
+    UART2_C4 &= ~(UART_C4_BRFA_MASK);
+    UART2_C4 |= UART_C4_BRFA(brfa);
+    UART2_C2 |= UART_C2_RIE_MASK; //Enable recieve interrupts 
+    UART2_C2 |= (UART_C2_TE_MASK | UART_C2_RE_MASK);
+    NVIC_EnableIRQ(UART2_RX_TX_IRQn);    
     init_PIT();
+    init_FTM();
+    NVIC_EnableIRQ(PORTD_IRQn);
 }
 
