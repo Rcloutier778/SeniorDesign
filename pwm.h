@@ -1,9 +1,16 @@
 #ifndef PWM_H_
 #define PWM_H_
 
-void SetDutyCycle(unsigned int DutyCycle, unsigned int Frequency, int dir);
+#define DUTY_MULT 5
+
+void SetDCDutyCycle(double DutyCycle, unsigned int Frequency);
+void SetServoDutyCycle(double DutyCycle, unsigned int Frequency);
 void InitPWM(void);
 void PWM_ISR(void);
-void RightDuty(unsigned int DutyCycle, unsigned int Frequency, int dir);
-void LeftDuty(unsigned int DutyCycle, unsigned int Frequency, int dir);
+void enable_motor(int mot_num);
+void disable_motor(int mot_num);
+void forward_motor(int mot_num);
+void reverse_motor(int mot_num);
+void toggle_direction(int mot_num);
+
 #endif /* PWM_H_ */
