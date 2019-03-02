@@ -96,7 +96,6 @@ void init_GPIO(void){
     PORTB_PCR23 |= PORT_PCR_PE_MASK; //camera si
     PORTB_PCR9 |= PORT_PCR_PE_MASK; //camera clk
 
-    PORTD_PCR1 |= PORT_PCR_PE_MASK;
 
     PORTC_PCR6 |= PORT_PCR_PE_MASK;//SW2
     PORTA_PCR4 |= PORT_PCR_PE_MASK;//SW3
@@ -108,7 +107,6 @@ void init_GPIO(void){
     PORTB_PCR23 = PORT_PCR_MUX(1); //CAMERA SI
     PORTB_PCR9 = PORT_PCR_MUX(1); //CAMERA CLK
 
-    PORTD_PCR1 = PORT_PCR_MUX(1);
 
 
     //PORTC_PCR15 = PORT_PCR_MUX(1); //BT TX
@@ -122,13 +120,10 @@ void init_GPIO(void){
     GPIOB_PDDR = (1<<9) | (1<<23); // CLK || SI
     //GPIOC_PDDR = (1<<15); //BT_TX
 
-    GPIOD_PDDR = (1<<1);
-    GPIOD_PDOR = (1<<1);
     //Configure GPIO pins for input
     GPIOC_PDDR |= (0<<6);// | (0<<14);//Button || BT_RX
     GPIOA_PDDR = (0<<4);
 
-    PORTD_PCR1 |= PORT_PCR_DSE_MASK;// | PORT_PCR_PE_MASK | PORT_PCR_PS_MASK; 
     // interrupt configuration for SW3(Rising Edge) and SW2 (Either)
     //sw2, either
     PORTC_PCR6 |= PORT_PCR_IRQC (9);

@@ -26,42 +26,56 @@
 
 static volatile unsigned int PWMTick2 = 0;
 
-int ultrasonic_c=0;
 int ultrasonic_counter=0;
 //  uS/58=centimeter   uS/148=inch
 float ultrasonic_distance=0.0f;
 int ultrasonic_ready_flag=0;
+int measureEcho=0; //If ultrasonic echo is high or low rn. 
 
-void PORTD_IRQHandler(void){ 
-    PORTD_ISFR = PORT_ISFR_ISF_MASK; //clear interrupt
-    if (ultrasonic_c==0){
-        // Enable timer interrupts
-        PIT_TCTRL0 |= PIT_TCTRL_TIE_MASK;
-        
-        // Enable the timer 0,1,2,3?
-        PIT_TCTRL0 |= PIT_TCTRL_TEN_MASK;
+float getUltrasonic(void){
+    ultrasonic_counter=0;
+    ultrasonic_ready_flag=0;
+    
+    //fire trigger
+    GPIOD_PSOR |= (1<<1);
 
-		ultrasonic_ready_flag=0;
-        ultrasonic_c=1;
-    }else if(ultrasonic_c==1 && ultrasonic_counter>0){
-        PIT_TCTRL0 &= ~PIT_TCTRL_TIE_MASK;
-        PIT_TCTRL0 &= ~PIT_TCTRL_TEN_MASK;
-
-        ultrasonic_distance=(ultrasonic_counter*INTEGRATION_TIME*1000000)/148;
-        ultrasonic_counter=0;
-		ultrasonic_ready_flag=1;
-        ultrasonic_c=0;
-		
-    }
-	return;
+    // Enable PIT interrupts
+    PIT_TCTRL0 |= PIT_TCTRL_TEN_MASK;
+    
+    //wait 10 us
+    while((ultrasonic_counter<10));
+    
+    //Disable pit interrupts
+    PIT_TCTRL0 &= ~PIT_TCTRL_TEN_MASK;
+    ultrasonic_counter=0;
+    
+    //set trigger low
+    GPIOD_PCOR |= (1<<1);
+    measureEcho=1;
+    
+    
+    //Wait until it measures the echo pulse
+    while(ultrasonic_ready_flag==0);
+    ultrasonic_distance=ultrasonic_counter/148;
+    
+    
+    PIT_TCTRL0 &= ~PIT_TCTRL_TEN_MASK;
+    measureEcho=0;
+    return ultrasonic_distance;
 }
 
 //Used to time output pulse
 void PIT0_IRQHandler(void){
-	// Clear interrupt
+	/*// Clear interrupt
 	PIT_TFLG0 |= PIT_TFLG_TIF_MASK;
 	ultrasonic_counter++;
-	return;
+    if(measureEcho){
+        if (measureEcho==2 && (GPIO_PDIR_PDI(1)==0)
+        if(measureEcho==2 && (GPIO_PDIR_PDI(1)==0)){
+            ultrasonic_ready_flag=1;
+        }
+    }
+	return;*///TODO
 }
 
 
@@ -80,16 +94,16 @@ void init_PIT(void){
 	
 	// PIT clock frequency is the system clock
 	// Load the value that the timer will count down from
-	PIT_LDVAL0 = (uint32_t) DEFAULT_SYSTEM_CLOCK * INTEGRATION_TIME; //10 uS
+	PIT_LDVAL0 = (uint32_t) DEFAULT_SYSTEM_CLOCK * INTEGRATION_TIME; 
 		
 	// Enable timer interrupts
-	//PIT_TCTRL0 |= PIT_TCTRL_TIE_MASK;
+	PIT_TCTRL0 |= PIT_TCTRL_TIE_MASK;
 	
 	// Enable the timer 0,1,2,3?
 	//PIT_TCTRL0 |= PIT_TCTRL_TEN_MASK;
 
 	// Clear interrupt flag
-	//PIT_TFLG0 |= PIT_TFLG_TIF_MASK;
+	PIT_TFLG0 |= PIT_TFLG_TIF_MASK;
 
 	// Enable PIT interrupt in the interrupt controller
 	NVIC_EnableIRQ(PIT0_IRQn);
@@ -110,44 +124,38 @@ void init_FTM(void){
 	// 39.3.10 Disable Write Protection
 	FTM3_MODE |= FTM_MODE_WPDIS_MASK;
 	
-	// 39.3.4 FTM Counter Value
+	
+	// 39.3.8 Set the Counter Initial Value to 0
+	FTM3_CNTIN = 0x0F00;
+	
+    // 39.3.4 FTM Counter Value
 	// Initialize the CNT to 0 before writing to MOD
 	FTM3_CNT = 0;
 	
-	// 39.3.8 Set the Counter Initial Value to 0
-	FTM3_CNTIN = 0;
-	
-	// 39.3.5 Set the Modulo resister
-	FTM3_MOD = FTM3_MOD_VALUE;
-	//FTM0->MOD = (DEFAULT_SYSTEM_CLOCK/(1<<7))/1000;
-
+    
+    
 	// 39.3.6 Set the Status and Control of both channels
 	// Used to configure mode, edge and level selection
 	// See Table 39-67,  Edge-aligned PWM, High-true pulses (clear out on match)
 	FTM3_C3SC |= FTM_CnSC_MSB_MASK | FTM_CnSC_ELSB_MASK;
 	FTM3_C3SC &= ~FTM_CnSC_ELSA_MASK;
-	
-	// See Table 39-67,  Edge-aligned PWM, Low-true pulses (clear out on match)
-	FTM3_C2SC |= FTM_CnSC_MSB_MASK | FTM_CnSC_ELSB_MASK;
-	FTM3_C2SC &= ~FTM_CnSC_ELSA_MASK;
+
 	
 	// 39.3.3 FTM Setup
 	// Set prescale value to 1 
 	// Chose system clock source
-	// Timer Overflow Interrupt Enable
-	//| FTM_SC_TOIE_MASK;
-	
-	FTM3_SC = FTM_SC_PS(11) | FTM_SC_CLKS(1);
-	//| FTM_SC_TOIE_MASK;
+	FTM3_SC |= (FTM_SC_PS(5) | FTM_SC_CLKS(1));
 
 	// Enable Interrupt Vector for FTM
     //NVIC_EnableIRQ(FTM0_IRQn);
     //NVIC_EnableIRQ(FTM3_IRQn);
-        
-    FTM3_C3V = (uint16_t) (((DEFAULT_SYSTEM_CLOCK*16.6667)*0.01));
+    
+    //10 us
+    FTM3_C3V = (uint16_t) (0x000F);
 
-	// Update the clock to the new frequency
-	FTM3_MOD = (uint16_t) (DEFAULT_SYSTEM_CLOCK*16.6667);
+    //60010 us
+    // Update the clock to the new frequency
+	FTM3_MOD = ((uint16_t) (0xFFFF));
 
 }
 
@@ -161,10 +169,13 @@ void init_ultrasonic(void){
     PORTD_PCR2 |= PORT_PCR_MUX(1); //UART2 RX
     GPIOD_PDDR |= (0<<2);
     
-	PORTD_PCR2 |= PORT_PCR_IRQC(11);
+    PORTD_PCR1 |= PORT_PCR_MUX(1);
+    GPIOD_PDDR |= (1<<1);
+    GPIOD_PSOR |= (1<<1);    
+    PORTD_PCR1 |= PORT_PCR_DSE_MASK;
     
     init_PIT();
-    init_FTM();
-    NVIC_EnableIRQ(PORTD_IRQn);
+    //init_FTM();
+    //NVIC_EnableIRQ(PORTD_IRQn);
 }
 

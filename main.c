@@ -39,6 +39,7 @@
 #include "Bluetooth.h"
 #include "LEDS.h"
 #include "ultrasonic.h"
+#include "i2c.h"
 
 void initialize(void);
 void en_interrupts();
@@ -53,6 +54,8 @@ void normalSet(void);
 void turnCalc(void);
 void distanceCalc(void);
 void demo(void);
+void getGPS(void);
+void turn(int angle);
 
 
 const int FORWARD=0;
@@ -112,8 +115,8 @@ float KD; //25
 float PWMErrOld1[2] = {0.0,0.0}; //e(n-1)
 float PWMErrOld2[2] = {0.0,0.0}; //e(n-2)
 
-float LB=0.0; //Lower bound of wheel speed
-float UB=70.0; //Upper bound of wheel speed
+float LB= -70.0; //Lower bound of wheel speed
+float UB=  70.0; //Upper bound of wheel speed
 
 //Desired PWM of left and right wheels
 float LEFT_DESIRED=0.0;
@@ -128,8 +131,12 @@ float manualDelta[2] = {0.0,0.0};
 
 int ready=0;
 
-extern float ultrasonic_distance;
-extern int ultrasonic_ready_flag;
+
+//[0,359], 0==North, 90==East, 180==South, 270==West
+int direction=0;
+
+//latitude, longitude
+float location[2]={0.0f,0.0f};
 
 
 /*
@@ -148,6 +155,7 @@ int main(void){
     char c[50];
     //Run demo
     int demov=1;
+    float __test_remove__=0.0f;
     // Initialize everything
     initialize();
     
@@ -155,17 +163,19 @@ int main(void){
     put("Running... \n\r");
     
     normalSet();
-    SetDutyCycle(0,DC_freq,FORWARD);
-    
+    SetDutyCycle(0,DC_freq);
+    /*
     for(;;){
-        if(ultrasonic_ready_flag==1){
-            sprintf(c,"%g",ultrasonic_distance);
-            put(c);
-            put("\r\n");
-        }
+        __test_remove__=getUltrasonic();
+        sprintf(c,"%g",__test_remove__);
+        put(c);
+        put("\r\n");
+        delay(300);
+        
     }
+    */
     
-    
+
     for(;;){
         while(!ready){
             LEDon(RED);
@@ -183,6 +193,9 @@ int main(void){
         
         //Main code
         for(;;){        
+        
+            getGPS();
+        
             //distance calc
             distanceCalc();
             
@@ -192,13 +205,18 @@ int main(void){
             //set duty cycles
             LPWM=calc(LPWM, LEFT_DESIRED, LEFT);
             RPWM=calc(RPWM, RIGHT_DESIRED, RIGHT);
-            LeftDuty((int)LPWM,DC_freq,FORWARD);
-            RightDuty((int)RPWM,DC_freq,FORWARD);
+            LeftDuty((int)LPWM,DC_freq);
+            RightDuty((int)RPWM,DC_freq);
                 
             delay(1);
       }
     }
     return 0;
+}
+
+void getGPS(void){
+    
+    
 }
 
 /*
@@ -208,50 +226,57 @@ Used to spool up motors
 void demo(void){
     int demoi;
     int demoj;
+    
+    for(demoj=0; demoj<10; demoj++){
 
-    for(demoi=3; demoi>=0; demoi--){
-        LEDon(YELLOW);
-        delay(30*demoi);
-        LEDoff();
-        delay(30*demoi);
+        LEFT_DESIRED=30.0f;
+        RIGHT_DESIRED=30.0f;
+        for (demoi=0; demoi<=5; demoi++){
+            LPWM=calc(LPWM, LEFT_DESIRED, LEFT);
+            RPWM=calc(RPWM, RIGHT_DESIRED, RIGHT);
+            LeftDuty((int)LPWM,DC_freq);
+            RightDuty((int)RPWM,DC_freq);
+            delay(30);
+        }
+        for (demoi=0; demoi<=6; demoi++){
+            turn(180-(demoi));
+            LPWM=calc(LPWM, LEFT_DESIRED, LEFT);
+            RPWM=calc(RPWM, RIGHT_DESIRED, RIGHT);
+            LeftDuty((int)LPWM,DC_freq);
+            RightDuty((int)RPWM,DC_freq);
+            delay(50);
+        }
+        //Motor spool up
+        /*
+        LEDon(GREEN);
+        for (demoi=0; demoi<=1; demoi++){
+            for (demoj=1; demoj<=4; demoj++){
+                if (demoi==0){//left
+                    LeftDuty( 10*demoj,DC_freq,FORWARD);
+                }else{//right
+                    LPWM=calc(LPWM, 0.0, LEFT);
+                    LeftDuty((int)LPWM,DC_freq,FORWARD);
+                    RightDuty(10*demoj,DC_freq,FORWARD);
+                }
+                delay(300);
+            }
+        }
+        */
+        
         
     }
-    LEDon(GREEN);
-    for (demoi=0; demoi<=1; demoi++){
-        for (demoj=1; demoj<=4; demoj++){
-            if (demoi==0){//left
-                LeftDuty( 10*demoj,DC_freq,FORWARD);
-            }else{//right
-                LPWM=calc(LPWM, 0.0, LEFT);
-                LeftDuty((int)LPWM,DC_freq,FORWARD);
-                RightDuty(10*demoj,DC_freq,FORWARD);
-            }
-            delay(300);
+    LEDon(WHITE);
+        for(;;){
+            LPWM=calc(LPWM, 0.0, LEFT);
+            LeftDuty((int)LPWM,DC_freq);
+            RPWM=calc(RPWM, 0.0, RIGHT);
+            RightDuty((int)RPWM,DC_freq);
         }
-    }
-    LEDon(BLUE);
-    for(;;){
-        LPWM=calc(LPWM, 0.0, LEFT);
-        LeftDuty((int)LPWM,DC_freq,FORWARD);
-        RPWM=calc(RPWM, 0.0, RIGHT);
-        RightDuty((int)RPWM,DC_freq,FORWARD);
-    }
 }
 
 
 
-/*
-Reset all vars to nominal/safe values
-*/
-void normalSet(void){
-    LEFT_DESIRED=0.0f;//75.0f; 
-    RIGHT_DESIRED=0.0f;//80.0f
-    KP=0.45f; //0.45
-    KI=0.63f; //0.63
-    KD=0.15f; //0.15
-    manualDelta[0]=0.0f;
-    manualDelta[1]=0.0f;
-}
+
 
 /* 
 Calculates distance between user and cart.
@@ -276,32 +301,49 @@ void distanceCalc(void){
 
 /*
 Calculates angle between user and current path of cart. 
-Angle range is [-90,90], with 0 being directly in front
+Angle range is [0,359], with 0 being directly in front
 */
 void turnCalc(void){
-    float angle = 0.0f;
+    int angle = 0.0f;
     const int minAngle = 5.0f;
     
     //TODO angle calculations
     
     if (abs(angle) > minAngle) {
         /*
-        degree = -90 to 90
-        Slows inner wheel.
-        Max slow speed == 0
+        Slows inner wheel. Then drive in reverse
+        Max slow speed == -UB
         Slow speed dictated by speed of other wheel
         */
-        if(angle > 0.0f){ //Right turn
-            LEDon(RED);
-            RIGHT_DESIRED = (LEFT_DESIRED*angle)/90.0f;
-            clip(RIGHT_DESIRED,LB,UB);
-        }else if(angle < 0.0f){ //Left
-            LEDon(BLUE);
-            LEFT_DESIRED = (RIGHT_DESIRED*angle)/90.0f;
-            clip(LEFT_DESIRED,LB,UB);
+        if(angle>180){
+            angle=angle-360;
         }
+        turn(angle);
     }else{
         LEDon(GREEN);
+    }
+}
+
+/*
+Turn the cart
+*/
+void turn(int angle){
+    if(angle > 0){ //Right turn
+        LEDon(RED);
+        if (angle > 90){
+            RIGHT_DESIRED = LEFT_DESIRED-((LEFT_DESIRED*angle)/90.0f);
+        }else{
+            RIGHT_DESIRED = (LEFT_DESIRED*angle)/90.0f;
+        }
+        clip(RIGHT_DESIRED,LB,UB);
+    }else if(angle < 0){ //Left
+        LEDon(BLUE);
+        if (angle > -90){
+            LEFT_DESIRED = -(RIGHT_DESIRED*angle)/90.0f;
+        }else{
+            LEFT_DESIRED =-( RIGHT_DESIRED - ((RIGHT_DESIRED*angle)/90.0f));
+        }
+        clip(LEFT_DESIRED,LB,UB);
     }
 }
 
@@ -339,6 +381,19 @@ void printLine(void){
 }
 
 /*
+Reset all vars to nominal/safe values
+*/
+void normalSet(void){
+    LEFT_DESIRED=0.0f;//75.0f; 
+    RIGHT_DESIRED=0.0f;//80.0f
+    KP=0.45f; //0.45
+    KI=0.0f; //0.63
+    KD=0.0f; //0.15
+    manualDelta[0]=0.0f;
+    manualDelta[1]=0.0f;
+}
+
+/*
 Calculate the PID PWM value based on the current PWM value,
 the desired PWM value, and if the car is going straight or turning.
     Wheel=0: Left wheel
@@ -346,12 +401,16 @@ the desired PWM value, and if the car is going straight or turning.
 */
 float calc(const float currentPWM, const float desiredPWM, const int wheel){
     float err = desiredPWM - currentPWM; //e(n)
+    /*
     float newPWM = currentPWM +\
     (KP * (err-PWMErrOld1[wheel])) + \
     (KI * ((err+PWMErrOld1[wheel])/2.0f)) + \
     (KD * (err - (2.0f * PWMErrOld1[wheel]) + PWMErrOld2[wheel])) + \
     manualDelta[wheel]; 
-    
+    */
+    float newPWM=currentPWM+\
+        (KP*err)+\
+        manualDelta[wheel];
     clip(newPWM,LB,UB);
     
     PWMErrOld2[wheel]=PWMErrOld1[wheel];
