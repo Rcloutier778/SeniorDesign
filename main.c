@@ -17,10 +17,17 @@
  *    PTB23         - camera SI     J2-19
  *  ADC0_DP1(bottom left)     - camera AOut   J2-4
  *  3.3V      - camera Vdd
+<<<<<<< HEAD
  *    PTC3    A1  J1-5    reverse signal
  *    PTC4    A2  J1-7    reverse signal
  *    PTA2    B1  J10-12  pwm signal
  *    PTA1    B2  J10-10  pwm signal
+=======
+ *    PTC3    reverse signal  Left
+ *    PTC4    reverse signal  Right
+ *    PTA1    pwm signal  Left
+ *    PTA2    pwm signal  Right
+>>>>>>> e942668dd8c4d21d74db30b2d0d568cf58739aee
  *    PTD2    Servo J10-2
  *  PTB10 UART3_RX (Blue)
  *  PTB11 UART3_TX (Red)
