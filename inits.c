@@ -121,8 +121,8 @@ void init_GPIO(void){
     //GPIOC_PDDR = (1<<15); //BT_TX
 
     //Configure GPIO pins for input
-    GPIOC_PDDR |= (0<<6);// | (0<<14);//Button || BT_RX
-    GPIOA_PDDR = (0<<4);
+    GPIOC_PDDR &= ~(1<<6);// | (0<<14);//Button || BT_RX
+    GPIOA_PDDR &= ~(1<<4);
 
     // interrupt configuration for SW3(Rising Edge) and SW2 (Either)
     //sw2, either

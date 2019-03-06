@@ -15,9 +15,8 @@
 void put(char *ptr_str);
 void uart_init(void);
 uint8_t uart_getchar(void);
-uint8_t uart_get(void);
 void uart_putchar(char ch);
-void get(void);
+uint8_t get(void);
 
 void uart_init()
 {
@@ -103,10 +102,10 @@ void put(char *ptr_str){
 
 uint8_t get(){
   int lcv;
-  char ptr_str[CHAR_COUNT-2];
+  char ptr_str[254];
   uint8_t cu;
   lcv=0;
-  while(lcv < CHAR_COUNT){
+  while(lcv < 254){
     cu = uart_getchar();
     if(cu == 13){ //if entered character is character return
       return *ptr_str;

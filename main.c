@@ -17,20 +17,14 @@
  *    PTB23         - camera SI     J2-19
  *  ADC0_DP1(bottom left)     - camera AOut   J2-4
  *  3.3V      - camera Vdd
-<<<<<<< HEAD
- *    PTC3    A1  J1-5    reverse signal
- *    PTC4    A2  J1-7    reverse signal
- *    PTA2    B1  J10-12  pwm signal
- *    PTA1    B2  J10-10  pwm signal
-=======
  *    PTC3    reverse signal  Left
  *    PTC4    reverse signal  Right
  *    PTA1    pwm signal  Left
  *    PTA2    pwm signal  Right
->>>>>>> e942668dd8c4d21d74db30b2d0d568cf58739aee
- *    PTD2    Servo J10-2
- *  PTB10 UART3_RX (Blue)
- *  PTB11 UART3_TX (Red)
+ *    PTB10 UART3_RX (Blue)
+ *	  PTB11 UART3_TX (Red)
+ *	  PTD1		Ultrasonic echo
+ *	  PTD2		Ultrasonic trigger
  *
  * Author:  Richard Cloutier
  * Created:  11/20/17
@@ -122,8 +116,8 @@ float KD; //25
 float PWMErrOld1[2] = {0.0,0.0}; //e(n-1)
 float PWMErrOld2[2] = {0.0,0.0}; //e(n-2)
 
-float LB= -70.0; //Lower bound of wheel speed
-float UB=  70.0; //Upper bound of wheel speed
+float LB= -30.0; //Lower bound of wheel speed
+float UB=  50.0; //Upper bound of wheel speed
 
 //Desired PWM of left and right wheels
 float LEFT_DESIRED=0.0;
@@ -162,7 +156,6 @@ int main(void){
     char c[50];
     //Run demo
     int demov=1;
-    float __test_remove__=0.0f;
     // Initialize everything
     initialize();
     
@@ -171,17 +164,6 @@ int main(void){
     
     normalSet();
     SetDutyCycle(0,DC_freq);
-    /*
-    for(;;){
-        __test_remove__=getUltrasonic();
-        sprintf(c,"%g",__test_remove__);
-        put(c);
-        put("\r\n");
-        delay(300);
-        
-    }
-    */
-    
 
     for(;;){
         while(!ready){
@@ -233,52 +215,86 @@ Used to spool up motors
 void demo(void){
     int demoi;
     int demoj;
+    char c[255];
     
-    for(demoj=0; demoj<10; demoj++){
-
-        LEFT_DESIRED=30.0f;
-        RIGHT_DESIRED=30.0f;
-        for (demoi=0; demoi<=5; demoi++){
-            LPWM=calc(LPWM, LEFT_DESIRED, LEFT);
-            RPWM=calc(RPWM, RIGHT_DESIRED, RIGHT);
-            LeftDuty((int)LPWM,DC_freq);
-            RightDuty((int)RPWM,DC_freq);
-            delay(30);
-        }
-        for (demoi=0; demoi<=6; demoi++){
-            turn(180-(demoi));
-            LPWM=calc(LPWM, LEFT_DESIRED, LEFT);
-            RPWM=calc(RPWM, RIGHT_DESIRED, RIGHT);
-            LeftDuty((int)LPWM,DC_freq);
-            RightDuty((int)RPWM,DC_freq);
-            delay(50);
-        }
-        //Motor spool up
-        /*
-        LEDon(GREEN);
-        for (demoi=0; demoi<=1; demoi++){
-            for (demoj=1; demoj<=4; demoj++){
-                if (demoi==0){//left
-                    LeftDuty( 10*demoj,DC_freq,FORWARD);
-                }else{//right
-                    LPWM=calc(LPWM, 0.0, LEFT);
-                    LeftDuty((int)LPWM,DC_freq,FORWARD);
-                    RightDuty(10*demoj,DC_freq,FORWARD);
-                }
-                delay(300);
-            }
-        }
-        */
-        
-        
+    
+    for(demoi=3; demoi>0; demoi--){
+        LEDon(YELLOW);
+        delay(50*demoi);
+        LEDoff();
+        delay(50*demoi);
     }
-    LEDon(WHITE);
-        for(;;){
-            LPWM=calc(LPWM, 0.0, LEFT);
-            LeftDuty((int)LPWM,DC_freq);
-            RPWM=calc(RPWM, 0.0, RIGHT);
-            RightDuty((int)RPWM,DC_freq);
+    LEDon(GREEN);
+    
+
+    for(;;){
+        distanceCalc();
+        LPWM=calc(LPWM, LEFT_DESIRED, LEFT);
+        RPWM=calc(RPWM, RIGHT_DESIRED, RIGHT);
+        
+        sprintf(c,"LPWM: %g",LPWM);
+        put(c);
+        put("\r\n");
+        sprintf(c,"RPWM: %g",RPWM);
+        put(c);
+        put("\r\n");
+        
+        
+        
+        LeftDuty((int)LPWM,DC_freq);
+        RightDuty((int)RPWM,DC_freq);
+        delay(100);
+    }
+
+    /*
+    LEFT_DESIRED=30.0f;
+    RIGHT_DESIRED=30.0f;
+    for (demoi=0; demoi<=5; demoi++){
+        LPWM=calc(LPWM, LEFT_DESIRED, LEFT);
+        RPWM=calc(RPWM, RIGHT_DESIRED, RIGHT);
+        LeftDuty((int)LPWM,DC_freq);
+        RightDuty((int)RPWM,DC_freq);
+        delay(30);
+    }
+    */
+    
+    /*
+    for (demoi=0; demoi<=6; demoi++){
+        turn(180-(demoi));
+        LPWM=calc(LPWM, LEFT_DESIRED, LEFT);
+        RPWM=calc(RPWM, RIGHT_DESIRED, RIGHT);
+        LeftDuty((int)LPWM,DC_freq);
+        RightDuty((int)RPWM,DC_freq);
+        delay(50);
+    }
+    */
+    
+    //Motor spool up
+    /*
+    LEDon(GREEN);
+    for (demoi=0; demoi<=1; demoi++){
+        for (demoj=1; demoj<=4; demoj++){
+            if (demoi==0){//left
+                LeftDuty( 10*demoj,DC_freq,FORWARD);
+            }else{//right
+                LPWM=calc(LPWM, 0.0, LEFT);
+                LeftDuty((int)LPWM,DC_freq,FORWARD);
+                RightDuty(10*demoj,DC_freq,FORWARD);
+            }
+            delay(300);
         }
+    }
+    */
+        
+        
+    
+    LEDon(WHITE);
+    for(;;){
+        LPWM=calc(LPWM, 0.0, LEFT);
+        LeftDuty((int)LPWM,DC_freq);
+        RPWM=calc(RPWM, 0.0, RIGHT);
+        RightDuty((int)RPWM,DC_freq);
+    }
 }
 
 
@@ -291,17 +307,41 @@ Adjusts desired speed accordingly
 */
 void distanceCalc(void){
     float distance = 0.0f;
-    const float maxDistance=100.0f; //Max distance == max speed 
+    const float maxDistance=50.0f; //Max distance == max speed 
+    const float minDistance=15.0f;
     float desiredSpeed = 0.0f;
+    char  c[255];
     
     //TODO distance calculations
     //GPS = long
     //Camera = med
     //Ultrasonic = med/short 
     
+    
+    
+    
+    
+    
+    //Ultrasonic
+    distance=getUltrasonic();
+    
+    sprintf(c,"Distance: %g inches",distance);
+    put(c);
+    put("\r\n");
+        
+   
+    
+    
+    
+    
+    
     //linear calc
-    desiredSpeed=(UB*distance)/maxDistance;
-    clip(desiredSpeed,LB,UB);
+    if(distance < minDistance){
+        desiredSpeed=0.0f;
+    }else{
+        desiredSpeed=6.0f+((UB*distance)/maxDistance);
+        clip(desiredSpeed,0.0,UB); //TODO LB=-UB?
+    }
     LEFT_DESIRED=desiredSpeed;
     RIGHT_DESIRED=desiredSpeed;
 }
