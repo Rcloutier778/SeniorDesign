@@ -3,92 +3,73 @@
 <pre>
 <h1>µVision Build Log</h1>
 <h2>Tool Versions:</h2>
-IDE-Version: µVision V5.24.2.0
-Copyright (C) 2017 ARM Ltd and ARM Germany GmbH. All rights reserved.
+IDE-Version: µVision V5.21.1.0
+Copyright (C) 2016 ARM Ltd and ARM Germany GmbH. All rights reserved.
 License Information: Richard Cloutier, RIT, LIC=----
  
 Tool Versions:
-Toolchain:       MDK-Lite  Version: 5.24.1
+Toolchain:       MDK-Lite  Version: 5.21a
 Toolchain Path:  C:\Keil_v5\ARM\ARMCC\Bin
-C Compiler:      Armcc.exe V5.06 update 5 (build 528)
-Assembler:       Armasm.exe V5.06 update 5 (build 528)
-Linker/Locator:  ArmLink.exe V5.06 update 5 (build 528)
-Library Manager: ArmAr.exe V5.06 update 5 (build 528)
-Hex Converter:   FromElf.exe V5.06 update 5 (build 528)
-CPU DLL:         SARMCM3.DLL V5.24.1
-Dialog DLL:      DCM.DLL V1.16.0.0
-Target DLL:      CMSIS_AGDI.dll V1.28.3.0
-Dialog DLL:      TCM.DLL V1.32.0.0
+C Compiler:      Armcc.exe V5.06 update 3 (build 300)
+Assembler:       Armasm.exe V5.06 update 3 (build 300)
+Linker/Locator:  ArmLink.exe V5.06 update 3 (build 300)
+Library Manager: ArmAr.exe V5.06 update 3 (build 300)
+Hex Converter:   FromElf.exe V5.06 update 3 (build 300)
+CPU DLL:         SARMCM3.DLL V5.21a
+Dialog DLL:      DCM.DLL V1.13.8.0
+Target DLL:      CMSIS_AGDI.dll V1.26.5.0
+Dialog DLL:      TCM.DLL V1.14.14.0
  
 <h2>Project:</h2>
-C:\Users\Richard\Documents\RIT\Y5S2\Senior Design II\Code\NXP.uvprojx
-Project File Date:  02/28/2019
+F:\Senior Design\Code\NXP.uvprojx
+Project File Date:  03/01/2019
 
 <h2>Output:</h2>
-*** Using Compiler 'V5.06 update 5 (build 528)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
-Rebuild target 'Target 1'
-compiling uart.c...
-compiling inits.c...
-compiling pwm.c...
+*** Using Compiler 'V5.06 update 3 (build 300)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
+Build target 'Target 1'
 compiling main.c...
-main.c(44): warning:  #1295-D: Deprecated declaration en_interrupts - give arg types
+main.c(45): warning:  #1295-D: Deprecated declaration en_interrupts - give arg types
   void en_interrupts();
-main.c(169): warning:  #128-D: loop is not reachable
-      for(;;){
-main.c(201): warning:  #111-D: statement is unreachable
+main.c(214): warning:  #111-D: statement is unreachable
       return 0;
-main.c(287): warning:  #223-D: function "abs" declared implicitly
+main.c(155): warning:  #177-D: variable "c" was declared but never referenced
+      char c[50];
+main.c(158): warning:  #177-D: variable "__test_remove__" was declared but never referenced
+      float __test_remove__=0.0f;
+main.c(312): warning:  #223-D: function "abs" declared implicitly
       if (abs(angle) > minAngle) {
-main.c: 4 warnings, 0 errors
-compiling Bluetooth.c...
-Bluetooth.c(85): warning:  #177-D: variable "str"  was declared but never referenced
-      char str[100];
-Bluetooth.c: 1 warning, 0 errors
-compiling ultrasonic.c...
-ultrasonic.c(147): warning:  #173-D: floating-point value does not fit in required integral type
-      
-TM3_C3V = (uint16_t) (((
-EFAULT_SYSTEM_CLOCK*16.6667)*0.01));
-ultrasonic.c(150): warning:  #173-D: floating-point value does not fit in required integral type
-  	
-TM3_MOD = (uint16_t) (
-EFAULT_SYSTEM_CLOCK*16.6667);
-ultrasonic.c: 2 warnings, 0 errors
-compiling isr.c...
-compiling LEDS.c...
-assembling startup_MK64F12.s...
-compiling system_MK64F12.c...
+main.c: 5 warnings, 0 errors
 linking...
-Program Size: Code=7948 RO-data=1232 RW-data=128 ZI-data=2248  
-".\Objects\NXP.axf" - 0 Error(s), 7 Warning(s).
+Program Size: Code=4712 RO-data=1056 RW-data=120 ZI-data=2248  
+".\Objects\NXP.axf" - 0 Error(s), 5 Warning(s).
 
 <h2>Software Packages used:</h2>
 
 Package Vendor: ARM
-                http://www.keil.com/pack/ARM.CMSIS.5.1.1.pack
-                ARM.CMSIS.5.1.1
+                http://www.keil.com/pack/ARM.CMSIS.5.0.0-Beta4.pack
+                ARM::CMSIS:CORE:5.0.0
                 CMSIS (Cortex Microcontroller Software Interface Standard)
-   * Component: CORE Version: 5.0.2
+   * Component: CORE Version: 5.0.0
 
 Package Vendor: Keil
-                http://www.keil.com/pack/Keil.Kinetis_K60_DFP.1.5.0.pack
-                Keil.Kinetis_K60_DFP.1.5.0
-                NXP Kinetis K60 Series Device Support and Examples
+                http://www.keil.com/pack/Keil.Kinetis_K60_DFP.1.4.0.pack
+                Keil::Device:Startup:1.0.0
+                Freescale Kinetis K60 Series Device Support and Examples
    * Component: Startup Version: 1.0.0
 
 <h2>Collection of Component include folders:</h2>
-  .\RTE\_Target_1
-  C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.1.1\CMSIS\Include
-  C:\Keil_v5\ARM\PACK\Keil\Kinetis_K60_DFP\1.5.0\Device\Include
+  F:\Senior Design\Code\RTE
+  C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include
+  C:\Keil_v5\ARM\PACK\Keil\Kinetis_K60_DFP\1.4.0\Device\Include
 
 <h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE:5.0.0
 
    * Component: Keil::Device:Startup:1.0.0
       Source file:   Device\Source\ARM\startup_MK64F12.s
       Source file:   Device\Source\system_MK64F12.c
-
-   * Component: ARM::CMSIS:CORE:5.0.2
-Build Time Elapsed:  00:00:04
+Build Time Elapsed:  00:00:03
 </pre>
 </body>
 </html>
