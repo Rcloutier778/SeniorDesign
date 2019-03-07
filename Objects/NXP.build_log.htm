@@ -26,7 +26,12 @@ Project File Date:  03/06/2019
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 3 (build 300)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
-Build target 'Target 1'
+Rebuild target 'Target 1'
+compiling pwm.c...
+compiling uart.c...
+uart.c(118): warning:  #1-D: last line of file ends without a newline
+  }
+uart.c: 1 warning, 0 errors
 compiling main.c...
 main.c(46): warning:  #1295-D: Deprecated declaration en_interrupts - give arg types
   void en_interrupts();
@@ -44,9 +49,23 @@ lip(desiredSpeed,0.0,UB); //TODO LB=-UB?
 main.c(359): warning:  #223-D: function "abs" declared implicitly
       if (abs(angle) > minAngle) {
 main.c: 7 warnings, 0 errors
+compiling isr.c...
+compiling inits.c...
+compiling Bluetooth.c...
+Bluetooth.c(85): warning:  #177-D: variable "str" was declared but never referenced
+      char str[100];
+Bluetooth.c: 1 warning, 0 errors
+compiling GPS.c...
+assembling startup_MK64F12.s...
+compiling LEDS.c...
+compiling ultrasonic.c...
+ultrasonic.c(35): warning:  #177-D: variable "i" was declared but never referenced
+      int i;
+ultrasonic.c: 1 warning, 0 errors
+compiling system_MK64F12.c...
 linking...
 Program Size: Code=9600 RO-data=1232 RW-data=128 ZI-data=2248  
-".\Objects\NXP.axf" - 0 Error(s), 7 Warning(s).
+".\Objects\NXP.axf" - 0 Error(s), 10 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -74,7 +93,7 @@ Package Vendor: Keil
    * Component: Keil::Device:Startup:1.0.0
       Source file:   Device\Source\ARM\startup_MK64F12.s
       Source file:   Device\Source\system_MK64F12.c
-Build Time Elapsed:  00:00:03
+Build Time Elapsed:  00:00:06
 </pre>
 </body>
 </html>

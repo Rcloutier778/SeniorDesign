@@ -5,7 +5,7 @@
 
 void put(char *ptr_str);
 void putnumU(int i);
-void uart_init(void);
+void uart0_init(void);
 uint8_t uart_getchar(void);
 void uart_putchar(char ch);
 void get(void);

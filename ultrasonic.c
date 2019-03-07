@@ -83,7 +83,7 @@ void PIT0_IRQHandler(void){
             return;
         }
     }else{
-        if((GPIOD_PDIR & (1<<2))==0){
+        if((GPIOD_PDIR & (1<<0))==0){
             //Echo has been received and has ended
             if(ultrasonic_state==2){
                 // Disable the timer
@@ -139,65 +139,15 @@ void init_PIT(void){
 	return;
 }
 
-void init_FTM(void){
-
-// 12.2.13 Enable the Clock to the FTM0 Module
-	SIM_SCGC3 |= SIM_SCGC3_FTM3_MASK;
-	
-	
-	// 11.4.1 Route the output of FTM channel 0 to the pins
-	// Use drive strength enable flag to high drive strength
-	//These port/pins may need to be updated for the K64 <Yes, they do. Here are two that work.>
-    PORTD_PCR3  = PORT_PCR_MUX(4)  | PORT_PCR_DSE_MASK;//Ch3
-			
-	// 39.3.10 Disable Write Protection
-	FTM3_MODE |= FTM_MODE_WPDIS_MASK;
-	
-	
-	// 39.3.8 Set the Counter Initial Value to 0
-	FTM3_CNTIN = 0x0F00;
-	
-    // 39.3.4 FTM Counter Value
-	// Initialize the CNT to 0 before writing to MOD
-	FTM3_CNT = 0;
-	
-    
-    
-	// 39.3.6 Set the Status and Control of both channels
-	// Used to configure mode, edge and level selection
-	// See Table 39-67,  Edge-aligned PWM, High-true pulses (clear out on match)
-	FTM3_C3SC |= FTM_CnSC_MSB_MASK | FTM_CnSC_ELSB_MASK;
-	FTM3_C3SC &= ~FTM_CnSC_ELSA_MASK;
-
-	
-	// 39.3.3 FTM Setup
-	// Set prescale value to 1 
-	// Chose system clock source
-	FTM3_SC |= (FTM_SC_PS(5) | FTM_SC_CLKS(1));
-
-	// Enable Interrupt Vector for FTM
-    //NVIC_EnableIRQ(FTM0_IRQn);
-    //NVIC_EnableIRQ(FTM3_IRQn);
-    
-    //10 us
-    FTM3_C3V = (uint16_t) (0x000F);
-
-    //60010 us
-    // Update the clock to the new frequency
-	FTM3_MOD = ((uint16_t) (0xFFFF));
-
-}
-
 
 void init_ultrasonic(void){
     SIM_SCGC5 |= SIM_SCGC5_PORTD_MASK;
     
-    PORTD_PCR2 |= PORT_PCR_PE_MASK;
-    PORTD_PCR2 |= PORT_PCR_MUX(1); //Echo recieve
-    GPIOD_PDDR &= ~(1<<2);
-    PORTD_PCR2 |= PORT_PCR_IRQC(12);
+    PORTD_PCR0 |= PORT_PCR_PE_MASK;
+    PORTD_PCR0 |= PORT_PCR_MUX(1); //Echo recieve
+    GPIOD_PDDR &= ~(1<<0);
+    PORTD_PCR0 |= PORT_PCR_IRQC(12);
     
-//    PORTD_PCR2 &= ~PORT_PCR_PS_MASK;
     
     PORTD_PCR1 |= PORT_PCR_MUX(1);
     GPIOD_PDDR |= (1<<1);
@@ -205,7 +155,5 @@ void init_ultrasonic(void){
     PORTD_PCR1 |= PORT_PCR_DSE_MASK;
     
     init_PIT();
-    //init_FTM();
-    //NVIC_EnableIRQ(PORTD_IRQn);
 }
 

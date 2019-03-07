@@ -21,10 +21,12 @@
  *    PTC4    reverse signal  Right
  *    PTA1    pwm signal  Left
  *    PTA2    pwm signal  Right
- *    PTB10 UART3_RX (Blue)
- *	  PTB11 UART3_TX (Red)
- *	  PTD1		Ultrasonic echo
- *	  PTD2		Ultrasonic trigger
+ *    PTB10   UART3_RX (Blue)
+ *	  PTB11   UART3_TX (Red)
+ *	  PTD0		Ultrasonic echo
+ *	  PTD1		Ultrasonic trigger
+      PTD2      UART2_RX  arduino
+      PTD3      UART2_TX  arduino
  *
  * Author:  Richard Cloutier
  * Created:  11/20/17
@@ -55,7 +57,6 @@ void normalSet(void);
 void turnCalc(void);
 void distanceCalc(void);
 void demo(void);
-void getGPS(void);
 void turn(int angle);
 
 
@@ -203,10 +204,7 @@ int main(void){
     return 0;
 }
 
-void getGPS(void){
-    
-    
-}
+
 
 /*
 Demo code
@@ -470,7 +468,8 @@ Initializes all required modules
 */
 void initialize(void){
     // Initialize UART
-    uart_init();    
+    uart0_init();    //Terminal 
+    uart2_init();   //arduino comms
     
     // Initialize the FlexTimer
     InitPWM();
