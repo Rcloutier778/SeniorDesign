@@ -124,6 +124,7 @@ float RPWM=0.0; //PWM of right wheel
 float manualDelta[2] = {0.0,0.0};
 
 int ready=0;
+float angle = 0.0f;
 
 
 //[0,359], 0==North, 90==East, 180==South, 270==West
@@ -150,7 +151,8 @@ Limit n to the lower and upper bounds only.
 int main(void){
     char c[50];
     //Run demo
-    int demov=1;
+    int demov=0;
+    int demoi;
     // Initialize everything
     initialize();
     
@@ -166,6 +168,12 @@ int main(void){
             delay(5);
             LEDoff();
             delay(5);
+        }
+        for(demoi=3; demoi>0; demoi--){
+            LEDon(YELLOW);
+            delay(50*demoi);
+            LEDoff();
+            delay(50*demoi);
         }
         LEDon(GREEN);
         
@@ -192,10 +200,9 @@ int main(void){
             LeftDuty((int)LPWM,DC_freq);
             RightDuty((int)RPWM,DC_freq);
                 
-            delay(1);
+            delay(100);
       }
     }
-    return 0;
 }
 
 
@@ -208,16 +215,6 @@ void demo(void){
     int demoi;
     int demoj;
     char c[255];
-    
-    
-    for(demoi=3; demoi>0; demoi--){
-        LEDon(YELLOW);
-        delay(50*demoi);
-        LEDoff();
-        delay(50*demoi);
-    }
-    LEDon(GREEN);
-    
 
     for(;;){
         distanceCalc();
@@ -312,7 +309,6 @@ Calculates angle between user and current path of cart.
 Angle range is [0,359], with 0 being directly in front
 */
 void turnCalc(void){
-    int angle = 0.0f;
     const int minAngle = 5.0f;
     
     //TODO angle calculations

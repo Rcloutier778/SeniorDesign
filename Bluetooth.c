@@ -87,6 +87,7 @@ Gets information input from Android device via bluetooth.
  
 */
 void UART3_RX_IRQHandler(void) {
+    /*
   uint8_t val;
   char name;
   if(UART3_D >= '0' && UART3_D <= '9') {
@@ -125,6 +126,7 @@ void UART3_RX_IRQHandler(void) {
     control[controlIndex] = val;
     controlIndex = -1;
   }
+  */
 }
   
 void UART3_TX_IRQHandler(void) {

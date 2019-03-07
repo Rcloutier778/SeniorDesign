@@ -39,7 +39,7 @@ uint16_t ubd, brfa;
 
 //Enable clock for UART
   SIM_SCGC4 |= SIM_SCGC4_UART2_MASK;
-  SIM_SCGC5 |= SIM_SCGC5_PORTB_MASK;
+  SIM_SCGC5 |= SIM_SCGC5_PORTD_MASK;
 
 //Configure the port control register to alternative 3 (which is UART mode for K64)
   PORTD_PCR2 |= PORT_PCR_MUX(3);

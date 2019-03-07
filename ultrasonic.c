@@ -32,7 +32,6 @@ Gets a command to get the distance
 */
 
 float getUltrasonic(void){
-    int i;
     //  uS/58=centimeter   uS/148=inch
     float ultrasonic_distance=0.0f;
     ultrasonic_state=0;
