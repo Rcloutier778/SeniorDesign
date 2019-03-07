@@ -22,16 +22,19 @@
 
 #define MAX_BUF_SZ 128
 
-#define clip(n, lower, upper) {\  //Need?
-    if(n < lower) {\
-        n = lower;\
-    } else if(n > upper) {\
-        n = upper;\
+/*
+Limit n to the lower and upper bounds only. 
+*/
+#define clip(n, lower, upper){\
+    if(n<lower){\
+        n=lower;\
+    }else if(n>upper){\
+        n=upper;\
     }\
 }
 
-extern void normalSet(void);w
-extern int[10] control;
+extern void normalSet(void);
+extern int control[10];
 
 extern float LB;
 extern float UB;
@@ -84,6 +87,7 @@ Gets information input from Android device via bluetooth.
  
 */
 void UART3_RX_IRQHandler(void) {
+    /*
   uint8_t val;
   char name;
   if(UART3_D >= '0' && UART3_D <= '9') {
@@ -122,18 +126,19 @@ void UART3_RX_IRQHandler(void) {
     control[controlIndex] = val;
     controlIndex = -1;
   }
+  */
 }
   
 void UART3_TX_IRQHandler(void) {
   return;
 }
   
-void sendFloatTx() {
+void sendFloatTx(void) {
     
 }
 
   
-void pollGPSRx() {
+void pollGPSRx(void) {
     
 }
   

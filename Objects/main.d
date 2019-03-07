@@ -17,3 +17,4 @@
 .\objects\main.o: LEDS.h
 .\objects\main.o: ultrasonic.h
 .\objects\main.o: i2c.h
+.\objects\main.o: GPS.h

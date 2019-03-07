@@ -21,8 +21,8 @@
  *    PTC4    reverse signal  Right
  *    PTA1    pwm signal  Left
  *    PTA2    pwm signal  Right
- *    PTB10   UART3_RX (Blue)
- *	  PTB11   UART3_TX (Red)
+ *    PTB10   UART3_RX (Red)
+ *	  PTB11   UART3_TX (Blue)
  *	  PTD0		Ultrasonic echo
  *	  PTD1		Ultrasonic trigger
       PTD2      UART2_RX  arduino
@@ -43,27 +43,19 @@
 #include "LEDS.h"
 #include "ultrasonic.h"
 #include "i2c.h"
+#include "GPS.h"
 
 void initialize(void);
 void en_interrupts();
 void delay(int del);
-void printBinline(void);
 void printLine(void);
-void turnLeft(int index);
-void turnRight(int index);
 float calc(const float currentPWM, const float desiredPWM, const int wheel);
-void detectFinish(int maximumVal);
 void normalSet(void);
 void turnCalc(void);
 void distanceCalc(void);
 void demo(void);
 void turn(int angle);
 
-
-const int FORWARD=0;
-const int REVERSE=1;
-const int STRAIGHT = 1;
-const int TURNING = 0;
 
 const int DC_freq = 25000;
 const int BLUETOOTH=1;
@@ -132,6 +124,7 @@ float RPWM=0.0; //PWM of right wheel
 float manualDelta[2] = {0.0,0.0};
 
 int ready=0;
+float angle = 0.0f;
 
 
 //[0,359], 0==North, 90==East, 180==South, 270==West
@@ -139,6 +132,8 @@ int direction=0;
 
 //latitude, longitude
 float location[2]={0.0f,0.0f};
+
+int control[10];
 
 
 /*
@@ -156,7 +151,8 @@ Limit n to the lower and upper bounds only.
 int main(void){
     char c[50];
     //Run demo
-    int demov=1;
+    int demov=0;
+    int demoi;
     // Initialize everything
     initialize();
     
@@ -172,6 +168,12 @@ int main(void){
             delay(5);
             LEDoff();
             delay(5);
+        }
+        for(demoi=3; demoi>0; demoi--){
+            LEDon(YELLOW);
+            delay(50*demoi);
+            LEDoff();
+            delay(50*demoi);
         }
         LEDon(GREEN);
         
@@ -198,10 +200,9 @@ int main(void){
             LeftDuty((int)LPWM,DC_freq);
             RightDuty((int)RPWM,DC_freq);
                 
-            delay(1);
+            delay(100);
       }
     }
-    return 0;
 }
 
 
@@ -214,16 +215,6 @@ void demo(void){
     int demoi;
     int demoj;
     char c[255];
-    
-    
-    for(demoi=3; demoi>0; demoi--){
-        LEDon(YELLOW);
-        delay(50*demoi);
-        LEDoff();
-        delay(50*demoi);
-    }
-    LEDon(GREEN);
-    
 
     for(;;){
         distanceCalc();
@@ -267,25 +258,7 @@ void demo(void){
     }
     */
     
-    //Motor spool up
-    /*
-    LEDon(GREEN);
-    for (demoi=0; demoi<=1; demoi++){
-        for (demoj=1; demoj<=4; demoj++){
-            if (demoi==0){//left
-                LeftDuty( 10*demoj,DC_freq,FORWARD);
-            }else{//right
-                LPWM=calc(LPWM, 0.0, LEFT);
-                LeftDuty((int)LPWM,DC_freq,FORWARD);
-                RightDuty(10*demoj,DC_freq,FORWARD);
-            }
-            delay(300);
-        }
-    }
-    */
-        
-        
-    
+    //Stop 
     LEDon(WHITE);
     for(;;){
         LPWM=calc(LPWM, 0.0, LEFT);
@@ -294,10 +267,6 @@ void demo(void){
         RightDuty((int)RPWM,DC_freq);
     }
 }
-
-
-
-
 
 /* 
 Calculates distance between user and cart.
@@ -317,21 +286,12 @@ void distanceCalc(void){
     
     
     
-    
-    
-    
     //Ultrasonic
     distance=getUltrasonic();
     
     sprintf(c,"Distance: %g inches",distance);
     put(c);
     put("\r\n");
-        
-   
-    
-    
-    
-    
     
     //linear calc
     if(distance < minDistance){
@@ -349,7 +309,6 @@ Calculates angle between user and current path of cart.
 Angle range is [0,359], with 0 being directly in front
 */
 void turnCalc(void){
-    int angle = 0.0f;
     const int minAngle = 5.0f;
     
     //TODO angle calculations
@@ -469,7 +428,7 @@ Initializes all required modules
 void initialize(void){
     // Initialize UART
     uart0_init();    //Terminal 
-    uart2_init();   //arduino comms
+    uart2_init();   //arduino comm
     
     // Initialize the FlexTimer
     InitPWM();
@@ -480,4 +439,5 @@ void initialize(void){
     init_LEDS();
     if(BLUETOOTH){init_BT();} //Initialize the bluetooth controller
     init_ultrasonic();
+    initGPS();
 }
