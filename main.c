@@ -132,6 +132,8 @@ int direction=0;
 //latitude, longitude
 float location[2]={0.0f,0.0f};
 
+int control[10];
+
 
 /*
 Limit n to the lower and upper bounds only. 
@@ -441,5 +443,5 @@ void initialize(void){
     init_LEDS();
     if(BLUETOOTH){init_BT();} //Initialize the bluetooth controller
     init_ultrasonic();
-    init_GPS();
+    initGPS();
 }
