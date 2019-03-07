@@ -1,0 +1,136 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXFileReference section */
+		D3BE0BE1222EC6B900FEDFB1 /* NXP.uvprojx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = NXP.uvprojx; path = ../NXP.uvprojx; sourceTree = "<group>"; };
+		D3BE0BE2222EC6B900FEDFB1 /* NXP.uvguix.rxc1028 */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = NXP.uvguix.rxc1028; path = ../NXP.uvguix.rxc1028; sourceTree = "<group>"; };
+		D3BE0BE3222EC6B900FEDFB1 /* uart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = uart.h; path = ../uart.h; sourceTree = "<group>"; };
+		D3BE0BE4222EC6B900FEDFB1 /* ultrasonic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ultrasonic.h; path = ../ultrasonic.h; sourceTree = "<group>"; };
+		D3BE0BE5222EC6B900FEDFB1 /* isr.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = isr.c; path = ../isr.c; sourceTree = "<group>"; };
+		D3BE0BE6222EC6B900FEDFB1 /* camera_FTM_blank.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = camera_FTM_blank.c; path = ../camera_FTM_blank.c; sourceTree = "<group>"; };
+		D3BE0BE7222EC6BA00FEDFB1 /* FRDMK64FUG.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = FRDMK64FUG.pdf; path = ../FRDMK64FUG.pdf; sourceTree = "<group>"; };
+		D3BE0BE8222EC6BA00FEDFB1 /* K64.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = K64.jpg; path = ../K64.jpg; sourceTree = "<group>"; };
+		D3BE0BE9222EC6BA00FEDFB1 /* isr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = isr.h; path = ../isr.h; sourceTree = "<group>"; };
+		D3BE0BEA222EC6BA00FEDFB1 /* XSFL_Prod_UG.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = XSFL_Prod_UG.pdf; path = ../XSFL_Prod_UG.pdf; sourceTree = "<group>"; };
+		D3BE0BEB222EC6BA00FEDFB1 /* camera_grabber.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; name = camera_grabber.py; path = ../camera_grabber.py; sourceTree = "<group>"; };
+		D3BE0BEC222EC6BA00FEDFB1 /* pwm.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = pwm.c; path = ../pwm.c; sourceTree = "<group>"; };
+		D3BE0BED222EC6BA00FEDFB1 /* K64f manual.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = "K64f manual.pdf"; path = "../K64f manual.pdf"; sourceTree = "<group>"; };
+		D3BE0BEE222EC6BA00FEDFB1 /* Listings */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Listings; path = ../Listings; sourceTree = "<group>"; };
+		D3BE0BEF222EC6BA00FEDFB1 /* i2c.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = i2c.c; path = ../i2c.c; sourceTree = "<group>"; };
+		D3BE0BF0222EC6BA00FEDFB1 /* inits.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = inits.h; path = ../inits.h; sourceTree = "<group>"; };
+		D3BE0BF1222EC6BA00FEDFB1 /* NXP.uvoptx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = NXP.uvoptx; path = ../NXP.uvoptx; sourceTree = "<group>"; };
+		D3BE0BF2222EC6BA00FEDFB1 /* ultrasonic.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = ultrasonic.c; path = ../ultrasonic.c; sourceTree = "<group>"; };
+		D3BE0BF3222EC6BA00FEDFB1 /* LEDS.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = LEDS.c; path = ../LEDS.c; sourceTree = "<group>"; };
+		D3BE0BF4222EC6BA00FEDFB1 /* NXP.uvguix.Richard */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = NXP.uvguix.Richard; path = ../NXP.uvguix.Richard; sourceTree = "<group>"; };
+		D3BE0BF5222EC6BA00FEDFB1 /* pwm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = pwm.h; path = ../pwm.h; sourceTree = "<group>"; };
+		D3BE0BF6222EC6BA00FEDFB1 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = main.c; path = ../main.c; sourceTree = "<group>"; };
+		D3BE0BF7222EC6BA00FEDFB1 /* LEDS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LEDS.h; path = ../LEDS.h; sourceTree = "<group>"; };
+		D3BE0BF8222EC6BA00FEDFB1 /* Objects */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Objects; path = ../Objects; sourceTree = "<group>"; };
+		D3BE0BF9222EC6BA00FEDFB1 /* Bluetooth.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = Bluetooth.c; path = ../Bluetooth.c; sourceTree = "<group>"; };
+		D3BE0BFA222EC6BA00FEDFB1 /* Bluetooth.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Bluetooth.h; path = ../Bluetooth.h; sourceTree = "<group>"; };
+		D3BE0BFB222EC6BA00FEDFB1 /* inits.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = inits.c; path = ../inits.c; sourceTree = "<group>"; };
+		D3BE0BFC222EC6BA00FEDFB1 /* plot_cams.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = plot_cams.m; path = ../plot_cams.m; sourceTree = "<group>"; };
+		D3BE0BFD222EC6BA00FEDFB1 /* i2c.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = i2c.h; path = ../i2c.h; sourceTree = "<group>"; };
+		D3BE0BFE222EC6BB00FEDFB1 /* camera.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = camera.h; path = ../camera.h; sourceTree = "<group>"; };
+		D3BE0BFF222EC6BB00FEDFB1 /* MK64F12.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MK64F12.h; path = ../MK64F12.h; sourceTree = "<group>"; };
+		D3BE0C01222EC6BB00FEDFB1 /* uart.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = uart.c; path = ../uart.c; sourceTree = "<group>"; };
+		D3BE0C02222EC71100FEDFB1 /* RTE */ = {isa = PBXFileReference; lastKnownFileType = folder; name = RTE; path = ../RTE; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		D3BE0BDA222EC69A00FEDFB1 = {
+			isa = PBXGroup;
+			children = (
+				D3BE0BEE222EC6BA00FEDFB1 /* Listings */,
+				D3BE0BF8222EC6BA00FEDFB1 /* Objects */,
+				D3BE0C02222EC71100FEDFB1 /* RTE */,
+				D3BE0BF9222EC6BA00FEDFB1 /* Bluetooth.c */,
+				D3BE0BFA222EC6BA00FEDFB1 /* Bluetooth.h */,
+				D3BE0BE6222EC6B900FEDFB1 /* camera_FTM_blank.c */,
+				D3BE0BEB222EC6BA00FEDFB1 /* camera_grabber.py */,
+				D3BE0BFE222EC6BB00FEDFB1 /* camera.h */,
+				D3BE0BE7222EC6BA00FEDFB1 /* FRDMK64FUG.pdf */,
+				D3BE0BEF222EC6BA00FEDFB1 /* i2c.c */,
+				D3BE0BFD222EC6BA00FEDFB1 /* i2c.h */,
+				D3BE0BFB222EC6BA00FEDFB1 /* inits.c */,
+				D3BE0BF0222EC6BA00FEDFB1 /* inits.h */,
+				D3BE0BE5222EC6B900FEDFB1 /* isr.c */,
+				D3BE0BE9222EC6BA00FEDFB1 /* isr.h */,
+				D3BE0BE8222EC6BA00FEDFB1 /* K64.jpg */,
+				D3BE0BED222EC6BA00FEDFB1 /* K64f manual.pdf */,
+				D3BE0BF3222EC6BA00FEDFB1 /* LEDS.c */,
+				D3BE0BF7222EC6BA00FEDFB1 /* LEDS.h */,
+				D3BE0BF6222EC6BA00FEDFB1 /* main.c */,
+				D3BE0BFF222EC6BB00FEDFB1 /* MK64F12.h */,
+				D3BE0BF4222EC6BA00FEDFB1 /* NXP.uvguix.Richard */,
+				D3BE0BE2222EC6B900FEDFB1 /* NXP.uvguix.rxc1028 */,
+				D3BE0BF1222EC6BA00FEDFB1 /* NXP.uvoptx */,
+				D3BE0BE1222EC6B900FEDFB1 /* NXP.uvprojx */,
+				D3BE0BFC222EC6BA00FEDFB1 /* plot_cams.m */,
+				D3BE0BEC222EC6BA00FEDFB1 /* pwm.c */,
+				D3BE0BF5222EC6BA00FEDFB1 /* pwm.h */,
+				D3BE0C01222EC6BB00FEDFB1 /* uart.c */,
+				D3BE0BE3222EC6B900FEDFB1 /* uart.h */,
+				D3BE0BF2222EC6BA00FEDFB1 /* ultrasonic.c */,
+				D3BE0BE4222EC6B900FEDFB1 /* ultrasonic.h */,
+				D3BE0BEA222EC6BA00FEDFB1 /* XSFL_Prod_UG.pdf */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXProject section */
+		D3BE0BDB222EC69A00FEDFB1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1010;
+			};
+			buildConfigurationList = D3BE0BDE222EC69A00FEDFB1 /* Build configuration list for PBXProject "AutoCaddy" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = D3BE0BDA222EC69A00FEDFB1;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		D3BE0BDF222EC69A00FEDFB1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		D3BE0BE0222EC69A00FEDFB1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D3BE0BDE222EC69A00FEDFB1 /* Build configuration list for PBXProject "AutoCaddy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D3BE0BDF222EC69A00FEDFB1 /* Debug */,
+				D3BE0BE0222EC69A00FEDFB1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D3BE0BDB222EC69A00FEDFB1 /* Project object */;
+}
