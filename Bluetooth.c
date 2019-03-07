@@ -1,11 +1,11 @@
 #include "stdio.h"
 #include <math.h>
 #include <stdlib.h>
-#include "isr.h"
 #include "MK64F12.h"
 #include "uart.h"
 #include "LEDS.h"
-#include "inits.h"
+#include "Bluetooth.h"
+
 
 // Default System clock value
 // period = 1/20485760  = 4.8814395e-8
@@ -49,8 +49,10 @@ extern float KP;
 extern float KI;
 extern float KD;
 
-int controlIndex = -1;
+extern int manualControl;
 
+int controlIndex = -1;
+extern float angle;
 /*
 Initialize UART3 on pins PTB10 and PTB 11. Used to transmit
 and recieve control data over the HC-06 bluetooth slave module.
@@ -146,72 +148,90 @@ void pollGPSRx(void) {
 Gets input from bluetooth.
 Styles:
     0 == stops car
-    1 == reset to testing speeds
-    2 == reset to normal speeds
-    3 == increase straight speeds by 5.0f
-    4 == decrease straight speeds by 5.0f
-    5 == increase turning speeds by 5.0f
-    6 == decrease turning speeds by 5.0f
-    7PX.XXIY.YYDZ.ZZ == KP=X.XX, KI=Y.YY, KD=Z.ZZ
+    1 == reset to normal speeds
+    2 == manual control
+    3 == ready
+    4 == speed
+    5 == turn angle
+
+    
 */
 //TODO
 //have it send stuff back? (Say what it did)
 void UART3_RX_TX_IRQHandler(void){
-    uint8_t temp;
-    char str[100];
-    int temp2 = 0;
+    uint8_t ctrl;
+    char get_str[254]={0};
+    float f;
+    
     UART3_S1; //clears interrupt
-    temp = UART3_D;
-    temp2 = temp;
+    ctrl = UART3_D;
     LEDon(YELLOW);
-    if(temp2 >= 0 && temp2 <= 14){
-        if(temp2 == 0){//stop car
+    if(ctrl >= 0 && ctrl <= 14){
+        //Disable interrupts, start polling
+        UART3_C2 &= ~UART_C2_RIE_MASK;
+        
+        if(ctrl == 0){//stop car
             LEFT_DESIRED = 0.0f;
             RIGHT_DESIRED = 0.0f;
             manualDelta[0] = 0.0f;
             manualDelta[1] = 0.0f;
-        }else if(temp2 == 1){//testing speed
-            KP = 0.45;
-            KI = 0.15;
-            KD = 0.25;
-            RIGHT_DESIRED = 25.0f;
-            LEFT_DESIRED = 25.0f;
-        }else if(temp2 == 2){ //normal speed
+        }else if(ctrl == 1){ //normal speed
             normalSet();
-        }else if(temp2 == 3){//+5 straight
-            manualDelta[0] += 5.0f;
-            manualDelta[1] += 5.0f;
-        }else if(temp2 == 4){//-5 straight
-            manualDelta[0] -= 5.0f;
-            manualDelta[1] -= 5.0f;
-        }else if(temp2 == 5){//+5 turn left
-            manualDelta[0] += 5.0f;
-        }else if(temp2 == 6){//-5 turn left
-            manualDelta[0] -= 5.0f;
-        }else if(temp2 == 7){
+        }else if(ctrl == 2){//manual control
+            if(manualControl==0){
+                manualControl=1;
+            }
+            else{
+                manualControl=0;
+                manualDelta[0]=0.0f;
+                manualDelta[1]=0.0f;
+            }
+        }else if(ctrl == 3) { //ready
             ready = 1;
-        }else if(temp2 == 8){
-            KP -= 0.05f;
-        }else if(temp2 == 9){
-            KP += 0.05f;
-        }else if(temp2 == 10){
-            KI -= 0.05f;
-        }else if(temp2 == 11){
-            KI += 0.05f;
-        }else if(temp2 == 12){
-            KD -= 0.05f;
-        }else if(temp2 == 13){
-            KD += 0.05f;
-        }else if(temp2 == 14){//+5 turn right
-            manualDelta[1] += 5.0f;
-        }else if(temp2 == 15) {//-5 turn right
-            manualDelta[1] -= 5.0f;
-        }else if(temp2 == 7) {
-            ready = 1;
+        }else if(ctrl==4){ //speed
+            bt_get(get_str);
+            f = (float)atof(get_str);
+            manualDelta[0] = f;
+            manualDelta[1] = f;
+        }else if(ctrl == 5){//angle
+            bt_get(get_str);
+            angle = (float)atof(get_str);            
         }
-        return;
-            
     }
-    
+    //Re-enable interrupts
+    UART3_C2 |= UART_C2_RIE_MASK;
     return;
 }
+
+
+uint8_t bt_getchar(void){
+    while(!(UART3_S1 & UART_S1_RDRF_MASK));
+    return UART3_D;
+}
+
+void bt_get(char *ptr_str){
+  int lcv;
+  uint8_t cu;
+  lcv=0;
+  while(lcv < 254){
+    cu = bt_getchar();
+    if(cu == 0){ //if entered character is character return
+      return;
+    }
+    uart_putchar(cu);
+		ptr_str[lcv] = cu;
+    lcv++;
+  }
+  return;
+}
+
+
+
+
+
+
+
+
+
+
+

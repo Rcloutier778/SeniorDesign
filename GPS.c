@@ -9,17 +9,16 @@
 #define BAUD_RATE 9600      //default baud rate 
 #define SYS_CLOCK 20485760 //default system clock (see DEFAULT_SYSTEM_CLOCK  in system_MK64F12.c)
 
-
 /*
 Send inerrupt to bluetooth, get gps from that
 Send interrupt to arduino, get gps from that
 Calc distance using hypotenous
 Calc angle 
 
-TODO: Don't calc distance or angle, average it with camera and ultrasonic?
+TODO: Don't calc distance or angle, average it with camera and ultrasonic.
 */
 void getGPS(void){
-    
+
     //Get GPS from Bluetooth  -- brian
     //TODO
     

@@ -122,6 +122,7 @@ float RPWM=0.0; //PWM of right wheel
 
 //Manual PWM delta. Controlled by bluetooth to manually boost/retard motors
 float manualDelta[2] = {0.0,0.0};
+int manualControl=0;
 
 int ready=0;
 float angle = 0.0f;
@@ -149,7 +150,7 @@ Limit n to the lower and upper bounds only.
 
 
 int main(void){
-    char c[50];
+    char c[254]={0};
     //Run demo
     int demov=0;
     int demoi;
@@ -279,6 +280,10 @@ void distanceCalc(void){
     float desiredSpeed = 0.0f;
     char  c[255];
     
+    if(manualControl){
+        return;
+    }
+    
     //TODO distance calculations
     //GPS = long
     //Camera = med
@@ -310,6 +315,11 @@ Angle range is [0,359], with 0 being directly in front
 */
 void turnCalc(void){
     const int minAngle = 5.0f;
+    
+    if(manualControl){
+        turn(angle);
+        return;
+    }
     
     //TODO angle calculations
     
