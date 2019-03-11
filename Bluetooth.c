@@ -161,11 +161,15 @@ Styles:
 void UART3_RX_TX_IRQHandler(void){
     uint8_t ctrl;
     char get_str[254]={0};
+    char  c[255];
     float f;
     
     UART3_S1; //clears interrupt
     ctrl = UART3_D;
-    LEDon(YELLOW);
+    //LEDon(YELLOW);
+    //sprintf(c,"Command: %i",ctrl);
+    //put(c);
+    //put("\r\n");
     if(ctrl >= 0 && ctrl <= 14){
         //Disable interrupts, start polling
         UART3_C2 &= ~UART_C2_RIE_MASK;
@@ -175,6 +179,7 @@ void UART3_RX_TX_IRQHandler(void){
             RIGHT_DESIRED = 0.0f;
             manualDelta[0] = 0.0f;
             manualDelta[1] = 0.0f;
+            ready=0;
         }else if(ctrl == 1){ //normal speed
             normalSet();
         }else if(ctrl == 2){//manual control
@@ -183,19 +188,23 @@ void UART3_RX_TX_IRQHandler(void){
             }
             else{
                 manualControl=0;
-                manualDelta[0]=0.0f;
-                manualDelta[1]=0.0f;
             }
+            manualDelta[0]=0.0f;
+            manualDelta[1]=0.0f;
         }else if(ctrl == 3) { //ready
             ready = 1;
         }else if(ctrl==4){ //speed
             bt_get(get_str);
+            //put(get_str);
+            //put("\r\n");
             f = (float)atof(get_str);
             manualDelta[0] = f;
             manualDelta[1] = f;
         }else if(ctrl == 5){//angle
             bt_get(get_str);
-            angle = (float)atof(get_str);            
+            //put(get_str);
+            //put("\r\n");
+            angle = (int)(float)atof(get_str);            
         }
     }
     //Re-enable interrupts
@@ -218,8 +227,7 @@ void bt_get(char *ptr_str){
     if(cu == 0){ //if entered character is character return
       return;
     }
-    uart_putchar(cu);
-		ptr_str[lcv] = cu;
+    ptr_str[lcv] = cu;
     lcv++;
   }
   return;
