@@ -22,44 +22,15 @@ Dialog DLL:      TCM.DLL V1.14.14.0
  
 <h2>Project:</h2>
 F:\Senior Design\Code\NXP.uvprojx
-Project File Date:  03/06/2019
+Project File Date:  03/08/2019
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 3 (build 300)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
-Rebuild target 'Target 1'
-compiling main.c...
-main.c(49): warning:  #1295-D: Deprecated declaration en_interrupts - give arg types
-  void en_interrupts();
-main.c(153): warning:  #177-D: variable "c" was declared but never referenced
-      char c[254]={0};
-main.c(263): warning:  #111-D: statement is unreachable
-      LEDon(WHITE);
-main.c(216): warning:  #177-D: variable "demoi" was declared but never referenced
-      int demoi;
-main.c(217): warning:  #177-D: variable "demoj" was declared but never referenced
-      int demoj;
-main.c(306): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-          
-lip(desiredSpeed,0.0,UB); //TODO LB=-UB?
-main.c(326): warning:  #223-D: function "abs" declared implicitly
-      if (abs(angle) > minAngle) {
-main.c: 7 warnings, 0 errors
-compiling uart.c...
-compiling pwm.c...
-compiling inits.c...
-compiling isr.c...
+Build target 'Target 1'
 compiling Bluetooth.c...
-Bluetooth.c(169): warning:  #186-D: pointless comparison of unsigned integer with zero
-      if(ctrl >= 0 && ctrl <= 14){
-Bluetooth.c: 1 warning, 0 errors
-compiling LEDS.c...
-assembling startup_MK64F12.s...
-compiling ultrasonic.c...
-compiling GPS.c...
-compiling system_MK64F12.c...
 linking...
-Program Size: Code=14296 RO-data=1512 RW-data=136 ZI-data=2288  
-".\Objects\NXP.axf" - 0 Error(s), 8 Warning(s).
+Program Size: Code=15116 RO-data=1512 RW-data=136 ZI-data=2288  
+".\Objects\NXP.axf" - 0 Error(s), 0 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -85,9 +56,9 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE:5.0.0
 
    * Component: Keil::Device:Startup:1.0.0
-      Source file:   Device\Source\ARM\startup_MK64F12.s
       Source file:   Device\Source\system_MK64F12.c
-Build Time Elapsed:  00:00:06
+      Source file:   Device\Source\ARM\startup_MK64F12.s
+Build Time Elapsed:  00:00:02
 </pre>
 </body>
 </html>

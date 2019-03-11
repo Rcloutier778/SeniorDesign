@@ -66,6 +66,7 @@ Clears the interrupt flag and toggles the ready switch
 void PORTC_IRQHandler(void){ //For switch 2
     PORTC_ISFR = PORT_ISFR_ISF_MASK; //clear interrupt
     //ready=1;
+    ready=0;
     return;
 }
 
