@@ -161,12 +161,17 @@ Styles:
 //have it send stuff back? (Say what it did)
 void UART3_RX_TX_IRQHandler(void){
     uint8_t ctrl;
+<<<<<<< HEAD
     char get_str[1]={0};
+=======
+    char get_str[254]={0};
+>>>>>>> 0d7945a4d487aaad2faac3cc5a583da07914d467
     char  c[255];
     float f;
     
     UART3_S1; //clears interrupt
     ctrl = UART3_D;
+<<<<<<< HEAD
 
     //LEDon(YELLOW);
     if(ctrl > 0){
@@ -175,6 +180,13 @@ void UART3_RX_TX_IRQHandler(void){
     put("\r\n");
     }
     if(ctrl > 0 && ctrl <= 14){
+=======
+    //LEDon(YELLOW);
+    //sprintf(c,"Command: %i",ctrl);
+    //put(c);
+    //put("\r\n");
+    if(ctrl >= 0 && ctrl <= 14){
+>>>>>>> 0d7945a4d487aaad2faac3cc5a583da07914d467
         //Disable interrupts, start polling
         UART3_C2 &= ~UART_C2_RIE_MASK;
         if(ready ==0 && ctrl != 4){
@@ -187,9 +199,14 @@ void UART3_RX_TX_IRQHandler(void){
             RIGHT_DESIRED = 0.0f;
             manualDelta[0] = 0.0f;
             manualDelta[1] = 0.0f;
+<<<<<<< HEAD
             manualControl=0;
             ready=0;
         }else if(ctrl == 2){ //normal speed
+=======
+            ready=0;
+        }else if(ctrl == 1){ //normal speed
+>>>>>>> 0d7945a4d487aaad2faac3cc5a583da07914d467
             normalSet();
         }else if(ctrl == 3){//manual control
             if(manualControl==0){
@@ -198,16 +215,28 @@ void UART3_RX_TX_IRQHandler(void){
             }
             else{
                 manualControl=0;
+<<<<<<< HEAD
                 LEDon(GREEN);
             }
             manualDelta[0]=0.0f;
             manualDelta[1]=0.0f;
         }else if(ctrl == 4) { //ready
+=======
+            }
+            manualDelta[0]=0.0f;
+            manualDelta[1]=0.0f;
+        }else if(ctrl == 3) { //ready
+>>>>>>> 0d7945a4d487aaad2faac3cc5a583da07914d467
             ready = 1;
         }else if(ctrl==5){ //speed
             bt_get(get_str);
+<<<<<<< HEAD
             put(get_str);
             put("\r\n");
+=======
+            //put(get_str);
+            //put("\r\n");
+>>>>>>> 0d7945a4d487aaad2faac3cc5a583da07914d467
             f = (float)atof(get_str);
             manualDelta[0] = f;
             manualDelta[1] = f;
@@ -215,7 +244,11 @@ void UART3_RX_TX_IRQHandler(void){
             bt_get(get_str);
             //put(get_str);
             //put("\r\n");
+<<<<<<< HEAD
             angle = (int)atoi(get_str);            
+=======
+            angle = (int)(float)atof(get_str);            
+>>>>>>> 0d7945a4d487aaad2faac3cc5a583da07914d467
         }
     }
     //Re-enable interrupts
