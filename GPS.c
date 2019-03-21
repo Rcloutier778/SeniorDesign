@@ -89,3 +89,44 @@ ubd = (uint16_t)((SYS_CLOCK)/(BAUD_RATE * 16));
   UART2_C2 |= (UART_C2_TE_MASK | UART_C2_RE_MASK);
     
 }
+
+uint8_t uart2_getchar()
+{
+/* Wait until there is space for more data in the receiver buffer*/
+    while(!(UART2_S1 & UART_S1_RDRF_MASK));
+    return UART2_D;
+	/* Return the 8-bit data from the receiver */
+}
+
+void uart2_putchar(char ch)
+{
+/* Wait until transmission of previous bit is complete */
+  //wait until 1
+  while(!(UART0_S1 & UART_S1_TDRE_MASK));// != UART_S1_TDRE_MASK){}
+	/* Send the character */
+  UART2_D = (uint8_t)ch;
+}
+
+void uart2_put(char *ptr_str){
+	/*use putchar to print string*/
+  while(*ptr_str){
+		uart_putchar(*ptr_str++);
+  }
+}
+
+void uart2_get(char *ptr_str){
+  int lcv;
+  uint8_t cu;
+  lcv=0;
+  while(lcv < 254){
+    cu = uart_getchar();
+    if(cu == 13){ //if entered character is character return
+      return;
+    }
+    uart_putchar(cu);
+	ptr_str[lcv] = cu;
+    lcv++;
+  }
+  return;
+}
+

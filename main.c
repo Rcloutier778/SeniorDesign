@@ -126,11 +126,7 @@ float manualDelta[2] = {0.0,0.0};
 int manualControl=0;
 
 int ready=0;
-<<<<<<< HEAD
 int angle = 0;
-=======
-float angle = 0.0f;
->>>>>>> 0d7945a4d487aaad2faac3cc5a583da07914d467
 
 //[0,359], 0==North, 90==East, 180==South, 270==West
 int direction=0;
@@ -224,20 +220,32 @@ Used to spool up motors
 void demo(void){
     int demoi;
     int demoj;
-    char c[255];
-
+    char k64[255];
+    char from_ard[255];
+    
+    
+    put("Sending \"Hello arduino uno\"\r\n");
+    uart2_put("Hello arduino uno\r\n");
+    uart2_get(from_ard);
+    put("Got: ");
+    put(from_ard);
+    
+    
+    
+    
+    /*
     for(;;){
         distanceCalc();
         LPWM=calc(LPWM, LEFT_DESIRED, LEFT);
         RPWM=calc(RPWM, RIGHT_DESIRED, RIGHT);
-        /*
+        
         sprintf(c,"LPWM: %g",LPWM);
         put(c);
         put("\r\n");
         sprintf(c,"RPWM: %g",RPWM);
         put(c);
         put("\r\n");
-        */
+        
         LeftDuty((int)LPWM,DC_freq);
         RightDuty((int)RPWM,DC_freq);
         delay(100);
@@ -251,6 +259,8 @@ void demo(void){
         RPWM=calc(RPWM, 0.0, RIGHT);
         RightDuty((int)RPWM,DC_freq);
     }
+    */
+    
 }
 
 /* 
@@ -337,11 +347,7 @@ void turn(int angle){
     if(angle > 0){ //Right turn
         LEDon(RED);
         if (angle <= revBrakeAngle){
-<<<<<<< HEAD
             RIGHT_DESIRED = (LEFT_DESIRED*(revBrakeAngle-angle))/revBrakeAngle;
-=======
-            RIGHT_DESIRED = (LEFT_DESIRED*angle)/revBrakeAngle;
->>>>>>> 0d7945a4d487aaad2faac3cc5a583da07914d467
         }else{ //reverse braking
             RIGHT_DESIRED = -LEFT_DESIRED*(angle-revBrakeAngle)/(maxAngle-revBrakeAngle);
         }
@@ -349,11 +355,7 @@ void turn(int angle){
     }else if(angle < 0){ //Left
         LEDon(BLUE);
         if (abs(angle) <= revBrakeAngle){ 
-<<<<<<< HEAD
             LEFT_DESIRED = (RIGHT_DESIRED*(revBrakeAngle-abs(angle)))/revBrakeAngle;
-=======
-            LEFT_DESIRED = (RIGHT_DESIRED*abs(angle))/revBrakeAngle;
->>>>>>> 0d7945a4d487aaad2faac3cc5a583da07914d467
         }else{ //reverse braking
             LEFT_DESIRED = -RIGHT_DESIRED*(abs(angle)-revBrakeAngle)/(maxAngle-revBrakeAngle);
         }
@@ -376,22 +378,22 @@ void delay(int del){
 //Prints what the camera is seeing
 void printLine(void){
     char str[100];
-        if (debugcamdata) {
-            // Every 2 seconds
-            //if (capcnt >= (2/INTEGRATION_TIME)) {
-            if (capcnt >= (500)) {
-                // send the array over uart
-                sprintf(str,"%i\n\r",-1); // start value
+    if (debugcamdata) {
+        // Every 2 seconds
+        //if (capcnt >= (2/INTEGRATION_TIME)) {
+        if (capcnt >= (500)) {
+            // send the array over uart
+            sprintf(str,"%i\n\r",-1); // start value
+            put(str);
+            for (int i = 0; i < 127; i++) {
+                sprintf(str,"%i\n", linePtr[i]);
                 put(str);
-                for (int i = 0; i < 127; i++) {
-                    sprintf(str,"%i\n", linePtr[i]);
-                    put(str);
-                }
-                sprintf(str,"%i\n\r",-2); // end value
-                put(str);
-                capcnt = 0;
             }
+            sprintf(str,"%i\n\r",-2); // end value
+            put(str);
+            capcnt = 0;
         }
+    }
 }
 
 /*
