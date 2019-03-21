@@ -152,7 +152,7 @@ Limit n to the lower and upper bounds only.
 int main(void){
     char c[254]={0};
     //Run demo
-    int demov=0;
+    int demov=1;
 
     // Initialize everything
     initialize();
@@ -220,16 +220,18 @@ Used to spool up motors
 void demo(void){
     int demoi;
     int demoj;
+    char test;
     char k64[255];
     char from_ard[255];
     
     
-    put("Sending \"Hello arduino uno\"\r\n");
+    
+    for(;;){
     uart2_put("Hello arduino uno\r\n");
     uart2_get(from_ard);
-    put("Got: ");
     put(from_ard);
-    
+    put("\r\n");
+    }
     
     
     
@@ -345,7 +347,6 @@ void turn(int angle){
     const int revBrakeAngle=90;
     
     if(angle > 0){ //Right turn
-        LEDon(RED);
         if (angle <= revBrakeAngle){
             RIGHT_DESIRED = (LEFT_DESIRED*(revBrakeAngle-angle))/revBrakeAngle;
         }else{ //reverse braking
@@ -353,7 +354,6 @@ void turn(int angle){
         }
         clip(RIGHT_DESIRED,LB,UB);
     }else if(angle < 0){ //Left
-        LEDon(BLUE);
         if (abs(angle) <= revBrakeAngle){ 
             LEFT_DESIRED = (RIGHT_DESIRED*(revBrakeAngle-abs(angle)))/revBrakeAngle;
         }else{ //reverse braking

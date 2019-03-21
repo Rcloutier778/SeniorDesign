@@ -90,8 +90,7 @@ ubd = (uint16_t)((SYS_CLOCK)/(BAUD_RATE * 16));
     
 }
 
-uint8_t uart2_getchar()
-{
+uint8_t uart2_getchar(){
 /* Wait until there is space for more data in the receiver buffer*/
     while(!(UART2_S1 & UART_S1_RDRF_MASK));
     return UART2_D;
@@ -102,7 +101,7 @@ void uart2_putchar(char ch)
 {
 /* Wait until transmission of previous bit is complete */
   //wait until 1
-  while(!(UART0_S1 & UART_S1_TDRE_MASK));// != UART_S1_TDRE_MASK){}
+  while(!(UART2_S1 & UART_S1_TDRE_MASK));// != UART_S1_TDRE_MASK){}
 	/* Send the character */
   UART2_D = (uint8_t)ch;
 }
@@ -110,7 +109,7 @@ void uart2_putchar(char ch)
 void uart2_put(char *ptr_str){
 	/*use putchar to print string*/
   while(*ptr_str){
-		uart_putchar(*ptr_str++);
+        uart2_putchar(*ptr_str++);
   }
 }
 
@@ -119,11 +118,11 @@ void uart2_get(char *ptr_str){
   uint8_t cu;
   lcv=0;
   while(lcv < 254){
-    cu = uart_getchar();
+    cu = uart2_getchar();
     if(cu == 13){ //if entered character is character return
       return;
     }
-    uart_putchar(cu);
+    //uart_putchar(cu);
 	ptr_str[lcv] = cu;
     lcv++;
   }
