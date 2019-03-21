@@ -9,17 +9,16 @@
 #define BAUD_RATE 9600      //default baud rate 
 #define SYS_CLOCK 20485760 //default system clock (see DEFAULT_SYSTEM_CLOCK  in system_MK64F12.c)
 
-
 /*
 Send inerrupt to bluetooth, get gps from that
 Send interrupt to arduino, get gps from that
 Calc distance using hypotenous
 Calc angle 
 
-TODO: Don't calc distance or angle, average it with camera and ultrasonic?
+TODO: Don't calc distance or angle, average it with camera and ultrasonic.
 */
 void getGPS(void){
-    
+
     //Get GPS from Bluetooth  -- brian
     //TODO
     
@@ -90,3 +89,43 @@ ubd = (uint16_t)((SYS_CLOCK)/(BAUD_RATE * 16));
   UART2_C2 |= (UART_C2_TE_MASK | UART_C2_RE_MASK);
     
 }
+
+uint8_t uart2_getchar(){
+/* Wait until there is space for more data in the receiver buffer*/
+    while(!(UART2_S1 & UART_S1_RDRF_MASK));
+    return UART2_D;
+	/* Return the 8-bit data from the receiver */
+}
+
+void uart2_putchar(char ch)
+{
+/* Wait until transmission of previous bit is complete */
+  //wait until 1
+  while(!(UART2_S1 & UART_S1_TDRE_MASK));// != UART_S1_TDRE_MASK){}
+	/* Send the character */
+  UART2_D = (uint8_t)ch;
+}
+
+void uart2_put(char *ptr_str){
+	/*use putchar to print string*/
+  while(*ptr_str){
+        uart2_putchar(*ptr_str++);
+  }
+}
+
+void uart2_get(char *ptr_str){
+  int lcv;
+  uint8_t cu;
+  lcv=0;
+  while(lcv < 254){
+    cu = uart2_getchar();
+    if(cu == 13){ //if entered character is character return
+      return;
+    }
+    //uart_putchar(cu);
+	ptr_str[lcv] = cu;
+    lcv++;
+  }
+  return;
+}
+

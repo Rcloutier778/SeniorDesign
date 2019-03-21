@@ -459,6 +459,16 @@
               <FileType>5</FileType>
               <FilePath>.\ultrasonic.h</FilePath>
             </File>
+            <File>
+              <FileName>GPS.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\GPS.c</FilePath>
+            </File>
+            <File>
+              <FileName>GPS.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\GPS.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

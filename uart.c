@@ -16,7 +16,6 @@ void put(char *ptr_str);
 void uart_init(void);
 uint8_t uart_getchar(void);
 void uart_putchar(char ch);
-uint8_t get(void);
 
 void uart0_init(){
 //define variables for baud rate and baud rate fine adjust
@@ -95,25 +94,25 @@ void uart_putchar(char ch)
 
 void put(char *ptr_str){
 	/*use putchar to print string*/
-  while(*ptr_str)
+  while(*ptr_str){
 		uart_putchar(*ptr_str++);
+  }
 }
 
-uint8_t get(){
+void get(char *ptr_str){
   int lcv;
-  char ptr_str[254];
   uint8_t cu;
   lcv=0;
   while(lcv < 254){
     cu = uart_getchar();
     if(cu == 13){ //if entered character is character return
-      return *ptr_str;
+      return;
     }
     uart_putchar(cu);
-		ptr_str[lcv] = cu;
+	ptr_str[lcv] = cu;
     lcv++;
   }
-  return *ptr_str;
+  return;
 }
 
 
