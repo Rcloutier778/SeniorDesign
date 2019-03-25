@@ -35,6 +35,7 @@ void getGPS(double distance, double angle){
     uart2_putchar(',');
     snprintf(phoneChar,sizeof phoneChar, "%g", phoneGPS[1])
     uart2_put(phoneChar);
+    uart2_putchar(0);
     
     
     
