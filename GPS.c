@@ -17,22 +17,36 @@ Calc angle
 
 TODO: Don't calc distance or angle, average it with camera and ultrasonic.
 */
-void getGPS(void){
-
+void getGPS(double distance, double angle){
+    double phoneGPS[2]={0.0,0.0};
+    char phoneChar[64];
+    double cartGPS[2]={0.0,0.0};
+    
+    
     //Get GPS from Bluetooth  -- brian
     //TODO
     
     //Copy GPS interrupt and polling bluetooth code, use for mark
     
-}
-
-void initGPS(void){
+    
+    //Send (XX.XXX,YY.YYY) to arduino
+    snprintf(phoneChar,sizeof phoneChar, "%g", phoneGPS[0])
+    uart2_put(phoneChar);
+    uart2_putchar(',');
+    snprintf(phoneChar,sizeof phoneChar, "%g", phoneGPS[1])
+    uart2_put(phoneChar);
+    
+    
     
 }
 
 
+void initGPS(void){
 
-void uart2_init(){
+}
+
+
+void uart2_init(void){
 //define variables for baud rate and baud rate fine adjust
 uint16_t ubd, brfa;
 
