@@ -52,7 +52,10 @@ extern float KD;
 extern int manualControl;
 
 int controlIndex = -1;
-extern float angle;
+extern int angle;
+
+extern int VERBOSE;
+
 /*
 Initialize UART3 on pins PTB10 and PTB 11. Used to transmit
 and recieve control data over the HC-06 bluetooth slave module.
@@ -175,9 +178,11 @@ void UART3_RX_TX_IRQHandler(void){
         put("\r\n");
     }
     //LEDon(YELLOW);
-    //sprintf(c,"Command: %i",ctrl);
-    //put(c);
-    //put("\r\n");
+    if(VERBOSE){
+        sprintf(c,"Command: %i",ctrl);
+        put(c);
+        put("\r\n");
+    }
     if(ctrl >= 0 && ctrl <= 14){
         //Disable interrupts, start polling
         UART3_C2 &= ~UART_C2_RIE_MASK;

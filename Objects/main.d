@@ -15,6 +15,5 @@
 .\objects\main.o: Bluetooth.h
 .\objects\main.o: LEDS.h
 .\objects\main.o: ultrasonic.h
-.\objects\main.o: i2c.h
 .\objects\main.o: GPS.h
 .\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h

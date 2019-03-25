@@ -3,7 +3,6 @@
 
 void getGPS(double distance, double angle);
 void uart2_init(void);
-void initGPS(void);
 uint8_t uart2_getchar(void);
 void uart2_putchar(char ch);
 void uart2_get(char *ptr_str);

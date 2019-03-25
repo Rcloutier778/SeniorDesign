@@ -15,18 +15,17 @@
  *
  *    PTB9            - camera CLK    J2-20
  *    PTB23         - camera SI     J2-19
- *  ADC0_DP1(bottom left)     - camera AOut   J2-4
- *  3.3V      - camera Vdd
+ *    ADC0_DP1(bottom left)     - camera AOut   J2-4
  *    PTC3    reverse signal  Left
  *    PTC4    reverse signal  Right
  *    PTA1    pwm signal  Left
  *    PTA2    pwm signal  Right
  *    PTB11   UART3_RX (Red)
  *	  PTB10   UART3_TX (Blue)
- *	  PTD0		Ultrasonic echo
- *	  PTD1		Ultrasonic trigger
-      PTD2      UART2_RX  arduino
-      PTD3      UART2_TX  arduino
+ *	  PTD0	  Ultrasonic echo
+ *	  PTD1	  Ultrasonic trigger
+      PTD2    UART2_RX  arduino
+      PTD3    UART2_TX  arduino
  *
  * Author:  Richard Cloutier
  * Created:  11/20/17
@@ -42,7 +41,6 @@
 #include "Bluetooth.h"
 #include "LEDS.h"
 #include "ultrasonic.h"
-#include "i2c.h"
 #include "GPS.h"
 #include <stdlib.h>
 
@@ -63,44 +61,14 @@ const int BLUETOOTH=1;
 const int LEFT=0;
 const int RIGHT=1;
 const int MIDDLE=70;
+
 // Default System clock value
 // period = 1/20485760  = 4.8814395e-8
 #define DEFAULT_SYSTEM_CLOCK 20485760u 
-// Integration time (seconds)
-// Determines how high the camera values are
-// Don't exceed 100ms or the caps will saturate
-// Must be above 1.25 ms based on camera clk 
-//    (camera clk is the mod value set in FTM2)
+
 // default = .0075f
 #define INTEGRATION_TIME .0075f
 #define MAX_BUF_SZ 128
-
-// Pixel counter for camera logic
-// Starts at -2 so that the SI pulse occurs
-//        ADC reads start
-int pixcnt = -2;
-// clkval toggles with each FTM interrupt
-int clkval = 0;
-// data count
-int dataCount_buf = 0;
-int dataCount_line = 0;
-// stores the current array of camera data
-uint16_t line[MAX_BUF_SZ];
-uint16_t line2[MAX_BUF_SZ];
-// ptr to the buffer array of camera data
-uint16_t* bufferPtr=line;
-// ptr to the current array of camera data
-uint16_t* linePtr=NULL;
-
-// These variables are for streaming the camera
-//     data over UART
-int debugcamdata = 1;
-int capcnt = 0;
-char str[100];
-// ADC0VAL holds the current ADC value
-uint16_t ADC0VAL;
-
-int binline[128]; //binary smoothed line 
 
 //Set Kp,Ki,Kd values in normalSet function
 float KP; //60
@@ -125,7 +93,7 @@ float RPWM=0.0; //PWM of right wheel
 float manualDelta[2] = {0.0,0.0};
 int manualControl=0;
 
-int ready=0;
+int ready=0; 
 int angle = 0;
 double distance=0;
 
@@ -137,6 +105,7 @@ float location[2]={0.0f,0.0f};
 
 int control[10];
 
+int VERBOSE=0; //Print to uart0 (terminal)
 
 
 /*
@@ -186,25 +155,25 @@ int main(void){
             //turn calc
             turnCalc();
             
-            
-            sprintf(c,"Angle: %i",angle);
-            put(c);
-            put("\r\n");
+            if (VERBOSE){
+                sprintf(c,"Angle: %i",angle);
+                put(c);
+                put("\r\n");
+            }
             
             //set duty cycles
             LPWM=calc(LPWM, LEFT_DESIRED, LEFT);
             RPWM=calc(RPWM, RIGHT_DESIRED, RIGHT);
             
-            sprintf(c,"PWM: %g",LPWM);
-            put(c);
-            sprintf(c,"   %g",RPWM);
-            put(c);
-            put("\r\n");
+            if (VERBOSE){
+                sprintf(c,"PWM: %g",LPWM);
+                put(c);
+                sprintf(c,"   %g",RPWM);
+                put(c);
+                put("\r\n");
+            }
             
-            
-            
-            
-            
+          
             LeftDuty((int)LPWM,DC_freq);
             RightDuty((int)RPWM,DC_freq);
                 
@@ -217,7 +186,6 @@ int main(void){
 
 /*
 Demo code
-Used to spool up motors
 */
 void demo(void){
     int demoi;
@@ -296,11 +264,11 @@ void distanceCalc(void){
         }
     }
     
-    
-    //sprintf(c,"Distance: %g inches",distance);
-    //put(c);
-    //put("\r\n");
-    
+    if(VERBOSE){
+        sprintf(c,"Distance: %g inches",distance);
+        put(c);
+        put("\r\n");
+    }
     //linear calc
     if(distance < minDistance){
         desiredSpeed=0.0f;
@@ -325,7 +293,7 @@ void turnCalc(void){
         return;
     }
     
-    //TODO angle calculations
+    //TODO angle calculations for camera
     
     if (abs(angle) > minAngle) {
         /*
@@ -378,27 +346,6 @@ void delay(int del){
     int i;
     for (i=0; i<del*(DEFAULT_SYSTEM_CLOCK/1000); i++){
         // Do nothing
-    }
-}
-
-//Prints what the camera is seeing
-void printLine(void){
-    char str[100];
-    if (debugcamdata) {
-        // Every 2 seconds
-        //if (capcnt >= (2/INTEGRATION_TIME)) {
-        if (capcnt >= (500)) {
-            // send the array over uart
-            sprintf(str,"%i\n\r",-1); // start value
-            put(str);
-            for (int i = 0; i < 127; i++) {
-                sprintf(str,"%i\n", linePtr[i]);
-                put(str);
-            }
-            sprintf(str,"%i\n\r",-2); // end value
-            put(str);
-            capcnt = 0;
-        }
     }
 }
 
@@ -479,10 +426,7 @@ void initialize(void){
     InitPWM();
     
     init_GPIO(); // For CLK and SI output on GPIO
-    //init_FTM2(); // To generate CLK, SI, and trigger ADC
-    //init_ADC0();
     init_LEDS();
     if(BLUETOOTH){init_BT();} //Initialize the bluetooth controller
     init_ultrasonic();
-    initGPS();
 }

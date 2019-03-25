@@ -26,40 +26,24 @@ Project File Date:  03/25/2019
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 5 (build 528)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
-Rebuild target 'Target 1'
-compiling uart.c...
-compiling pwm.c...
-compiling main.c...
-main.c(223): warning:  #177-D: variable "demoi"  was declared but never referenced
-      int demoi;
-main.c(224): warning:  #177-D: variable "demoj"  was declared but never referenced
-      int demoj;
-main.c(225): warning:  #177-D: variable "test"  was declared but never referenced
-      char test;
-main.c(226): warning:  #177-D: variable "k64"  was declared but never referenced
-      char k64[255];
-main.c(280): warning:  #177-D: variable "c"  was declared but never referenced
-      char  c[255];
-main.c: 5 warnings, 0 errors
-compiling inits.c...
-compiling ultrasonic.c...
-compiling LEDS.c...
-compiling isr.c...
+Build target 'Target 1'
 compiling Bluetooth.c...
-Bluetooth.c(181): warning:  #186-D: pointless comparison of unsigned integer with zero
+Bluetooth.c(186): warning:  #186-D: pointless comparison of unsigned integer with zero
       if(ctrl >= 0 && ctrl <= 14){
 Bluetooth.c: 1 warning, 0 errors
-assembling startup_MK64F12.s...
-compiling system_MK64F12.c...
-compiling GPS.c...
-GPS.c(21): warning:  #550-D: parameter "distance"  was set but never used
-  void getGPS(double distance, double angle){
-GPS.c(21): warning:  #550-D: parameter "angle"  was set but never used
-  void getGPS(double distance, double angle){
-GPS.c: 2 warnings, 0 errors
+compiling main.c...
+main.c(191): warning:  #177-D: variable "demoi"  was declared but never referenced
+      int demoi;
+main.c(192): warning:  #177-D: variable "demoj"  was declared but never referenced
+      int demoj;
+main.c(193): warning:  #177-D: variable "test"  was declared but never referenced
+      char test;
+main.c(194): warning:  #177-D: variable "k64"  was declared but never referenced
+      char k64[255];
+main.c: 4 warnings, 0 errors
 linking...
-Program Size: Code=15752 RO-data=1548 RW-data=148 ZI-data=2284  
-".\Objects\NXP.axf" - 0 Error(s), 8 Warning(s).
+Program Size: Code=15480 RO-data=1548 RW-data=112 ZI-data=1120  
+".\Objects\NXP.axf" - 0 Error(s), 5 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -87,7 +71,7 @@ Package Vendor: Keil
       Source file:   Device\Source\system_MK64F12.c
 
    * Component: ARM::CMSIS:CORE:5.0.2
-Build Time Elapsed:  00:00:03
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>
