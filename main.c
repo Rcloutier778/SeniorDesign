@@ -127,6 +127,7 @@ int manualControl=0;
 
 int ready=0;
 int angle = 0;
+double distance=0;
 
 //[0,359], 0==North, 90==East, 180==South, 270==West
 int direction=0;
@@ -135,6 +136,7 @@ int direction=0;
 float location[2]={0.0f,0.0f};
 
 int control[10];
+
 
 
 /*
@@ -176,7 +178,7 @@ int main(void){
             if(!ready){
                 waitForReady();
             }
-            getGPS();
+            getGPS(distance, angle);
         
             //distance calc
             distanceCalc();
@@ -270,9 +272,10 @@ Calculates distance between user and cart.
 Adjusts desired speed accordingly
 */
 void distanceCalc(void){
-    float distance = 0.0f;
+    float distance = 0.0f; //GPS, camera, ultrasonic
     const float maxDistance=50.0f; //Max distance == max speed 
     const float minDistance=15.0f;
+    const int distRange[2] = {10, 3}; //Minimum distance ranges for distance calc methods 
     float desiredSpeed = 0.0f;
     char  c[255];
     
@@ -282,19 +285,21 @@ void distanceCalc(void){
         return;
     }
     
-    //TODO distance calculations
-    //GPS = long
-    //Camera = med
-    //Ultrasonic = med/short 
+    //GPS
+    getGPS(distance, angle);
+    if (distance < distRange[0]){
+        //Camera call here
+        
+        if (distance < distRange[0]){
+            //Ultrasonic
+            distance=getUltrasonic();
+        }
+    }
     
     
-    
-    //Ultrasonic
-    distance=getUltrasonic();
-    
-    sprintf(c,"Distance: %g inches",distance);
-    put(c);
-    put("\r\n");
+    //sprintf(c,"Distance: %g inches",distance);
+    //put(c);
+    //put("\r\n");
     
     //linear calc
     if(distance < minDistance){
@@ -306,6 +311,7 @@ void distanceCalc(void){
     LEFT_DESIRED=desiredSpeed;
     RIGHT_DESIRED=desiredSpeed;
 }
+
 
 /*
 Calculates angle between user and current path of cart. 

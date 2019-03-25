@@ -26,93 +26,40 @@ Project File Date:  03/25/2019
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 5 (build 528)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
-Build target 'Target 1'
-compiling main.c...
-GPS.h(4): error:  #40: expected an identifier
-  double[2] getGPS(void);
-GPS.h(4): error:  #65: expected a ";"
-  double[2] getGPS(void);
-main.c(179): warning:  #223-D: function "getGPS" declared implicitly
-              getGPS();
-main.c(221): warning:  #177-D: variable "demoi"  was declared but never referenced
-      int demoi;
-main.c(222): warning:  #177-D: variable "demoj"  was declared but never referenced
-      int demoj;
-main.c(223): warning:  #177-D: variable "test"  was declared but never referenced
-      char test;
-main.c(224): warning:  #177-D: variable "k64"  was declared but never referenced
-      char k64[255];
-main.c: 5 warnings, 2 errors
-compiling inits.c...
+Rebuild target 'Target 1'
 compiling uart.c...
 compiling pwm.c...
-compiling isr.c...
+compiling main.c...
+main.c(223): warning:  #177-D: variable "demoi"  was declared but never referenced
+      int demoi;
+main.c(224): warning:  #177-D: variable "demoj"  was declared but never referenced
+      int demoj;
+main.c(225): warning:  #177-D: variable "test"  was declared but never referenced
+      char test;
+main.c(226): warning:  #177-D: variable "k64"  was declared but never referenced
+      char k64[255];
+main.c(280): warning:  #177-D: variable "c"  was declared but never referenced
+      char  c[255];
+main.c: 5 warnings, 0 errors
+compiling inits.c...
 compiling ultrasonic.c...
 compiling LEDS.c...
+compiling isr.c...
 compiling Bluetooth.c...
 Bluetooth.c(181): warning:  #186-D: pointless comparison of unsigned integer with zero
       if(ctrl >= 0 && ctrl <= 14){
 Bluetooth.c: 1 warning, 0 errors
 assembling startup_MK64F12.s...
-compiling GPS.c...
-GPS.c(20): error:  #40: expected an identifier
-  double[2] getGPS(void){
-GPS.c(20): error:  #65: expected a ";"
-  double[2] getGPS(void){
-GPS.c(68): warning:  #12-D: parsing restarts here after previous syntax error
-  ubd = (uint16_t)((
-YS_CLOCK)/(
-AUD_RATE * 16));  
-GPS.c(71): error:  #18: expected a ")"
-    
-ART2_BDH &= ~UART_BDH_SBR_MASK;
-GPS.c(71): error:  #79: expected a type specifier
-    
-ART2_BDH &= ~UART_BDH_SBR_MASK;
-GPS.c(71): error:  #18: expected a ")"
-    
-ART2_BDH &= ~UART_BDH_SBR_MASK;
-GPS.c(71): error:  #260-D: explicit type is missing ("int" assumed)
-    
-ART2_BDH &= ~UART_BDH_SBR_MASK;
-GPS.c(71): error:  #101: "UART_Type" has already been declared in the current scope
-    
-ART2_BDH &= ~UART_BDH_SBR_MASK;
-GPS.c(71): error:  #141-D: unnamed prototyped parameters not allowed when body is present
-    
-ART2_BDH &= ~UART_BDH_SBR_MASK;
-GPS.c(71): error:  #130: expected a "{"
-    
-ART2_BDH &= ~UART_BDH_SBR_MASK;
-GPS.c(96): warning:  #12-D: parsing restarts here after previous syntax error
-  }
-GPS.c(100): error:  #29: expected an expression
-      while(!(
-ART2_S1 & UART_S1_RDRF_MASK));
-GPS.c(100): error:  #32: expression must have arithmetic type
-      while(!(
-ART2_S1 & UART_S1_RDRF_MASK));
-GPS.c(101): error:  #29: expected an expression
-      return 
-ART2_D;
-GPS.c(101): error:  #32: expression must have arithmetic type
-      return 
-ART2_D;
-GPS.c(109): error:  #29: expected an expression
-    while(!(
-ART2_S1 & UART_S1_TDRE_MASK));// != UART_S1_TDRE_MASK){}
-GPS.c(109): error:  #32: expression must have arithmetic type
-    while(!(
-ART2_S1 & UART_S1_TDRE_MASK));// != UART_S1_TDRE_MASK){}
-GPS.c(111): error:  #29: expected an expression
-    
-ART2_D = (uint8_t)ch;
-GPS.c(111): error:  #32: expression must have arithmetic type
-    
-ART2_D = (uint8_t)ch;
-GPS.c: 2 warnings, 17 errors
 compiling system_MK64F12.c...
-".\Objects\NXP.axf" - 19 Error(s), 8 Warning(s).
+compiling GPS.c...
+GPS.c(21): warning:  #550-D: parameter "distance"  was set but never used
+  void getGPS(double distance, double angle){
+GPS.c(21): warning:  #550-D: parameter "angle"  was set but never used
+  void getGPS(double distance, double angle){
+GPS.c: 2 warnings, 0 errors
+linking...
+Program Size: Code=15752 RO-data=1548 RW-data=148 ZI-data=2284  
+".\Objects\NXP.axf" - 0 Error(s), 8 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -136,12 +83,11 @@ Package Vendor: Keil
 <h2>Collection of Component Files used:</h2>
 
    * Component: Keil::Device:Startup:1.0.0
-      Source file:   Device\Source\system_MK64F12.c
       Source file:   Device\Source\ARM\startup_MK64F12.s
+      Source file:   Device\Source\system_MK64F12.c
 
    * Component: ARM::CMSIS:CORE:5.0.2
-Target not created.
-Build Time Elapsed:  00:00:04
+Build Time Elapsed:  00:00:03
 </pre>
 </body>
 </html>

@@ -5,6 +5,7 @@
 #include "uart.h"
 #include "LEDS.h"
 #include "stdio.h"
+#include "GPS.h"
 
 #define BAUD_RATE 9600      //default baud rate 
 #define SYS_CLOCK 20485760 //default system clock (see DEFAULT_SYSTEM_CLOCK  in system_MK64F12.c)
@@ -20,7 +21,7 @@ TODO: Don't calc distance or angle, average it with camera and ultrasonic.
 void getGPS(double distance, double angle){
     double phoneGPS[2]={0.0,0.0};
     char phoneChar[64];
-    double cartGPS[2]={0.0,0.0};
+    char cartChar[64];
     
     
     //Get GPS from Bluetooth  -- brian
@@ -30,13 +31,19 @@ void getGPS(double distance, double angle){
     
     
     //Send (XX.XXX,YY.YYY) to arduino
-    snprintf(phoneChar,sizeof phoneChar, "%g", phoneGPS[0])
+    snprintf(phoneChar,sizeof phoneChar, "%g", phoneGPS[0]);
     uart2_put(phoneChar);
     uart2_putchar(',');
-    snprintf(phoneChar,sizeof phoneChar, "%g", phoneGPS[1])
+    snprintf(phoneChar,sizeof phoneChar, "%g", phoneGPS[1]);
     uart2_put(phoneChar);
     uart2_putchar(0);
     
+    //Get distance and angle
+    uart2_get(cartChar);
+    distance = atof(cartChar);
+    
+    uart2_get(cartChar);
+    angle = atof(cartChar);
     
     
 }
