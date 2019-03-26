@@ -133,7 +133,7 @@ void uart2_get(char *ptr_str){
   lcv=0;
   while(lcv < 254){
     cu = uart2_getchar();
-    if(cu == 13){ //if entered character is character return
+    if(cu == 0){ //if entered character is character return
       return;
     }
     //uart_putchar(cu);
