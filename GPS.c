@@ -6,6 +6,7 @@
 #include "LEDS.h"
 #include "stdio.h"
 #include "GPS.h"
+#include "Bluetooth.h"
 
 #define BAUD_RATE 9600      //default baud rate 
 #define SYS_CLOCK 20485760 //default system clock (see DEFAULT_SYSTEM_CLOCK  in system_MK64F12.c)
@@ -25,7 +26,7 @@ void getGPS(double *distance, double *angle){
     
     
     //Get GPS from Bluetooth  -- brian //TODO
-    
+    get_BT_GPS_dev(&phoneGPS[0],&phoneGPS[1]);
     
     
     //Send (XX.XXX,YY.YYY) to arduino

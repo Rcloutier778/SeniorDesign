@@ -150,7 +150,6 @@ int main(void){
       if(!ready){
         waitForReady();
       }
-      getGPS(&distance, &angle);
       
       //distance calc
       distanceCalc();
@@ -191,50 +190,81 @@ int main(void){
  Demo code
  */
 void demo(void){
-  int demoi;
-  int demoj;
-  char test;
-  char k64[255];
-  char from_ard[255];
-  
-  
-  
-  for(;;){
-    uart2_put("Hello arduino uno\r\n");
-    uart2_get(from_ard);
-    put(from_ard);
-    put("\r\n");
-  }
-  
-  
-  
-  /*
-   for(;;){
-   distanceCalc();
-   LPWM=calc(LPWM, LEFT_DESIRED, LEFT);
-   RPWM=calc(RPWM, RIGHT_DESIRED, RIGHT);
-   
-   sprintf(c,"LPWM: %g",LPWM);
-   put(c);
-   put("\r\n");
-   sprintf(c,"RPWM: %g",RPWM);
-   put(c);
-   put("\r\n");
-   
-   LeftDuty((int)LPWM,DC_freq);
-   RightDuty((int)RPWM,DC_freq);
-   delay(100);
-   }
-   
-   //Stop
-   LEDon(WHITE);
-   for(;;){
-   LPWM=calc(LPWM, 0.0, LEFT);
-   LeftDuty((int)LPWM,DC_freq);
-   RPWM=calc(RPWM, 0.0, RIGHT);
-   RightDuty((int)RPWM,DC_freq);
-   }
-   */
+    int demoi;
+    int demoj;
+    char test;
+    char k64[255];
+    char from_ard[255];
+    double phoneGPS[2]={0.0,0.0}; //GPS coords from phone
+    char phoneChar[64];
+    char cartChar[64];
+    put("In demo\r\n");
+
+    for(;;){
+        phoneGPS[0]=45.123456;
+        phoneGPS[1]=-77.123456;
+
+        //Send (XX.XXX,YY.YYY) to arduino
+        LEDon(WHITE);
+        snprintf(phoneChar,sizeof phoneChar, "%g", phoneGPS[0]);
+        uart2_put(phoneChar);
+        uart2_putchar(',');
+        LEDon(MAGENTA);
+        snprintf(phoneChar,sizeof phoneChar, "%g", phoneGPS[1]);
+        uart2_put(phoneChar);
+        uart2_putchar(0);
+
+        LEDon(YELLOW);
+        //Get distance and angle
+        uart2_get(cartChar);
+        distance = atof(cartChar);
+        
+        put("Got distance of: ");
+        put(cartChar);
+        put("\r\n");
+        
+        LEDon(RED);
+        uart2_get(cartChar);
+        angle = atof(cartChar);
+
+        put("Got angle of: ");
+        put(cartChar);
+        put("\r\n");
+        
+        LEDon(GREEN);
+        delay(1000);
+        
+        }
+      
+      
+      
+      /*
+       for(;;){
+       distanceCalc();
+       LPWM=calc(LPWM, LEFT_DESIRED, LEFT);
+       RPWM=calc(RPWM, RIGHT_DESIRED, RIGHT);
+       
+       sprintf(c,"LPWM: %g",LPWM);
+       put(c);
+       put("\r\n");
+       sprintf(c,"RPWM: %g",RPWM);
+       put(c);
+       put("\r\n");
+       
+       LeftDuty((int)LPWM,DC_freq);
+       RightDuty((int)RPWM,DC_freq);
+       delay(100);
+       }
+       
+       //Stop
+       LEDon(WHITE);
+       for(;;){
+       LPWM=calc(LPWM, 0.0, LEFT);
+       LeftDuty((int)LPWM,DC_freq);
+       RPWM=calc(RPWM, 0.0, RIGHT);
+       RightDuty((int)RPWM,DC_freq);
+       }
+       */
   
 }
 

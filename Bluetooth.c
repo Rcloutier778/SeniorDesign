@@ -61,23 +61,27 @@ char sigStartBuffer[] = "00";
 char sigStopBuffer[] = "00";
 char dataNameBuffer[] = "00";
 
+char SIGNAL[] = "AC";
+char SPEED[]  = "Sp";
+char TURN[]   = "Tu";
+char ACCELX[] = "Ax";
+char ACCELY[] = "Ay";
+char ACCELZ[] = "Az";
+char GPSX[]   = "Gx";
+char GPSY[]   = "Gy";
+char ATN[]    = "Au";
+char SENS[]   = "Se";
 
-char SIGNAL[2] = "AC";
-char SPEED[2]  = "Sp";
-char TURN[2]   = "Tu";
-char ACCELX[2] = "Ax";
-char ACCELY[2] = "Ay";
-char ACCELZ[2] = "Az";
-char GPSX[2]   = "Gx";
-char GPSY[2]   = "Gy";
-char ATN[2]    = "Au";
-char SENS[2]   = "Se";
 const int SZ_BOOL = 1, SZ_SHORT = 3, SZ_FLOAT = 4, SZ_DOUBLE = 8;
 int android_size[] = {0, SZ_SHORT, SZ_SHORT, SZ_FLOAT, SZ_FLOAT, SZ_FLOAT, SZ_DOUBLE, SZ_DOUBLE, SZ_BOOL, SZ_BOOL};
 const uint8_t ANDROID_DATA_ERR = (uint8_t) -9999;
 
+int gotGPSdata=0;
+int receiveGPSdata=0;
 
-
+extern void delay(int);
+float bt_lat;
+float bt_long;
 
 uint8_t *dataValueBuffer;
 
@@ -89,6 +93,11 @@ uint8_t *dataValueBuffer;
  */
 void init_BT(){
   uint16_t ubd, brfa;
+    
+  // Memory allocations
+  //data = malloc(sizeof(android_data));
+  //dataValueBuffer = malloc(sizeof(uint8_t) * SZ_DOUBLE);
+    
   SIM_SCGC4 |= SIM_SCGC4_UART3_MASK;
   SIM_SCGC5 |= SIM_SCGC5_PORTC_MASK;
   PORTB_PCR11 |= PORT_PCR_MUX(3); //BT TX
@@ -105,10 +114,19 @@ void init_BT(){
   UART3_C2 |= (UART_C2_TE_MASK | UART_C2_RE_MASK);
   NVIC_EnableIRQ(UART3_RX_TX_IRQn);
   
-  // Memory allocations
-  data = malloc(sizeof(android_data));
-  dataValueBuffer = malloc(sizeof(uint8_t) * SZ_DOUBLE);
+  
 }
+
+void get_BT_GPS_dev(double *latitude, double *longitude){
+    receiveGPSdata=1;
+    while(gotGPSdata==0);
+    receiveGPSdata=0;
+    *latitude=bt_lat;
+    *longitude=bt_long;
+    gotGPSdata=0;
+    put("past gps bt");
+}
+
 
 /*
  * Simple cleanup for bt.
@@ -118,72 +136,6 @@ void delData() {
   free(dataValueBuffer);
 }
 
-/*
- Gets information input from Android device via bluetooth.
- Protocol:
- [Input Char][Input value]
- Known Inputs:
- SXXX == Speed = XXX, 0 <= XXX <= 100
- TX.XX == Turn = X.XX, -30 <= X.XX <= 30
- AxX.XXAyY.YYAzZ.ZZ = (Accelerometer) x = X.XX, y = Y.YY, z = Z.ZZ
- GxX.XXXXGyY.YYYY = (GPS Location) x = X.XXXX, y = Y.YYYY
- 
- */
-void UART3_RX_IRQHandler(void) {
-  /*
-   uint8_t val;
-   char name;
-   if(UART3_D >= '0' && UART3_D <= '9') {
-   val = UART3_D;
-   } else {
-   name = UART3_D;
-   }
-   if (controlIndex == -1) {
-   switch (name) {
-   case 'S':
-   controlIndex = 1;
-   break;
-   case 'T':
-   controlIndex = 2;
-   break;
-   case 'Ax':
-   controlIndex = 3;
-   break;
-   case 'Ay':
-   controlIndex = 4;
-   break;
-   case 'Az':
-   controlIndex = 5;
-   break;
-   case 'Gx':
-   controlIndex = 6;
-   break;
-   case 'Gy':
-   controlIndex = 7;
-   break;
-   default:
-   controlIndex = -1;
-   break;
-   }
-   } else {
-   control[controlIndex] = val;
-   controlIndex = -1;
-   }
-   */
-}
-
-void UART3_TX_IRQHandler(void) {
-  return;
-}
-
-void sendFloatTx(void) {
-  
-}
-
-
-void pollGPSRx(void) {
-  
-}
 
 /*
  Gets input from bluetooth.
@@ -202,7 +154,7 @@ void pollGPSRx(void) {
 //have it send stuff back? (Say what it did)
 void UART3_RX_TX_IRQHandler(void){
   uint8_t ctrl;
-  char get_str[254]={0};
+  char get_str[254];
   char  c[255];
   float f;
   
@@ -235,8 +187,6 @@ void UART3_RX_TX_IRQHandler(void){
       manualControl=0;
       ready=0;
     }else if(ctrl == 2){ //normal speed
-      ready=0;
-    }else if(ctrl == 1){ //normal speed
       normalSet();
     }else if(ctrl == 3){//manual control
       if(manualControl==0){
@@ -248,13 +198,11 @@ void UART3_RX_TX_IRQHandler(void){
         LEDon(GREEN);
       }
       manualDelta[0]=0.0f;
-      manualDelta[1]=0.0f;
+      manualDelta[1]=0.0f;      
     }else if(ctrl == 4) { //ready
-      
+      ready = 1;
       manualDelta[0]=0.0f;
       manualDelta[1]=0.0f;
-    }else if(ctrl == 3) { //ready
-      ready = 1;
     }else if(ctrl==5){ //speed
       bt_getAscii(get_str);
       //put(get_str);
@@ -267,6 +215,14 @@ void UART3_RX_TX_IRQHandler(void){
       //put(get_str);
       //put("\r\n");
       angle = (int)atoi(get_str);
+    }else if (ctrl==7){
+        //Will fail and hard break if tested in lab
+        //Reason is due to lack of location services
+        bt_getAscii(get_str);
+        bt_lat=(float) atof(get_str);
+        bt_getAscii(get_str);
+        bt_long= (float) atof(get_str);
+        gotGPSdata=1;
     }
   }
   //Re-enable interrupts
@@ -279,6 +235,16 @@ uint8_t bt_getbyte(void){
   return UART3_D;
 }
 
+
+void sendFloatTx(void) {
+  
+}
+
+
+void pollGPSRx(void) {
+  
+}
+
 void bt_getAscii(char *ptr_str){
   int lcv;
   uint8_t cu;
@@ -288,6 +254,7 @@ void bt_getAscii(char *ptr_str){
     if(cu == 0){ //if entered character is character return
       return;
     }
+    uart_putchar(cu);
     ptr_str[lcv] = cu;
     lcv++;
   }

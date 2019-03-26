@@ -13,3 +13,4 @@
 .\objects\gps.o: uart.h
 .\objects\gps.o: LEDS.h
 .\objects\gps.o: GPS.h
+.\objects\gps.o: Bluetooth.h

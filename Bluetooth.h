@@ -4,7 +4,6 @@
 enum android_index{Err=-1, Speed=0, Turn, AccelX, AccelY, AccelZ, GpsX, GpsY, Atn, Sensor};
 
 
-
 typedef struct {
   int32_t adrd_speed;
   int32_t turn;
@@ -19,6 +18,7 @@ typedef struct {
 
 
 void init_BT(void);
+void get_BT_GPS_dev(double *latitude, double *longitude);
 
 void delData(void);
 void setData(enum android_index index, void* value);
@@ -39,5 +39,4 @@ void sendFloatTx(void);
 void pollGPSRx(void);
 uint8_t bt_getbyte(void);
 void bt_getAscii(char *ptr_str);
-
 #endif /* Bluetooth_H_ */
