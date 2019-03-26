@@ -40,6 +40,7 @@ uint8_t getData_b(enum android_index index);
 int32_t getData_i(enum android_index index);
 float getData_f(enum android_index index);
 double getData_d(enum android_index index);
+void bt_getData(void);
 
 void stitchBytes(uint8_t *buffer, enum android_index index);
 void checkSigBuffer(char buffer[], uint8_t byte);
@@ -52,6 +53,5 @@ void sendFloatTx(void);
 void pollGPSRx(void);
 uint8_t bt_getbyte(void);
 void bt_getAscii(char *ptr_str);
-void bt_getData(char *ptr_str);
 
 #endif /* Bluetooth_H_ */
