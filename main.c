@@ -197,7 +197,8 @@ void demo(void){
     char from_ard[255];
     double phoneGPS[2]={0.0,0.0}; //GPS coords from phone
     char phoneChar[64];
-    char cartChar[64];
+    char angleChar[64];
+    char distChar[64];
     put("In demo\r\n");
 
     for(;;){
@@ -205,33 +206,37 @@ void demo(void){
         phoneGPS[1]=-77.123456;
 
         //Send (XX.XXX,YY.YYY) to arduino
-        LEDon(WHITE);
         snprintf(phoneChar,sizeof phoneChar, "%g", phoneGPS[0]);
+        if(phoneGPS[0] > 0){
+            uart2_putchar('+');
+        }
         uart2_put(phoneChar);
+        put(phoneChar);
         uart2_putchar(',');
-        LEDon(MAGENTA);
+        put(",");
         snprintf(phoneChar,sizeof phoneChar, "%g", phoneGPS[1]);
+        if(phoneGPS[1] > 0){
+            uart2_putchar('+');
+        }
         uart2_put(phoneChar);
-        uart2_putchar(0);
+        put(phoneChar);
+        put("\r\n");
+        uart2_putchar('\n');
 
-        LEDon(YELLOW);
         //Get distance and angle
-        uart2_get(cartChar);
-        distance = atof(cartChar);
+        uart2_get(distChar);
+        distance = atof(distChar);
+        uart2_get(angleChar);
+        angle = atof(angleChar);
+        
         
         put("Got distance of: ");
-        put(cartChar);
+        put(distChar);
         put("\r\n");
-        
-        LEDon(RED);
-        uart2_get(cartChar);
-        angle = atof(cartChar);
-
         put("Got angle of: ");
-        put(cartChar);
+        put(angleChar);
         put("\r\n");
         
-        LEDon(GREEN);
         delay(1000);
         
         }

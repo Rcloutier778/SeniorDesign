@@ -9,10 +9,10 @@ Section Cross References
     main.o(i.demo) refers to _printf_g.o(.ARM.Collect$$_printf_percent$$00000005) for _printf_g
     main.o(i.demo) refers to printf1.o(x$fpl$printf1) for _printf_fp_dec
     main.o(i.demo) refers to uart.o(i.put) for put
-    main.o(i.demo) refers to leds.o(i.LEDon) for LEDon
     main.o(i.demo) refers to noretval__2snprintf.o(.text) for __2snprintf
-    main.o(i.demo) refers to gps.o(i.uart2_put) for uart2_put
+    main.o(i.demo) refers to drleqf.o(x$fpl$drleqf) for __aeabi_cdrcmple
     main.o(i.demo) refers to gps.o(i.uart2_putchar) for uart2_putchar
+    main.o(i.demo) refers to gps.o(i.uart2_put) for uart2_put
     main.o(i.demo) refers to gps.o(i.uart2_get) for uart2_get
     main.o(i.demo) refers to atof.o(i.__hardfp_atof) for __hardfp_atof
     main.o(i.demo) refers to main.o(i.delay) for delay
@@ -136,10 +136,13 @@ Section Cross References
     gps.o(i.getGPS) refers to printf1.o(x$fpl$printf1) for _printf_fp_dec
     gps.o(i.getGPS) refers to bluetooth.o(i.get_BT_GPS_dev) for get_BT_GPS_dev
     gps.o(i.getGPS) refers to noretval__2snprintf.o(.text) for __2snprintf
-    gps.o(i.getGPS) refers to gps.o(i.uart2_put) for uart2_put
+    gps.o(i.getGPS) refers to drleqf.o(x$fpl$drleqf) for __aeabi_cdrcmple
     gps.o(i.getGPS) refers to gps.o(i.uart2_putchar) for uart2_putchar
+    gps.o(i.getGPS) refers to gps.o(i.uart2_put) for uart2_put
     gps.o(i.getGPS) refers to gps.o(i.uart2_get) for uart2_get
     gps.o(i.getGPS) refers to atof.o(i.__hardfp_atof) for __hardfp_atof
+    gps.o(i.getGPS) refers to uart.o(i.put) for put
+    gps.o(i.getGPS) refers to main.o(.data) for VERBOSE
     gps.o(i.uart2_get) refers to gps.o(i.uart2_getchar) for uart2_getchar
     gps.o(i.uart2_put) refers to gps.o(i.uart2_putchar) for uart2_putchar
     startup_mk64f12.o(STACK) refers (Special) to heapauxi.o(.text) for __use_two_region_memory
@@ -987,100 +990,100 @@ Image Symbol Table
     i.calc                                   0x00002dd0   Section        0  main.o(i.calc)
     i.delay                                  0x00002e54   Section        0  main.o(i.delay)
     i.demo                                   0x00002e68   Section        0  main.o(i.demo)
-    i.distanceCalc                           0x00002f88   Section        0  main.o(i.distanceCalc)
-    i.frexp                                  0x00003140   Section        0  frexp.o(i.frexp)
-    i.getGPS                                 0x000031cc   Section        0  gps.o(i.getGPS)
-    i.getUltrasonic                          0x0000324c   Section        0  ultrasonic.o(i.getUltrasonic)
-    i.get_BT_GPS_dev                         0x00003368   Section        0  bluetooth.o(i.get_BT_GPS_dev)
-    i.init_BT                                0x000033c8   Section        0  bluetooth.o(i.init_BT)
-    i.init_GPIO                              0x0000348c   Section        0  inits.o(i.init_GPIO)
-    i.init_LEDS                              0x00003558   Section        0  leds.o(i.init_LEDS)
-    i.init_PIT                               0x000035dc   Section        0  ultrasonic.o(i.init_PIT)
-    i.init_ultrasonic                        0x0000364c   Section        0  ultrasonic.o(i.init_ultrasonic)
-    i.initialize                             0x000036d8   Section        0  main.o(i.initialize)
-    i.main                                   0x000036f8   Section        0  main.o(i.main)
-    i.normalSet                              0x00003860   Section        0  main.o(i.normalSet)
-    i.put                                    0x000038c8   Section        0  uart.o(i.put)
-    i.turn                                   0x000038e0   Section        0  main.o(i.turn)
-    i.turnCalc                               0x00003a4c   Section        0  main.o(i.turnCalc)
-    i.uart0_init                             0x00003af4   Section        0  uart.o(i.uart0_init)
-    i.uart2_get                              0x00003b80   Section        0  gps.o(i.uart2_get)
-    i.uart2_getchar                          0x00003b9c   Section        0  gps.o(i.uart2_getchar)
-    i.uart2_init                             0x00003bb4   Section        0  gps.o(i.uart2_init)
-    i.uart2_put                              0x00003c40   Section        0  gps.o(i.uart2_put)
-    i.uart2_putchar                          0x00003c58   Section        0  gps.o(i.uart2_putchar)
-    i.uart_putchar                           0x00003c70   Section        0  uart.o(i.uart_putchar)
-    i.waitForReady                           0x00003c88   Section        0  main.o(i.waitForReady)
-    locale$$code                             0x00003d64   Section       44  lc_numeric_c.o(locale$$code)
-    locale$$code                             0x00003d90   Section       44  lc_ctype_c.o(locale$$code)
-    x$fpl$d2f                                0x00003dbc   Section       98  d2f.o(x$fpl$d2f)
-    $v0                                      0x00003dbc   Number         0  d2f.o(x$fpl$d2f)
-    x$fpl$dadd                               0x00003e20   Section      336  daddsub_clz.o(x$fpl$dadd)
-    $v0                                      0x00003e20   Number         0  daddsub_clz.o(x$fpl$dadd)
-    _dadd1                                   0x00003e31   Thumb Code     0  daddsub_clz.o(x$fpl$dadd)
-    x$fpl$dcheck1                            0x00003f70   Section       16  dcheck1.o(x$fpl$dcheck1)
-    $v0                                      0x00003f70   Number         0  dcheck1.o(x$fpl$dcheck1)
-    x$fpl$dcmpinf                            0x00003f80   Section       24  dcmpi.o(x$fpl$dcmpinf)
-    $v0                                      0x00003f80   Number         0  dcmpi.o(x$fpl$dcmpinf)
-    x$fpl$ddiv                               0x00003f98   Section      688  ddiv.o(x$fpl$ddiv)
-    $v0                                      0x00003f98   Number         0  ddiv.o(x$fpl$ddiv)
-    ddiv_entry                               0x00003f9f   Thumb Code     0  ddiv.o(x$fpl$ddiv)
-    x$fpl$deqf                               0x00004248   Section      120  deqf.o(x$fpl$deqf)
-    $v0                                      0x00004248   Number         0  deqf.o(x$fpl$deqf)
-    x$fpl$dfix                               0x000042c0   Section       94  dfix.o(x$fpl$dfix)
-    $v0                                      0x000042c0   Number         0  dfix.o(x$fpl$dfix)
-    x$fpl$dflt                               0x0000431e   Section       46  dflt_clz.o(x$fpl$dflt)
-    $v0                                      0x0000431e   Number         0  dflt_clz.o(x$fpl$dflt)
-    x$fpl$dleqf                              0x0000434c   Section      120  dleqf.o(x$fpl$dleqf)
-    $v0                                      0x0000434c   Number         0  dleqf.o(x$fpl$dleqf)
-    x$fpl$dmul                               0x000043c4   Section      340  dmul.o(x$fpl$dmul)
-    $v0                                      0x000043c4   Number         0  dmul.o(x$fpl$dmul)
-    x$fpl$dnaninf                            0x00004518   Section      156  dnaninf.o(x$fpl$dnaninf)
-    $v0                                      0x00004518   Number         0  dnaninf.o(x$fpl$dnaninf)
-    x$fpl$dretinf                            0x000045b4   Section       12  dretinf.o(x$fpl$dretinf)
-    $v0                                      0x000045b4   Number         0  dretinf.o(x$fpl$dretinf)
-    x$fpl$drleqf                             0x000045c0   Section      108  drleqf.o(x$fpl$drleqf)
-    $v0                                      0x000045c0   Number         0  drleqf.o(x$fpl$drleqf)
-    x$fpl$dsub                               0x0000462c   Section      468  daddsub_clz.o(x$fpl$dsub)
-    $v0                                      0x0000462c   Number         0  daddsub_clz.o(x$fpl$dsub)
-    _dsub1                                   0x0000463d   Thumb Code     0  daddsub_clz.o(x$fpl$dsub)
-    x$fpl$f2d                                0x00004800   Section       86  f2d.o(x$fpl$f2d)
-    $v0                                      0x00004800   Number         0  f2d.o(x$fpl$f2d)
-    x$fpl$fnaninf                            0x00004856   Section      140  fnaninf.o(x$fpl$fnaninf)
-    $v0                                      0x00004856   Number         0  fnaninf.o(x$fpl$fnaninf)
-    x$fpl$fpinit                             0x000048e2   Section       10  fpinit.o(x$fpl$fpinit)
-    $v0                                      0x000048e2   Number         0  fpinit.o(x$fpl$fpinit)
-    x$fpl$fretinf                            0x000048ec   Section       10  fretinf.o(x$fpl$fretinf)
-    $v0                                      0x000048ec   Number         0  fretinf.o(x$fpl$fretinf)
-    x$fpl$printf1                            0x000048f6   Section        4  printf1.o(x$fpl$printf1)
-    $v0                                      0x000048f6   Number         0  printf1.o(x$fpl$printf1)
-    x$fpl$retnan                             0x000048fa   Section      100  retnan.o(x$fpl$retnan)
-    $v0                                      0x000048fa   Number         0  retnan.o(x$fpl$retnan)
-    x$fpl$scalbn                             0x0000495e   Section       92  scalbn.o(x$fpl$scalbn)
-    $v0                                      0x0000495e   Number         0  scalbn.o(x$fpl$scalbn)
-    x$fpl$scanf1                             0x000049ba   Section        4  scanf1.o(x$fpl$scanf1)
-    $v0                                      0x000049ba   Number         0  scanf1.o(x$fpl$scanf1)
-    x$fpl$scanf2                             0x000049be   Section        8  scanf2.o(x$fpl$scanf2)
-    $v0                                      0x000049be   Number         0  scanf2.o(x$fpl$scanf2)
-    x$fpl$trapveneer                         0x000049c6   Section       48  trapv.o(x$fpl$trapveneer)
-    $v0                                      0x000049c6   Number         0  trapv.o(x$fpl$trapveneer)
-    x$fpl$usenofp                            0x000049f6   Section        0  usenofp.o(x$fpl$usenofp)
-    .constdata                               0x000049f8   Section       28  main.o(.constdata)
-    .constdata                               0x00004a14   Section      148  bigflt0.o(.constdata)
-    tenpwrs_x                                0x00004a14   Data          60  bigflt0.o(.constdata)
-    tenpwrs_i                                0x00004a50   Data          64  bigflt0.o(.constdata)
-    c$$dinf                                  0x00004ac8   Section        8  fpconst.o(c$$dinf)
-    locale$$data                             0x00004ad0   Section       28  lc_numeric_c.o(locale$$data)
-    __lcnum_c_name                           0x00004ad4   Data           2  lc_numeric_c.o(locale$$data)
-    __lcnum_c_start                          0x00004adc   Data           0  lc_numeric_c.o(locale$$data)
-    __lcnum_c_point                          0x00004ae8   Data           0  lc_numeric_c.o(locale$$data)
-    __lcnum_c_thousands                      0x00004aea   Data           0  lc_numeric_c.o(locale$$data)
-    __lcnum_c_grouping                       0x00004aeb   Data           0  lc_numeric_c.o(locale$$data)
-    locale$$data                             0x00004aec   Section      272  lc_ctype_c.o(locale$$data)
-    __lcnum_c_end                            0x00004aec   Data           0  lc_numeric_c.o(locale$$data)
-    __lcctype_c_name                         0x00004af0   Data           2  lc_ctype_c.o(locale$$data)
-    __lcctype_c_start                        0x00004af8   Data           0  lc_ctype_c.o(locale$$data)
-    __lcctype_c_end                          0x00004bfc   Data           0  lc_ctype_c.o(locale$$data)
+    i.distanceCalc                           0x00002fd8   Section        0  main.o(i.distanceCalc)
+    i.frexp                                  0x00003190   Section        0  frexp.o(i.frexp)
+    i.getGPS                                 0x0000321c   Section        0  gps.o(i.getGPS)
+    i.getUltrasonic                          0x00003340   Section        0  ultrasonic.o(i.getUltrasonic)
+    i.get_BT_GPS_dev                         0x0000345c   Section        0  bluetooth.o(i.get_BT_GPS_dev)
+    i.init_BT                                0x000034bc   Section        0  bluetooth.o(i.init_BT)
+    i.init_GPIO                              0x00003580   Section        0  inits.o(i.init_GPIO)
+    i.init_LEDS                              0x0000364c   Section        0  leds.o(i.init_LEDS)
+    i.init_PIT                               0x000036d0   Section        0  ultrasonic.o(i.init_PIT)
+    i.init_ultrasonic                        0x00003740   Section        0  ultrasonic.o(i.init_ultrasonic)
+    i.initialize                             0x000037cc   Section        0  main.o(i.initialize)
+    i.main                                   0x000037ec   Section        0  main.o(i.main)
+    i.normalSet                              0x00003954   Section        0  main.o(i.normalSet)
+    i.put                                    0x000039bc   Section        0  uart.o(i.put)
+    i.turn                                   0x000039d4   Section        0  main.o(i.turn)
+    i.turnCalc                               0x00003b40   Section        0  main.o(i.turnCalc)
+    i.uart0_init                             0x00003be8   Section        0  uart.o(i.uart0_init)
+    i.uart2_get                              0x00003c74   Section        0  gps.o(i.uart2_get)
+    i.uart2_getchar                          0x00003c90   Section        0  gps.o(i.uart2_getchar)
+    i.uart2_init                             0x00003ca8   Section        0  gps.o(i.uart2_init)
+    i.uart2_put                              0x00003d34   Section        0  gps.o(i.uart2_put)
+    i.uart2_putchar                          0x00003d4c   Section        0  gps.o(i.uart2_putchar)
+    i.uart_putchar                           0x00003d64   Section        0  uart.o(i.uart_putchar)
+    i.waitForReady                           0x00003d7c   Section        0  main.o(i.waitForReady)
+    locale$$code                             0x00003e58   Section       44  lc_numeric_c.o(locale$$code)
+    locale$$code                             0x00003e84   Section       44  lc_ctype_c.o(locale$$code)
+    x$fpl$d2f                                0x00003eb0   Section       98  d2f.o(x$fpl$d2f)
+    $v0                                      0x00003eb0   Number         0  d2f.o(x$fpl$d2f)
+    x$fpl$dadd                               0x00003f14   Section      336  daddsub_clz.o(x$fpl$dadd)
+    $v0                                      0x00003f14   Number         0  daddsub_clz.o(x$fpl$dadd)
+    _dadd1                                   0x00003f25   Thumb Code     0  daddsub_clz.o(x$fpl$dadd)
+    x$fpl$dcheck1                            0x00004064   Section       16  dcheck1.o(x$fpl$dcheck1)
+    $v0                                      0x00004064   Number         0  dcheck1.o(x$fpl$dcheck1)
+    x$fpl$dcmpinf                            0x00004074   Section       24  dcmpi.o(x$fpl$dcmpinf)
+    $v0                                      0x00004074   Number         0  dcmpi.o(x$fpl$dcmpinf)
+    x$fpl$ddiv                               0x0000408c   Section      688  ddiv.o(x$fpl$ddiv)
+    $v0                                      0x0000408c   Number         0  ddiv.o(x$fpl$ddiv)
+    ddiv_entry                               0x00004093   Thumb Code     0  ddiv.o(x$fpl$ddiv)
+    x$fpl$deqf                               0x0000433c   Section      120  deqf.o(x$fpl$deqf)
+    $v0                                      0x0000433c   Number         0  deqf.o(x$fpl$deqf)
+    x$fpl$dfix                               0x000043b4   Section       94  dfix.o(x$fpl$dfix)
+    $v0                                      0x000043b4   Number         0  dfix.o(x$fpl$dfix)
+    x$fpl$dflt                               0x00004412   Section       46  dflt_clz.o(x$fpl$dflt)
+    $v0                                      0x00004412   Number         0  dflt_clz.o(x$fpl$dflt)
+    x$fpl$dleqf                              0x00004440   Section      120  dleqf.o(x$fpl$dleqf)
+    $v0                                      0x00004440   Number         0  dleqf.o(x$fpl$dleqf)
+    x$fpl$dmul                               0x000044b8   Section      340  dmul.o(x$fpl$dmul)
+    $v0                                      0x000044b8   Number         0  dmul.o(x$fpl$dmul)
+    x$fpl$dnaninf                            0x0000460c   Section      156  dnaninf.o(x$fpl$dnaninf)
+    $v0                                      0x0000460c   Number         0  dnaninf.o(x$fpl$dnaninf)
+    x$fpl$dretinf                            0x000046a8   Section       12  dretinf.o(x$fpl$dretinf)
+    $v0                                      0x000046a8   Number         0  dretinf.o(x$fpl$dretinf)
+    x$fpl$drleqf                             0x000046b4   Section      108  drleqf.o(x$fpl$drleqf)
+    $v0                                      0x000046b4   Number         0  drleqf.o(x$fpl$drleqf)
+    x$fpl$dsub                               0x00004720   Section      468  daddsub_clz.o(x$fpl$dsub)
+    $v0                                      0x00004720   Number         0  daddsub_clz.o(x$fpl$dsub)
+    _dsub1                                   0x00004731   Thumb Code     0  daddsub_clz.o(x$fpl$dsub)
+    x$fpl$f2d                                0x000048f4   Section       86  f2d.o(x$fpl$f2d)
+    $v0                                      0x000048f4   Number         0  f2d.o(x$fpl$f2d)
+    x$fpl$fnaninf                            0x0000494a   Section      140  fnaninf.o(x$fpl$fnaninf)
+    $v0                                      0x0000494a   Number         0  fnaninf.o(x$fpl$fnaninf)
+    x$fpl$fpinit                             0x000049d6   Section       10  fpinit.o(x$fpl$fpinit)
+    $v0                                      0x000049d6   Number         0  fpinit.o(x$fpl$fpinit)
+    x$fpl$fretinf                            0x000049e0   Section       10  fretinf.o(x$fpl$fretinf)
+    $v0                                      0x000049e0   Number         0  fretinf.o(x$fpl$fretinf)
+    x$fpl$printf1                            0x000049ea   Section        4  printf1.o(x$fpl$printf1)
+    $v0                                      0x000049ea   Number         0  printf1.o(x$fpl$printf1)
+    x$fpl$retnan                             0x000049ee   Section      100  retnan.o(x$fpl$retnan)
+    $v0                                      0x000049ee   Number         0  retnan.o(x$fpl$retnan)
+    x$fpl$scalbn                             0x00004a52   Section       92  scalbn.o(x$fpl$scalbn)
+    $v0                                      0x00004a52   Number         0  scalbn.o(x$fpl$scalbn)
+    x$fpl$scanf1                             0x00004aae   Section        4  scanf1.o(x$fpl$scanf1)
+    $v0                                      0x00004aae   Number         0  scanf1.o(x$fpl$scanf1)
+    x$fpl$scanf2                             0x00004ab2   Section        8  scanf2.o(x$fpl$scanf2)
+    $v0                                      0x00004ab2   Number         0  scanf2.o(x$fpl$scanf2)
+    x$fpl$trapveneer                         0x00004aba   Section       48  trapv.o(x$fpl$trapveneer)
+    $v0                                      0x00004aba   Number         0  trapv.o(x$fpl$trapveneer)
+    x$fpl$usenofp                            0x00004aea   Section        0  usenofp.o(x$fpl$usenofp)
+    .constdata                               0x00004aec   Section       28  main.o(.constdata)
+    .constdata                               0x00004b08   Section      148  bigflt0.o(.constdata)
+    tenpwrs_x                                0x00004b08   Data          60  bigflt0.o(.constdata)
+    tenpwrs_i                                0x00004b44   Data          64  bigflt0.o(.constdata)
+    c$$dinf                                  0x00004bbc   Section        8  fpconst.o(c$$dinf)
+    locale$$data                             0x00004bc4   Section       28  lc_numeric_c.o(locale$$data)
+    __lcnum_c_name                           0x00004bc8   Data           2  lc_numeric_c.o(locale$$data)
+    __lcnum_c_start                          0x00004bd0   Data           0  lc_numeric_c.o(locale$$data)
+    __lcnum_c_point                          0x00004bdc   Data           0  lc_numeric_c.o(locale$$data)
+    __lcnum_c_thousands                      0x00004bde   Data           0  lc_numeric_c.o(locale$$data)
+    __lcnum_c_grouping                       0x00004bdf   Data           0  lc_numeric_c.o(locale$$data)
+    locale$$data                             0x00004be0   Section      272  lc_ctype_c.o(locale$$data)
+    __lcnum_c_end                            0x00004be0   Data           0  lc_numeric_c.o(locale$$data)
+    __lcctype_c_name                         0x00004be4   Data           2  lc_ctype_c.o(locale$$data)
+    __lcctype_c_start                        0x00004bec   Data           0  lc_ctype_c.o(locale$$data)
+    __lcctype_c_end                          0x00004cf0   Data           0  lc_ctype_c.o(locale$$data)
     .data                                    0x20000000   Section      104  main.o(.data)
     .data                                    0x20000068   Section        8  pwm.o(.data)
     PWMTick                                  0x20000068   Data           4  pwm.o(.data)
@@ -1386,86 +1389,86 @@ Image Symbol Table
     bt_getbyte                               0x00002db9   Thumb Code    20  bluetooth.o(i.bt_getbyte)
     calc                                     0x00002dd1   Thumb Code   112  main.o(i.calc)
     delay                                    0x00002e55   Thumb Code    20  main.o(i.delay)
-    demo                                     0x00002e69   Thumb Code   208  main.o(i.demo)
-    distanceCalc                             0x00002f89   Thumb Code   344  main.o(i.distanceCalc)
-    frexp                                    0x00003141   Thumb Code   118  frexp.o(i.frexp)
-    getGPS                                   0x000031cd   Thumb Code   122  gps.o(i.getGPS)
-    getUltrasonic                            0x0000324d   Thumb Code   236  ultrasonic.o(i.getUltrasonic)
-    get_BT_GPS_dev                           0x00003369   Thumb Code    66  bluetooth.o(i.get_BT_GPS_dev)
-    init_BT                                  0x000033c9   Thumb Code   174  bluetooth.o(i.init_BT)
-    init_GPIO                                0x0000348d   Thumb Code   180  inits.o(i.init_GPIO)
-    init_LEDS                                0x00003559   Thumb Code   112  leds.o(i.init_LEDS)
-    init_PIT                                 0x000035dd   Thumb Code   100  ultrasonic.o(i.init_PIT)
-    init_ultrasonic                          0x0000364d   Thumb Code   126  ultrasonic.o(i.init_ultrasonic)
-    initialize                               0x000036d9   Thumb Code    32  main.o(i.initialize)
-    main                                     0x000036f9   Thumb Code   284  main.o(i.main)
-    normalSet                                0x00003861   Thumb Code    70  main.o(i.normalSet)
-    put                                      0x000038c9   Thumb Code    22  uart.o(i.put)
-    turn                                     0x000038e1   Thumb Code   342  main.o(i.turn)
-    turnCalc                                 0x00003a4d   Thumb Code   142  main.o(i.turnCalc)
-    uart0_init                               0x00003af5   Thumb Code   126  uart.o(i.uart0_init)
-    uart2_get                                0x00003b81   Thumb Code    28  gps.o(i.uart2_get)
-    uart2_getchar                            0x00003b9d   Thumb Code    20  gps.o(i.uart2_getchar)
-    uart2_init                               0x00003bb5   Thumb Code   126  gps.o(i.uart2_init)
-    uart2_put                                0x00003c41   Thumb Code    22  gps.o(i.uart2_put)
-    uart2_putchar                            0x00003c59   Thumb Code    20  gps.o(i.uart2_putchar)
-    uart_putchar                             0x00003c71   Thumb Code    20  uart.o(i.uart_putchar)
-    waitForReady                             0x00003c89   Thumb Code   202  main.o(i.waitForReady)
-    _get_lc_numeric                          0x00003d65   Thumb Code    44  lc_numeric_c.o(locale$$code)
-    _get_lc_ctype                            0x00003d91   Thumb Code    44  lc_ctype_c.o(locale$$code)
-    __aeabi_d2f                              0x00003dbd   Thumb Code     0  d2f.o(x$fpl$d2f)
-    _d2f                                     0x00003dbd   Thumb Code    98  d2f.o(x$fpl$d2f)
-    __aeabi_dadd                             0x00003e21   Thumb Code     0  daddsub_clz.o(x$fpl$dadd)
-    _dadd                                    0x00003e21   Thumb Code   332  daddsub_clz.o(x$fpl$dadd)
-    __fpl_dcheck_NaN1                        0x00003f71   Thumb Code    10  dcheck1.o(x$fpl$dcheck1)
-    __fpl_dcmp_Inf                           0x00003f81   Thumb Code    24  dcmpi.o(x$fpl$dcmpinf)
-    __aeabi_ddiv                             0x00003f99   Thumb Code     0  ddiv.o(x$fpl$ddiv)
-    _ddiv                                    0x00003f99   Thumb Code   552  ddiv.o(x$fpl$ddiv)
-    __aeabi_cdcmpeq                          0x00004249   Thumb Code     0  deqf.o(x$fpl$deqf)
-    _dcmpeq                                  0x00004249   Thumb Code   120  deqf.o(x$fpl$deqf)
-    __aeabi_d2iz                             0x000042c1   Thumb Code     0  dfix.o(x$fpl$dfix)
-    _dfix                                    0x000042c1   Thumb Code    94  dfix.o(x$fpl$dfix)
-    __aeabi_i2d                              0x0000431f   Thumb Code     0  dflt_clz.o(x$fpl$dflt)
-    _dflt                                    0x0000431f   Thumb Code    46  dflt_clz.o(x$fpl$dflt)
-    __aeabi_cdcmple                          0x0000434d   Thumb Code     0  dleqf.o(x$fpl$dleqf)
-    _dcmple                                  0x0000434d   Thumb Code   120  dleqf.o(x$fpl$dleqf)
-    __fpl_dcmple_InfNaN                      0x000043af   Thumb Code     0  dleqf.o(x$fpl$dleqf)
-    __aeabi_dmul                             0x000043c5   Thumb Code     0  dmul.o(x$fpl$dmul)
-    _dmul                                    0x000043c5   Thumb Code   332  dmul.o(x$fpl$dmul)
-    __fpl_dnaninf                            0x00004519   Thumb Code   156  dnaninf.o(x$fpl$dnaninf)
-    __fpl_dretinf                            0x000045b5   Thumb Code    12  dretinf.o(x$fpl$dretinf)
-    __aeabi_cdrcmple                         0x000045c1   Thumb Code     0  drleqf.o(x$fpl$drleqf)
-    _drcmple                                 0x000045c1   Thumb Code   108  drleqf.o(x$fpl$drleqf)
-    __aeabi_dsub                             0x0000462d   Thumb Code     0  daddsub_clz.o(x$fpl$dsub)
-    _dsub                                    0x0000462d   Thumb Code   464  daddsub_clz.o(x$fpl$dsub)
-    __aeabi_f2d                              0x00004801   Thumb Code     0  f2d.o(x$fpl$f2d)
-    _f2d                                     0x00004801   Thumb Code    86  f2d.o(x$fpl$f2d)
-    __fpl_fnaninf                            0x00004857   Thumb Code   140  fnaninf.o(x$fpl$fnaninf)
-    _fp_init                                 0x000048e3   Thumb Code    10  fpinit.o(x$fpl$fpinit)
-    __fplib_config_fpu_vfp                   0x000048eb   Thumb Code     0  fpinit.o(x$fpl$fpinit)
-    __fplib_config_pureend_doubles           0x000048eb   Thumb Code     0  fpinit.o(x$fpl$fpinit)
-    __fpl_fretinf                            0x000048ed   Thumb Code    10  fretinf.o(x$fpl$fretinf)
-    _printf_fp_dec                           0x000048f7   Thumb Code     4  printf1.o(x$fpl$printf1)
-    __fpl_return_NaN                         0x000048fb   Thumb Code   100  retnan.o(x$fpl$retnan)
-    __ARM_scalbn                             0x0000495f   Thumb Code    92  scalbn.o(x$fpl$scalbn)
-    _scanf_real                              0x000049bb   Thumb Code     4  scanf1.o(x$fpl$scanf1)
-    _scanf_hex_real                          0x000049bf   Thumb Code     4  scanf2.o(x$fpl$scanf2)
-    _scanf_infnan                            0x000049c3   Thumb Code     4  scanf2.o(x$fpl$scanf2)
-    __fpl_cmpreturn                          0x000049c7   Thumb Code    48  trapv.o(x$fpl$trapveneer)
-    __I$use$fp                               0x000049f6   Number         0  usenofp.o(x$fpl$usenofp)
-    DC_freq                                  0x000049f8   Data           4  main.o(.constdata)
-    BLUETOOTH                                0x000049fc   Data           4  main.o(.constdata)
-    LEFT                                     0x00004a00   Data           4  main.o(.constdata)
-    RIGHT                                    0x00004a04   Data           4  main.o(.constdata)
-    MIDDLE                                   0x00004a08   Data           4  main.o(.constdata)
-    Region$$Table$$Base                      0x00004aa8   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x00004ac8   Number         0  anon$$obj.o(Region$$Table)
-    __aeabi_HUGE_VAL                         0x00004ac8   Data           0  fpconst.o(c$$dinf)
-    __aeabi_HUGE_VALL                        0x00004ac8   Data           0  fpconst.o(c$$dinf)
-    __aeabi_INFINITY                         0x00004ac8   Data           0  fpconst.o(c$$dinf)
-    __dInf                                   0x00004ac8   Data           0  fpconst.o(c$$dinf)
-    __huge_val                               0x00004ac8   Data           0  fpconst.o(c$$dinf)
-    __ctype                                  0x00004af9   Data           0  lc_ctype_c.o(locale$$data)
+    demo                                     0x00002e69   Thumb Code   274  main.o(i.demo)
+    distanceCalc                             0x00002fd9   Thumb Code   344  main.o(i.distanceCalc)
+    frexp                                    0x00003191   Thumb Code   118  frexp.o(i.frexp)
+    getGPS                                   0x0000321d   Thumb Code   236  gps.o(i.getGPS)
+    getUltrasonic                            0x00003341   Thumb Code   236  ultrasonic.o(i.getUltrasonic)
+    get_BT_GPS_dev                           0x0000345d   Thumb Code    66  bluetooth.o(i.get_BT_GPS_dev)
+    init_BT                                  0x000034bd   Thumb Code   174  bluetooth.o(i.init_BT)
+    init_GPIO                                0x00003581   Thumb Code   180  inits.o(i.init_GPIO)
+    init_LEDS                                0x0000364d   Thumb Code   112  leds.o(i.init_LEDS)
+    init_PIT                                 0x000036d1   Thumb Code   100  ultrasonic.o(i.init_PIT)
+    init_ultrasonic                          0x00003741   Thumb Code   126  ultrasonic.o(i.init_ultrasonic)
+    initialize                               0x000037cd   Thumb Code    32  main.o(i.initialize)
+    main                                     0x000037ed   Thumb Code   284  main.o(i.main)
+    normalSet                                0x00003955   Thumb Code    70  main.o(i.normalSet)
+    put                                      0x000039bd   Thumb Code    22  uart.o(i.put)
+    turn                                     0x000039d5   Thumb Code   342  main.o(i.turn)
+    turnCalc                                 0x00003b41   Thumb Code   142  main.o(i.turnCalc)
+    uart0_init                               0x00003be9   Thumb Code   126  uart.o(i.uart0_init)
+    uart2_get                                0x00003c75   Thumb Code    28  gps.o(i.uart2_get)
+    uart2_getchar                            0x00003c91   Thumb Code    20  gps.o(i.uart2_getchar)
+    uart2_init                               0x00003ca9   Thumb Code   126  gps.o(i.uart2_init)
+    uart2_put                                0x00003d35   Thumb Code    22  gps.o(i.uart2_put)
+    uart2_putchar                            0x00003d4d   Thumb Code    20  gps.o(i.uart2_putchar)
+    uart_putchar                             0x00003d65   Thumb Code    20  uart.o(i.uart_putchar)
+    waitForReady                             0x00003d7d   Thumb Code   202  main.o(i.waitForReady)
+    _get_lc_numeric                          0x00003e59   Thumb Code    44  lc_numeric_c.o(locale$$code)
+    _get_lc_ctype                            0x00003e85   Thumb Code    44  lc_ctype_c.o(locale$$code)
+    __aeabi_d2f                              0x00003eb1   Thumb Code     0  d2f.o(x$fpl$d2f)
+    _d2f                                     0x00003eb1   Thumb Code    98  d2f.o(x$fpl$d2f)
+    __aeabi_dadd                             0x00003f15   Thumb Code     0  daddsub_clz.o(x$fpl$dadd)
+    _dadd                                    0x00003f15   Thumb Code   332  daddsub_clz.o(x$fpl$dadd)
+    __fpl_dcheck_NaN1                        0x00004065   Thumb Code    10  dcheck1.o(x$fpl$dcheck1)
+    __fpl_dcmp_Inf                           0x00004075   Thumb Code    24  dcmpi.o(x$fpl$dcmpinf)
+    __aeabi_ddiv                             0x0000408d   Thumb Code     0  ddiv.o(x$fpl$ddiv)
+    _ddiv                                    0x0000408d   Thumb Code   552  ddiv.o(x$fpl$ddiv)
+    __aeabi_cdcmpeq                          0x0000433d   Thumb Code     0  deqf.o(x$fpl$deqf)
+    _dcmpeq                                  0x0000433d   Thumb Code   120  deqf.o(x$fpl$deqf)
+    __aeabi_d2iz                             0x000043b5   Thumb Code     0  dfix.o(x$fpl$dfix)
+    _dfix                                    0x000043b5   Thumb Code    94  dfix.o(x$fpl$dfix)
+    __aeabi_i2d                              0x00004413   Thumb Code     0  dflt_clz.o(x$fpl$dflt)
+    _dflt                                    0x00004413   Thumb Code    46  dflt_clz.o(x$fpl$dflt)
+    __aeabi_cdcmple                          0x00004441   Thumb Code     0  dleqf.o(x$fpl$dleqf)
+    _dcmple                                  0x00004441   Thumb Code   120  dleqf.o(x$fpl$dleqf)
+    __fpl_dcmple_InfNaN                      0x000044a3   Thumb Code     0  dleqf.o(x$fpl$dleqf)
+    __aeabi_dmul                             0x000044b9   Thumb Code     0  dmul.o(x$fpl$dmul)
+    _dmul                                    0x000044b9   Thumb Code   332  dmul.o(x$fpl$dmul)
+    __fpl_dnaninf                            0x0000460d   Thumb Code   156  dnaninf.o(x$fpl$dnaninf)
+    __fpl_dretinf                            0x000046a9   Thumb Code    12  dretinf.o(x$fpl$dretinf)
+    __aeabi_cdrcmple                         0x000046b5   Thumb Code     0  drleqf.o(x$fpl$drleqf)
+    _drcmple                                 0x000046b5   Thumb Code   108  drleqf.o(x$fpl$drleqf)
+    __aeabi_dsub                             0x00004721   Thumb Code     0  daddsub_clz.o(x$fpl$dsub)
+    _dsub                                    0x00004721   Thumb Code   464  daddsub_clz.o(x$fpl$dsub)
+    __aeabi_f2d                              0x000048f5   Thumb Code     0  f2d.o(x$fpl$f2d)
+    _f2d                                     0x000048f5   Thumb Code    86  f2d.o(x$fpl$f2d)
+    __fpl_fnaninf                            0x0000494b   Thumb Code   140  fnaninf.o(x$fpl$fnaninf)
+    _fp_init                                 0x000049d7   Thumb Code    10  fpinit.o(x$fpl$fpinit)
+    __fplib_config_fpu_vfp                   0x000049df   Thumb Code     0  fpinit.o(x$fpl$fpinit)
+    __fplib_config_pureend_doubles           0x000049df   Thumb Code     0  fpinit.o(x$fpl$fpinit)
+    __fpl_fretinf                            0x000049e1   Thumb Code    10  fretinf.o(x$fpl$fretinf)
+    _printf_fp_dec                           0x000049eb   Thumb Code     4  printf1.o(x$fpl$printf1)
+    __fpl_return_NaN                         0x000049ef   Thumb Code   100  retnan.o(x$fpl$retnan)
+    __ARM_scalbn                             0x00004a53   Thumb Code    92  scalbn.o(x$fpl$scalbn)
+    _scanf_real                              0x00004aaf   Thumb Code     4  scanf1.o(x$fpl$scanf1)
+    _scanf_hex_real                          0x00004ab3   Thumb Code     4  scanf2.o(x$fpl$scanf2)
+    _scanf_infnan                            0x00004ab7   Thumb Code     4  scanf2.o(x$fpl$scanf2)
+    __fpl_cmpreturn                          0x00004abb   Thumb Code    48  trapv.o(x$fpl$trapveneer)
+    __I$use$fp                               0x00004aea   Number         0  usenofp.o(x$fpl$usenofp)
+    DC_freq                                  0x00004aec   Data           4  main.o(.constdata)
+    BLUETOOTH                                0x00004af0   Data           4  main.o(.constdata)
+    LEFT                                     0x00004af4   Data           4  main.o(.constdata)
+    RIGHT                                    0x00004af8   Data           4  main.o(.constdata)
+    MIDDLE                                   0x00004afc   Data           4  main.o(.constdata)
+    Region$$Table$$Base                      0x00004b9c   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x00004bbc   Number         0  anon$$obj.o(Region$$Table)
+    __aeabi_HUGE_VAL                         0x00004bbc   Data           0  fpconst.o(c$$dinf)
+    __aeabi_HUGE_VALL                        0x00004bbc   Data           0  fpconst.o(c$$dinf)
+    __aeabi_INFINITY                         0x00004bbc   Data           0  fpconst.o(c$$dinf)
+    __dInf                                   0x00004bbc   Data           0  fpconst.o(c$$dinf)
+    __huge_val                               0x00004bbc   Data           0  fpconst.o(c$$dinf)
+    __ctype                                  0x00004bed   Data           0  lc_ctype_c.o(locale$$data)
     data                                     0x20000000   Data           4  main.o(.data)
     KP                                       0x20000004   Data           4  main.o(.data)
     KI                                       0x20000008   Data           4  main.o(.data)
@@ -1520,136 +1523,136 @@ Memory Map of the image
 
   Image Entry point : 0x00000411
 
-  Load Region LR_IROM1 (Base: 0x00000000, Size: 0x00004ce0, Max: 0x00100000, ABSOLUTE)
+  Load Region LR_IROM1 (Base: 0x00000000, Size: 0x00004dd4, Max: 0x00100000, ABSOLUTE)
 
-    Execution Region ER_IROM1 (Base: 0x00000000, Size: 0x00004bfc, Max: 0x00100000, ABSOLUTE)
+    Execution Region ER_IROM1 (Base: 0x00000000, Size: 0x00004cf0, Max: 0x00100000, ABSOLUTE)
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x00000000   0x00000400   Data   RO          575    RESET               startup_mk64f12.o
-    0x00000400   0x00000010   Code   RO          576    .ARM.__at_0x400     startup_mk64f12.o
-    0x00000410   0x00000008   Code   RO          733  * !!!main             c_w.l(__main.o)
-    0x00000418   0x00000034   Code   RO         1137    !!!scatter          c_w.l(__scatter.o)
-    0x0000044c   0x0000001a   Code   RO         1139    !!handler_copy      c_w.l(__scatter_copy.o)
+    0x00000000   0x00000400   Data   RO          576    RESET               startup_mk64f12.o
+    0x00000400   0x00000010   Code   RO          577    .ARM.__at_0x400     startup_mk64f12.o
+    0x00000410   0x00000008   Code   RO          734  * !!!main             c_w.l(__main.o)
+    0x00000418   0x00000034   Code   RO         1138    !!!scatter          c_w.l(__scatter.o)
+    0x0000044c   0x0000001a   Code   RO         1140    !!handler_copy      c_w.l(__scatter_copy.o)
     0x00000466   0x00000002   PAD
-    0x00000468   0x0000001c   Code   RO         1141    !!handler_zi        c_w.l(__scatter_zi.o)
-    0x00000484   0x00000000   Code   RO          724    .ARM.Collect$$_printf_percent$$00000000  c_w.l(_printf_percent.o)
-    0x00000484   0x00000006   Code   RO          723    .ARM.Collect$$_printf_percent$$00000005  c_w.l(_printf_g.o)
-    0x0000048a   0x00000006   Code   RO          722    .ARM.Collect$$_printf_percent$$00000008  c_w.l(_printf_i.o)
-    0x00000490   0x00000004   Code   RO          818    .ARM.Collect$$_printf_percent$$00000017  c_w.l(_printf_percent_end.o)
-    0x00000494   0x00000002   Code   RO         1006    .ARM.Collect$$libinit$$00000000  c_w.l(libinit.o)
-    0x00000496   0x00000004   Code   RO          827    .ARM.Collect$$libinit$$00000001  c_w.l(libinit2.o)
-    0x0000049a   0x00000000   Code   RO          830    .ARM.Collect$$libinit$$00000004  c_w.l(libinit2.o)
-    0x0000049a   0x00000008   Code   RO          831    .ARM.Collect$$libinit$$00000005  c_w.l(libinit2.o)
-    0x000004a2   0x00000000   Code   RO          833    .ARM.Collect$$libinit$$0000000A  c_w.l(libinit2.o)
-    0x000004a2   0x00000000   Code   RO          835    .ARM.Collect$$libinit$$0000000C  c_w.l(libinit2.o)
-    0x000004a2   0x00000000   Code   RO          837    .ARM.Collect$$libinit$$0000000E  c_w.l(libinit2.o)
-    0x000004a2   0x00000006   Code   RO          838    .ARM.Collect$$libinit$$0000000F  c_w.l(libinit2.o)
-    0x000004a8   0x00000000   Code   RO          840    .ARM.Collect$$libinit$$00000011  c_w.l(libinit2.o)
-    0x000004a8   0x0000000c   Code   RO          841    .ARM.Collect$$libinit$$00000012  c_w.l(libinit2.o)
-    0x000004b4   0x00000000   Code   RO          842    .ARM.Collect$$libinit$$00000013  c_w.l(libinit2.o)
-    0x000004b4   0x00000000   Code   RO          844    .ARM.Collect$$libinit$$00000015  c_w.l(libinit2.o)
-    0x000004b4   0x0000000a   Code   RO          845    .ARM.Collect$$libinit$$00000016  c_w.l(libinit2.o)
-    0x000004be   0x00000000   Code   RO          846    .ARM.Collect$$libinit$$00000017  c_w.l(libinit2.o)
-    0x000004be   0x00000000   Code   RO          848    .ARM.Collect$$libinit$$00000019  c_w.l(libinit2.o)
-    0x000004be   0x00000000   Code   RO          850    .ARM.Collect$$libinit$$0000001B  c_w.l(libinit2.o)
-    0x000004be   0x00000000   Code   RO          852    .ARM.Collect$$libinit$$0000001D  c_w.l(libinit2.o)
-    0x000004be   0x00000000   Code   RO          854    .ARM.Collect$$libinit$$0000001F  c_w.l(libinit2.o)
-    0x000004be   0x00000000   Code   RO          856    .ARM.Collect$$libinit$$00000021  c_w.l(libinit2.o)
-    0x000004be   0x00000000   Code   RO          858    .ARM.Collect$$libinit$$00000023  c_w.l(libinit2.o)
-    0x000004be   0x00000000   Code   RO          860    .ARM.Collect$$libinit$$00000025  c_w.l(libinit2.o)
-    0x000004be   0x00000000   Code   RO          864    .ARM.Collect$$libinit$$0000002C  c_w.l(libinit2.o)
-    0x000004be   0x00000000   Code   RO          866    .ARM.Collect$$libinit$$0000002E  c_w.l(libinit2.o)
-    0x000004be   0x00000000   Code   RO          868    .ARM.Collect$$libinit$$00000030  c_w.l(libinit2.o)
-    0x000004be   0x00000000   Code   RO          870    .ARM.Collect$$libinit$$00000032  c_w.l(libinit2.o)
-    0x000004be   0x00000002   Code   RO          871    .ARM.Collect$$libinit$$00000033  c_w.l(libinit2.o)
-    0x000004c0   0x00000002   Code   RO         1095    .ARM.Collect$$libshutdown$$00000000  c_w.l(libshutdown.o)
-    0x000004c2   0x00000000   Code   RO         1020    .ARM.Collect$$libshutdown$$00000002  c_w.l(libshutdown2.o)
-    0x000004c2   0x00000000   Code   RO         1022    .ARM.Collect$$libshutdown$$00000004  c_w.l(libshutdown2.o)
-    0x000004c2   0x00000000   Code   RO         1025    .ARM.Collect$$libshutdown$$00000007  c_w.l(libshutdown2.o)
-    0x000004c2   0x00000000   Code   RO         1028    .ARM.Collect$$libshutdown$$0000000A  c_w.l(libshutdown2.o)
-    0x000004c2   0x00000000   Code   RO         1030    .ARM.Collect$$libshutdown$$0000000C  c_w.l(libshutdown2.o)
-    0x000004c2   0x00000000   Code   RO         1033    .ARM.Collect$$libshutdown$$0000000F  c_w.l(libshutdown2.o)
-    0x000004c2   0x00000002   Code   RO         1034    .ARM.Collect$$libshutdown$$00000010  c_w.l(libshutdown2.o)
-    0x000004c4   0x00000000   Code   RO          775    .ARM.Collect$$rtentry$$00000000  c_w.l(__rtentry.o)
-    0x000004c4   0x00000000   Code   RO          889    .ARM.Collect$$rtentry$$00000002  c_w.l(__rtentry2.o)
-    0x000004c4   0x00000006   Code   RO          901    .ARM.Collect$$rtentry$$00000004  c_w.l(__rtentry4.o)
-    0x000004ca   0x00000000   Code   RO          891    .ARM.Collect$$rtentry$$00000009  c_w.l(__rtentry2.o)
-    0x000004ca   0x00000004   Code   RO          892    .ARM.Collect$$rtentry$$0000000A  c_w.l(__rtentry2.o)
-    0x000004ce   0x00000000   Code   RO          894    .ARM.Collect$$rtentry$$0000000C  c_w.l(__rtentry2.o)
-    0x000004ce   0x00000008   Code   RO          895    .ARM.Collect$$rtentry$$0000000D  c_w.l(__rtentry2.o)
-    0x000004d6   0x00000002   Code   RO         1009    .ARM.Collect$$rtexit$$00000000  c_w.l(rtexit.o)
-    0x000004d8   0x00000000   Code   RO         1055    .ARM.Collect$$rtexit$$00000002  c_w.l(rtexit2.o)
-    0x000004d8   0x00000004   Code   RO         1056    .ARM.Collect$$rtexit$$00000003  c_w.l(rtexit2.o)
-    0x000004dc   0x00000006   Code   RO         1057    .ARM.Collect$$rtexit$$00000004  c_w.l(rtexit2.o)
+    0x00000468   0x0000001c   Code   RO         1142    !!handler_zi        c_w.l(__scatter_zi.o)
+    0x00000484   0x00000000   Code   RO          725    .ARM.Collect$$_printf_percent$$00000000  c_w.l(_printf_percent.o)
+    0x00000484   0x00000006   Code   RO          724    .ARM.Collect$$_printf_percent$$00000005  c_w.l(_printf_g.o)
+    0x0000048a   0x00000006   Code   RO          723    .ARM.Collect$$_printf_percent$$00000008  c_w.l(_printf_i.o)
+    0x00000490   0x00000004   Code   RO          819    .ARM.Collect$$_printf_percent$$00000017  c_w.l(_printf_percent_end.o)
+    0x00000494   0x00000002   Code   RO         1007    .ARM.Collect$$libinit$$00000000  c_w.l(libinit.o)
+    0x00000496   0x00000004   Code   RO          828    .ARM.Collect$$libinit$$00000001  c_w.l(libinit2.o)
+    0x0000049a   0x00000000   Code   RO          831    .ARM.Collect$$libinit$$00000004  c_w.l(libinit2.o)
+    0x0000049a   0x00000008   Code   RO          832    .ARM.Collect$$libinit$$00000005  c_w.l(libinit2.o)
+    0x000004a2   0x00000000   Code   RO          834    .ARM.Collect$$libinit$$0000000A  c_w.l(libinit2.o)
+    0x000004a2   0x00000000   Code   RO          836    .ARM.Collect$$libinit$$0000000C  c_w.l(libinit2.o)
+    0x000004a2   0x00000000   Code   RO          838    .ARM.Collect$$libinit$$0000000E  c_w.l(libinit2.o)
+    0x000004a2   0x00000006   Code   RO          839    .ARM.Collect$$libinit$$0000000F  c_w.l(libinit2.o)
+    0x000004a8   0x00000000   Code   RO          841    .ARM.Collect$$libinit$$00000011  c_w.l(libinit2.o)
+    0x000004a8   0x0000000c   Code   RO          842    .ARM.Collect$$libinit$$00000012  c_w.l(libinit2.o)
+    0x000004b4   0x00000000   Code   RO          843    .ARM.Collect$$libinit$$00000013  c_w.l(libinit2.o)
+    0x000004b4   0x00000000   Code   RO          845    .ARM.Collect$$libinit$$00000015  c_w.l(libinit2.o)
+    0x000004b4   0x0000000a   Code   RO          846    .ARM.Collect$$libinit$$00000016  c_w.l(libinit2.o)
+    0x000004be   0x00000000   Code   RO          847    .ARM.Collect$$libinit$$00000017  c_w.l(libinit2.o)
+    0x000004be   0x00000000   Code   RO          849    .ARM.Collect$$libinit$$00000019  c_w.l(libinit2.o)
+    0x000004be   0x00000000   Code   RO          851    .ARM.Collect$$libinit$$0000001B  c_w.l(libinit2.o)
+    0x000004be   0x00000000   Code   RO          853    .ARM.Collect$$libinit$$0000001D  c_w.l(libinit2.o)
+    0x000004be   0x00000000   Code   RO          855    .ARM.Collect$$libinit$$0000001F  c_w.l(libinit2.o)
+    0x000004be   0x00000000   Code   RO          857    .ARM.Collect$$libinit$$00000021  c_w.l(libinit2.o)
+    0x000004be   0x00000000   Code   RO          859    .ARM.Collect$$libinit$$00000023  c_w.l(libinit2.o)
+    0x000004be   0x00000000   Code   RO          861    .ARM.Collect$$libinit$$00000025  c_w.l(libinit2.o)
+    0x000004be   0x00000000   Code   RO          865    .ARM.Collect$$libinit$$0000002C  c_w.l(libinit2.o)
+    0x000004be   0x00000000   Code   RO          867    .ARM.Collect$$libinit$$0000002E  c_w.l(libinit2.o)
+    0x000004be   0x00000000   Code   RO          869    .ARM.Collect$$libinit$$00000030  c_w.l(libinit2.o)
+    0x000004be   0x00000000   Code   RO          871    .ARM.Collect$$libinit$$00000032  c_w.l(libinit2.o)
+    0x000004be   0x00000002   Code   RO          872    .ARM.Collect$$libinit$$00000033  c_w.l(libinit2.o)
+    0x000004c0   0x00000002   Code   RO         1096    .ARM.Collect$$libshutdown$$00000000  c_w.l(libshutdown.o)
+    0x000004c2   0x00000000   Code   RO         1021    .ARM.Collect$$libshutdown$$00000002  c_w.l(libshutdown2.o)
+    0x000004c2   0x00000000   Code   RO         1023    .ARM.Collect$$libshutdown$$00000004  c_w.l(libshutdown2.o)
+    0x000004c2   0x00000000   Code   RO         1026    .ARM.Collect$$libshutdown$$00000007  c_w.l(libshutdown2.o)
+    0x000004c2   0x00000000   Code   RO         1029    .ARM.Collect$$libshutdown$$0000000A  c_w.l(libshutdown2.o)
+    0x000004c2   0x00000000   Code   RO         1031    .ARM.Collect$$libshutdown$$0000000C  c_w.l(libshutdown2.o)
+    0x000004c2   0x00000000   Code   RO         1034    .ARM.Collect$$libshutdown$$0000000F  c_w.l(libshutdown2.o)
+    0x000004c2   0x00000002   Code   RO         1035    .ARM.Collect$$libshutdown$$00000010  c_w.l(libshutdown2.o)
+    0x000004c4   0x00000000   Code   RO          776    .ARM.Collect$$rtentry$$00000000  c_w.l(__rtentry.o)
+    0x000004c4   0x00000000   Code   RO          890    .ARM.Collect$$rtentry$$00000002  c_w.l(__rtentry2.o)
+    0x000004c4   0x00000006   Code   RO          902    .ARM.Collect$$rtentry$$00000004  c_w.l(__rtentry4.o)
+    0x000004ca   0x00000000   Code   RO          892    .ARM.Collect$$rtentry$$00000009  c_w.l(__rtentry2.o)
+    0x000004ca   0x00000004   Code   RO          893    .ARM.Collect$$rtentry$$0000000A  c_w.l(__rtentry2.o)
+    0x000004ce   0x00000000   Code   RO          895    .ARM.Collect$$rtentry$$0000000C  c_w.l(__rtentry2.o)
+    0x000004ce   0x00000008   Code   RO          896    .ARM.Collect$$rtentry$$0000000D  c_w.l(__rtentry2.o)
+    0x000004d6   0x00000002   Code   RO         1010    .ARM.Collect$$rtexit$$00000000  c_w.l(rtexit.o)
+    0x000004d8   0x00000000   Code   RO         1056    .ARM.Collect$$rtexit$$00000002  c_w.l(rtexit2.o)
+    0x000004d8   0x00000004   Code   RO         1057    .ARM.Collect$$rtexit$$00000003  c_w.l(rtexit2.o)
+    0x000004dc   0x00000006   Code   RO         1058    .ARM.Collect$$rtexit$$00000004  c_w.l(rtexit2.o)
     0x000004e2   0x00000002   PAD
-    0x000004e4   0x00000000   Code   RO          912    .emb_text           c_w.l(maybetermalloc1.o)
-    0x000004e4   0x0000004c   Code   RO          577    .text               startup_mk64f12.o
-    0x00000530   0x0000005e   Code   RO          632    .text               c_w.l(h1_alloc.o)
-    0x0000058e   0x0000004e   Code   RO          634    .text               c_w.l(h1_free.o)
-    0x000005dc   0x00000028   Code   RO          694    .text               c_w.l(noretval__2sprintf.o)
-    0x00000604   0x00000034   Code   RO          696    .text               c_w.l(noretval__2snprintf.o)
-    0x00000638   0x00000068   Code   RO          698    .text               c_w.l(__printf.o)
-    0x000006a0   0x00000078   Code   RO          700    .text               c_w.l(_printf_dec.o)
-    0x00000718   0x0000001a   Code   RO          725    .text               c_w.l(atoi.o)
-    0x00000732   0x0000004e   Code   RO          727    .text               c_w.l(rt_memclr_w.o)
-    0x00000780   0x00000080   Code   RO          729    .text               c_w.l(strcmpv7m.o)
-    0x00000800   0x00000006   Code   RO          731    .text               c_w.l(heapauxi.o)
+    0x000004e4   0x00000000   Code   RO          913    .emb_text           c_w.l(maybetermalloc1.o)
+    0x000004e4   0x0000004c   Code   RO          578    .text               startup_mk64f12.o
+    0x00000530   0x0000005e   Code   RO          633    .text               c_w.l(h1_alloc.o)
+    0x0000058e   0x0000004e   Code   RO          635    .text               c_w.l(h1_free.o)
+    0x000005dc   0x00000028   Code   RO          695    .text               c_w.l(noretval__2sprintf.o)
+    0x00000604   0x00000034   Code   RO          697    .text               c_w.l(noretval__2snprintf.o)
+    0x00000638   0x00000068   Code   RO          699    .text               c_w.l(__printf.o)
+    0x000006a0   0x00000078   Code   RO          701    .text               c_w.l(_printf_dec.o)
+    0x00000718   0x0000001a   Code   RO          726    .text               c_w.l(atoi.o)
+    0x00000732   0x0000004e   Code   RO          728    .text               c_w.l(rt_memclr_w.o)
+    0x00000780   0x00000080   Code   RO          730    .text               c_w.l(strcmpv7m.o)
+    0x00000800   0x00000006   Code   RO          732    .text               c_w.l(heapauxi.o)
     0x00000806   0x00000002   PAD
-    0x00000808   0x00000008   Code   RO          779    .text               c_w.l(rt_heap_descriptor_intlibspace.o)
-    0x00000810   0x00000008   Code   RO          784    .text               c_w.l(rt_errno_addr_intlibspace.o)
-    0x00000818   0x00000004   Code   RO          786    .text               c_w.l(hguard.o)
-    0x0000081c   0x0000008a   Code   RO          788    .text               c_w.l(init_alloc.o)
-    0x000008a6   0x0000000e   Code   RO          792    .text               c_w.l(h1_init.o)
-    0x000008b4   0x00000016   Code   RO          806    .text               c_w.l(_rserrno.o)
-    0x000008ca   0x000000b2   Code   RO          808    .text               c_w.l(_printf_intcommon.o)
-    0x0000097c   0x0000041a   Code   RO          810    .text               c_w.l(_printf_fp_dec.o)
+    0x00000808   0x00000008   Code   RO          780    .text               c_w.l(rt_heap_descriptor_intlibspace.o)
+    0x00000810   0x00000008   Code   RO          785    .text               c_w.l(rt_errno_addr_intlibspace.o)
+    0x00000818   0x00000004   Code   RO          787    .text               c_w.l(hguard.o)
+    0x0000081c   0x0000008a   Code   RO          789    .text               c_w.l(init_alloc.o)
+    0x000008a6   0x0000000e   Code   RO          793    .text               c_w.l(h1_init.o)
+    0x000008b4   0x00000016   Code   RO          807    .text               c_w.l(_rserrno.o)
+    0x000008ca   0x000000b2   Code   RO          809    .text               c_w.l(_printf_intcommon.o)
+    0x0000097c   0x0000041a   Code   RO          811    .text               c_w.l(_printf_fp_dec.o)
     0x00000d96   0x00000002   PAD
-    0x00000d98   0x00000030   Code   RO          812    .text               c_w.l(_printf_char_common.o)
-    0x00000dc8   0x0000000a   Code   RO          814    .text               c_w.l(_sputc.o)
-    0x00000dd2   0x00000010   Code   RO          816    .text               c_w.l(_snputc.o)
+    0x00000d98   0x00000030   Code   RO          813    .text               c_w.l(_printf_char_common.o)
+    0x00000dc8   0x0000000a   Code   RO          815    .text               c_w.l(_sputc.o)
+    0x00000dd2   0x00000010   Code   RO          817    .text               c_w.l(_snputc.o)
     0x00000de2   0x00000002   PAD
-    0x00000de4   0x000000a4   Code   RO          819    .text               c_w.l(strtod.o)
-    0x00000e88   0x00000070   Code   RO          821    .text               c_w.l(strtol.o)
-    0x00000ef8   0x00000008   Code   RO          885    .text               c_w.l(libspace.o)
-    0x00000f00   0x00000010   Code   RO          903    .text               c_w.l(rt_ctype_table.o)
-    0x00000f10   0x00000008   Code   RO          908    .text               c_w.l(rt_locale_intlibspace.o)
-    0x00000f18   0x00000034   Code   RO          914    .text               c_w.l(h1_extend.o)
-    0x00000f4c   0x0000008a   Code   RO          918    .text               c_w.l(lludiv10.o)
-    0x00000fd6   0x00000012   Code   RO          920    .text               c_w.l(isspace.o)
-    0x00000fe8   0x00000080   Code   RO          922    .text               c_w.l(_printf_fp_infnan.o)
-    0x00001068   0x00000040   Code   RO          926    .text               c_w.l(_sgetc.o)
-    0x000010a8   0x0000009e   Code   RO          928    .text               c_w.l(_strtoul.o)
+    0x00000de4   0x000000a4   Code   RO          820    .text               c_w.l(strtod.o)
+    0x00000e88   0x00000070   Code   RO          822    .text               c_w.l(strtol.o)
+    0x00000ef8   0x00000008   Code   RO          886    .text               c_w.l(libspace.o)
+    0x00000f00   0x00000010   Code   RO          904    .text               c_w.l(rt_ctype_table.o)
+    0x00000f10   0x00000008   Code   RO          909    .text               c_w.l(rt_locale_intlibspace.o)
+    0x00000f18   0x00000034   Code   RO          915    .text               c_w.l(h1_extend.o)
+    0x00000f4c   0x0000008a   Code   RO          919    .text               c_w.l(lludiv10.o)
+    0x00000fd6   0x00000012   Code   RO          921    .text               c_w.l(isspace.o)
+    0x00000fe8   0x00000080   Code   RO          923    .text               c_w.l(_printf_fp_infnan.o)
+    0x00001068   0x00000040   Code   RO          927    .text               c_w.l(_sgetc.o)
+    0x000010a8   0x0000009e   Code   RO          929    .text               c_w.l(_strtoul.o)
     0x00001146   0x00000002   PAD
-    0x00001148   0x000000dc   Code   RO          930    .text               c_w.l(bigflt0.o)
-    0x00001224   0x0000000e   Code   RO          958    .text               c_w.l(defsig_rtmem_outer.o)
-    0x00001232   0x00000002   Code   RO          975    .text               c_w.l(use_no_semi.o)
-    0x00001234   0x00000000   Code   RO          977    .text               c_w.l(indicate_semi.o)
-    0x00001234   0x0000004a   Code   RO          978    .text               c_w.l(sys_stackheap_outer.o)
-    0x0000127e   0x0000001c   Code   RO          984    .text               c_w.l(_chval.o)
+    0x00001148   0x000000dc   Code   RO          931    .text               c_w.l(bigflt0.o)
+    0x00001224   0x0000000e   Code   RO          959    .text               c_w.l(defsig_rtmem_outer.o)
+    0x00001232   0x00000002   Code   RO          976    .text               c_w.l(use_no_semi.o)
+    0x00001234   0x00000000   Code   RO          978    .text               c_w.l(indicate_semi.o)
+    0x00001234   0x0000004a   Code   RO          979    .text               c_w.l(sys_stackheap_outer.o)
+    0x0000127e   0x0000001c   Code   RO          985    .text               c_w.l(_chval.o)
     0x0000129a   0x00000002   PAD
-    0x0000129c   0x000004a4   Code   RO          986    .text               c_w.l(scanf_fp.o)
-    0x00001740   0x00000012   Code   RO          991    .text               c_w.l(exit.o)
-    0x00001752   0x0000000a   Code   RO          993    .text               c_w.l(defsig_exit.o)
-    0x0000175c   0x00000050   Code   RO          995    .text               c_w.l(defsig_rtmem_inner.o)
-    0x000017ac   0x0000000c   Code   RO         1007    .text               c_w.l(sys_exit.o)
-    0x000017b8   0x00000032   Code   RO         1017    .text               c_w.l(defsig_general.o)
-    0x000017ea   0x0000000e   Code   RO         1052    .text               c_w.l(sys_wrch.o)
-    0x000017f8   0x00000320   Code   RO         1061    .text               c_w.l(scanf_hexfp.o)
-    0x00001b18   0x00000134   Code   RO         1063    .text               c_w.l(scanf_infnan.o)
-    0x00001c4c   0x00000026   Code   RO         1075    .text               c_w.l(llshl.o)
-    0x00001c72   0x0000003e   Code   RO          933    CL$$btod_d2e        c_w.l(btod.o)
-    0x00001cb0   0x00000046   Code   RO          935    CL$$btod_d2e_denorm_low  c_w.l(btod.o)
-    0x00001cf6   0x00000060   Code   RO          934    CL$$btod_d2e_norm_op1  c_w.l(btod.o)
-    0x00001d56   0x00000338   Code   RO          943    CL$$btod_div_common  c_w.l(btod.o)
+    0x0000129c   0x000004a4   Code   RO          987    .text               c_w.l(scanf_fp.o)
+    0x00001740   0x00000012   Code   RO          992    .text               c_w.l(exit.o)
+    0x00001752   0x0000000a   Code   RO          994    .text               c_w.l(defsig_exit.o)
+    0x0000175c   0x00000050   Code   RO          996    .text               c_w.l(defsig_rtmem_inner.o)
+    0x000017ac   0x0000000c   Code   RO         1008    .text               c_w.l(sys_exit.o)
+    0x000017b8   0x00000032   Code   RO         1018    .text               c_w.l(defsig_general.o)
+    0x000017ea   0x0000000e   Code   RO         1053    .text               c_w.l(sys_wrch.o)
+    0x000017f8   0x00000320   Code   RO         1062    .text               c_w.l(scanf_hexfp.o)
+    0x00001b18   0x00000134   Code   RO         1064    .text               c_w.l(scanf_infnan.o)
+    0x00001c4c   0x00000026   Code   RO         1076    .text               c_w.l(llshl.o)
+    0x00001c72   0x0000003e   Code   RO          934    CL$$btod_d2e        c_w.l(btod.o)
+    0x00001cb0   0x00000046   Code   RO          936    CL$$btod_d2e_denorm_low  c_w.l(btod.o)
+    0x00001cf6   0x00000060   Code   RO          935    CL$$btod_d2e_norm_op1  c_w.l(btod.o)
+    0x00001d56   0x00000338   Code   RO          944    CL$$btod_div_common  c_w.l(btod.o)
     0x0000208e   0x00000002   PAD
-    0x00002090   0x00000054   Code   RO          941    CL$$btod_e2d        c_w.l(btod.o)
-    0x000020e4   0x000000c6   Code   RO          940    CL$$btod_e2e        c_w.l(btod.o)
-    0x000021aa   0x00000028   Code   RO          937    CL$$btod_ediv       c_w.l(btod.o)
-    0x000021d2   0x00000028   Code   RO          939    CL$$btod_edivd      c_w.l(btod.o)
-    0x000021fa   0x00000028   Code   RO          936    CL$$btod_emul       c_w.l(btod.o)
-    0x00002222   0x00000028   Code   RO          938    CL$$btod_emuld      c_w.l(btod.o)
-    0x0000224a   0x00000244   Code   RO          942    CL$$btod_mult_common  c_w.l(btod.o)
+    0x00002090   0x00000054   Code   RO          942    CL$$btod_e2d        c_w.l(btod.o)
+    0x000020e4   0x000000c6   Code   RO          941    CL$$btod_e2e        c_w.l(btod.o)
+    0x000021aa   0x00000028   Code   RO          938    CL$$btod_ediv       c_w.l(btod.o)
+    0x000021d2   0x00000028   Code   RO          940    CL$$btod_edivd      c_w.l(btod.o)
+    0x000021fa   0x00000028   Code   RO          937    CL$$btod_emul       c_w.l(btod.o)
+    0x00002222   0x00000028   Code   RO          939    CL$$btod_emuld      c_w.l(btod.o)
+    0x0000224a   0x00000244   Code   RO          943    CL$$btod_mult_common  c_w.l(btod.o)
     0x0000248e   0x00000002   PAD
     0x00002490   0x00000028   Code   RO          151    i.FTM0_IRQHandler   pwm.o
     0x000024b8   0x000000ec   Code   RO          152    i.InitPWM           pwm.o
@@ -1661,85 +1664,85 @@ Memory Map of the image
     0x0000279c   0x00000018   Code   RO          283    i.PORTC_IRQHandler  isr.o
     0x000027b4   0x00000070   Code   RO          154    i.RightDuty         pwm.o
     0x00002824   0x0000008c   Code   RO          155    i.SetDutyCycle      pwm.o
-    0x000028b0   0x000000a0   Code   RO          587    i.SystemInit        system_mk64f12.o
+    0x000028b0   0x000000a0   Code   RO          588    i.SystemInit        system_mk64f12.o
     0x00002950   0x000001d4   Code   RO          313    i.UART3_RX_TX_IRQHandler  bluetooth.o
-    0x00002b24   0x00000030   Code   RO          973    i.__ARM_fpclassify  m_wm.l(fpclassify.o)
+    0x00002b24   0x00000030   Code   RO          974    i.__ARM_fpclassify  m_wm.l(fpclassify.o)
     0x00002b54   0x0000001a   Code   RO          249    i.__NVIC_EnableIRQ  inits.o
     0x00002b6e   0x00000002   PAD
-    0x00002b70   0x00000038   Code   RO          767    i.__hardfp_atof     m_wm.l(atof.o)
-    0x00002ba8   0x000000d0   Code   RO         1096    i.__hardfp_ldexp    m_wm.l(ldexp.o)
-    0x00002c78   0x00000020   Code   RO         1118    i.__mathlib_dbl_overflow  m_wm.l(dunder.o)
-    0x00002c98   0x00000020   Code   RO         1120    i.__mathlib_dbl_underflow  m_wm.l(dunder.o)
-    0x00002cb8   0x000000b8   Code   RO         1045    i.__mathlib_narrow  m_wm.l(narrow.o)
-    0x00002d70   0x00000014   Code   RO         1098    i.__support_ldexp   m_wm.l(ldexp.o)
-    0x00002d84   0x0000000e   Code   RO          712    i._is_digit         c_w.l(__printf_wp.o)
+    0x00002b70   0x00000038   Code   RO          768    i.__hardfp_atof     m_wm.l(atof.o)
+    0x00002ba8   0x000000d0   Code   RO         1097    i.__hardfp_ldexp    m_wm.l(ldexp.o)
+    0x00002c78   0x00000020   Code   RO         1119    i.__mathlib_dbl_overflow  m_wm.l(dunder.o)
+    0x00002c98   0x00000020   Code   RO         1121    i.__mathlib_dbl_underflow  m_wm.l(dunder.o)
+    0x00002cb8   0x000000b8   Code   RO         1046    i.__mathlib_narrow  m_wm.l(narrow.o)
+    0x00002d70   0x00000014   Code   RO         1099    i.__support_ldexp   m_wm.l(ldexp.o)
+    0x00002d84   0x0000000e   Code   RO          713    i._is_digit         c_w.l(__printf_wp.o)
     0x00002d92   0x00000024   Code   RO          314    i.bt_getAscii       bluetooth.o
     0x00002db6   0x00000002   PAD
     0x00002db8   0x00000018   Code   RO          316    i.bt_getbyte        bluetooth.o
     0x00002dd0   0x00000084   Code   RO            4    i.calc              main.o
     0x00002e54   0x00000014   Code   RO            5    i.delay             main.o
-    0x00002e68   0x00000120   Code   RO            6    i.demo              main.o
-    0x00002f88   0x000001b8   Code   RO            7    i.distanceCalc      main.o
-    0x00003140   0x0000008c   Code   RO         1071    i.frexp             m_wm.l(frexp.o)
-    0x000031cc   0x00000080   Code   RO          522    i.getGPS            gps.o
-    0x0000324c   0x0000011c   Code   RO          478    i.getUltrasonic     ultrasonic.o
-    0x00003368   0x00000060   Code   RO          324    i.get_BT_GPS_dev    bluetooth.o
-    0x000033c8   0x000000c4   Code   RO          325    i.init_BT           bluetooth.o
-    0x0000348c   0x000000cc   Code   RO          250    i.init_GPIO         inits.o
-    0x00003558   0x00000084   Code   RO          443    i.init_LEDS         leds.o
-    0x000035dc   0x00000070   Code   RO          479    i.init_PIT          ultrasonic.o
-    0x0000364c   0x0000008c   Code   RO          480    i.init_ultrasonic   ultrasonic.o
-    0x000036d8   0x00000020   Code   RO            8    i.initialize        main.o
-    0x000036f8   0x00000168   Code   RO            9    i.main              main.o
-    0x00003860   0x00000068   Code   RO           10    i.normalSet         main.o
-    0x000038c8   0x00000016   Code   RO          202    i.put               uart.o
-    0x000038de   0x00000002   PAD
-    0x000038e0   0x0000016c   Code   RO           11    i.turn              main.o
-    0x00003a4c   0x000000a8   Code   RO           12    i.turnCalc          main.o
-    0x00003af4   0x0000008c   Code   RO          203    i.uart0_init        uart.o
-    0x00003b80   0x0000001c   Code   RO          523    i.uart2_get         gps.o
-    0x00003b9c   0x00000018   Code   RO          524    i.uart2_getchar     gps.o
-    0x00003bb4   0x0000008c   Code   RO          525    i.uart2_init        gps.o
-    0x00003c40   0x00000016   Code   RO          526    i.uart2_put         gps.o
-    0x00003c56   0x00000002   PAD
-    0x00003c58   0x00000018   Code   RO          527    i.uart2_putchar     gps.o
-    0x00003c70   0x00000018   Code   RO          205    i.uart_putchar      uart.o
-    0x00003c88   0x000000dc   Code   RO           13    i.waitForReady      main.o
-    0x00003d64   0x0000002c   Code   RO          956    locale$$code        c_w.l(lc_numeric_c.o)
-    0x00003d90   0x0000002c   Code   RO          989    locale$$code        c_w.l(lc_ctype_c.o)
-    0x00003dbc   0x00000062   Code   RO          735    x$fpl$d2f           fz_wm.l(d2f.o)
-    0x00003e1e   0x00000002   PAD
-    0x00003e20   0x00000150   Code   RO          737    x$fpl$dadd          fz_wm.l(daddsub_clz.o)
-    0x00003f70   0x00000010   Code   RO         1129    x$fpl$dcheck1       fz_wm.l(dcheck1.o)
-    0x00003f80   0x00000018   Code   RO          872    x$fpl$dcmpinf       fz_wm.l(dcmpi.o)
-    0x00003f98   0x000002b0   Code   RO          744    x$fpl$ddiv          fz_wm.l(ddiv.o)
-    0x00004248   0x00000078   Code   RO         1067    x$fpl$deqf          fz_wm.l(deqf.o)
-    0x000042c0   0x0000005e   Code   RO          747    x$fpl$dfix          fz_wm.l(dfix.o)
-    0x0000431e   0x0000002e   Code   RO          752    x$fpl$dflt          fz_wm.l(dflt_clz.o)
-    0x0000434c   0x00000078   Code   RO          757    x$fpl$dleqf         fz_wm.l(dleqf.o)
-    0x000043c4   0x00000154   Code   RO          759    x$fpl$dmul          fz_wm.l(dmul.o)
-    0x00004518   0x0000009c   Code   RO          874    x$fpl$dnaninf       fz_wm.l(dnaninf.o)
-    0x000045b4   0x0000000c   Code   RO          876    x$fpl$dretinf       fz_wm.l(dretinf.o)
-    0x000045c0   0x0000006c   Code   RO          761    x$fpl$drleqf        fz_wm.l(drleqf.o)
-    0x0000462c   0x000001d4   Code   RO          739    x$fpl$dsub          fz_wm.l(daddsub_clz.o)
-    0x00004800   0x00000056   Code   RO          763    x$fpl$f2d           fz_wm.l(f2d.o)
-    0x00004856   0x0000008c   Code   RO          878    x$fpl$fnaninf       fz_wm.l(fnaninf.o)
-    0x000048e2   0x0000000a   Code   RO          967    x$fpl$fpinit        fz_wm.l(fpinit.o)
-    0x000048ec   0x0000000a   Code   RO          880    x$fpl$fretinf       fz_wm.l(fretinf.o)
-    0x000048f6   0x00000004   Code   RO          765    x$fpl$printf1       fz_wm.l(printf1.o)
-    0x000048fa   0x00000064   Code   RO         1131    x$fpl$retnan        fz_wm.l(retnan.o)
-    0x0000495e   0x0000005c   Code   RO         1112    x$fpl$scalbn        fz_wm.l(scalbn.o)
-    0x000049ba   0x00000004   Code   RO          971    x$fpl$scanf1        fz_wm.l(scanf1.o)
-    0x000049be   0x00000008   Code   RO         1038    x$fpl$scanf2        fz_wm.l(scanf2.o)
-    0x000049c6   0x00000030   Code   RO         1133    x$fpl$trapveneer    fz_wm.l(trapv.o)
-    0x000049f6   0x00000000   Code   RO          882    x$fpl$usenofp       fz_wm.l(usenofp.o)
-    0x000049f6   0x00000002   PAD
-    0x000049f8   0x0000001c   Data   RO           15    .constdata          main.o
-    0x00004a14   0x00000094   Data   RO          931    .constdata          c_w.l(bigflt0.o)
-    0x00004aa8   0x00000020   Data   RO         1135    Region$$Table       anon$$obj.o
-    0x00004ac8   0x00000008   Data   RO         1035    c$$dinf             fz_wm.l(fpconst.o)
-    0x00004ad0   0x0000001c   Data   RO          955    locale$$data        c_w.l(lc_numeric_c.o)
-    0x00004aec   0x00000110   Data   RO          988    locale$$data        c_w.l(lc_ctype_c.o)
+    0x00002e68   0x00000170   Code   RO            6    i.demo              main.o
+    0x00002fd8   0x000001b8   Code   RO            7    i.distanceCalc      main.o
+    0x00003190   0x0000008c   Code   RO         1072    i.frexp             m_wm.l(frexp.o)
+    0x0000321c   0x00000124   Code   RO          522    i.getGPS            gps.o
+    0x00003340   0x0000011c   Code   RO          478    i.getUltrasonic     ultrasonic.o
+    0x0000345c   0x00000060   Code   RO          324    i.get_BT_GPS_dev    bluetooth.o
+    0x000034bc   0x000000c4   Code   RO          325    i.init_BT           bluetooth.o
+    0x00003580   0x000000cc   Code   RO          250    i.init_GPIO         inits.o
+    0x0000364c   0x00000084   Code   RO          443    i.init_LEDS         leds.o
+    0x000036d0   0x00000070   Code   RO          479    i.init_PIT          ultrasonic.o
+    0x00003740   0x0000008c   Code   RO          480    i.init_ultrasonic   ultrasonic.o
+    0x000037cc   0x00000020   Code   RO            8    i.initialize        main.o
+    0x000037ec   0x00000168   Code   RO            9    i.main              main.o
+    0x00003954   0x00000068   Code   RO           10    i.normalSet         main.o
+    0x000039bc   0x00000016   Code   RO          202    i.put               uart.o
+    0x000039d2   0x00000002   PAD
+    0x000039d4   0x0000016c   Code   RO           11    i.turn              main.o
+    0x00003b40   0x000000a8   Code   RO           12    i.turnCalc          main.o
+    0x00003be8   0x0000008c   Code   RO          203    i.uart0_init        uart.o
+    0x00003c74   0x0000001c   Code   RO          523    i.uart2_get         gps.o
+    0x00003c90   0x00000018   Code   RO          524    i.uart2_getchar     gps.o
+    0x00003ca8   0x0000008c   Code   RO          525    i.uart2_init        gps.o
+    0x00003d34   0x00000016   Code   RO          526    i.uart2_put         gps.o
+    0x00003d4a   0x00000002   PAD
+    0x00003d4c   0x00000018   Code   RO          527    i.uart2_putchar     gps.o
+    0x00003d64   0x00000018   Code   RO          205    i.uart_putchar      uart.o
+    0x00003d7c   0x000000dc   Code   RO           13    i.waitForReady      main.o
+    0x00003e58   0x0000002c   Code   RO          957    locale$$code        c_w.l(lc_numeric_c.o)
+    0x00003e84   0x0000002c   Code   RO          990    locale$$code        c_w.l(lc_ctype_c.o)
+    0x00003eb0   0x00000062   Code   RO          736    x$fpl$d2f           fz_wm.l(d2f.o)
+    0x00003f12   0x00000002   PAD
+    0x00003f14   0x00000150   Code   RO          738    x$fpl$dadd          fz_wm.l(daddsub_clz.o)
+    0x00004064   0x00000010   Code   RO         1130    x$fpl$dcheck1       fz_wm.l(dcheck1.o)
+    0x00004074   0x00000018   Code   RO          873    x$fpl$dcmpinf       fz_wm.l(dcmpi.o)
+    0x0000408c   0x000002b0   Code   RO          745    x$fpl$ddiv          fz_wm.l(ddiv.o)
+    0x0000433c   0x00000078   Code   RO         1068    x$fpl$deqf          fz_wm.l(deqf.o)
+    0x000043b4   0x0000005e   Code   RO          748    x$fpl$dfix          fz_wm.l(dfix.o)
+    0x00004412   0x0000002e   Code   RO          753    x$fpl$dflt          fz_wm.l(dflt_clz.o)
+    0x00004440   0x00000078   Code   RO          758    x$fpl$dleqf         fz_wm.l(dleqf.o)
+    0x000044b8   0x00000154   Code   RO          760    x$fpl$dmul          fz_wm.l(dmul.o)
+    0x0000460c   0x0000009c   Code   RO          875    x$fpl$dnaninf       fz_wm.l(dnaninf.o)
+    0x000046a8   0x0000000c   Code   RO          877    x$fpl$dretinf       fz_wm.l(dretinf.o)
+    0x000046b4   0x0000006c   Code   RO          762    x$fpl$drleqf        fz_wm.l(drleqf.o)
+    0x00004720   0x000001d4   Code   RO          740    x$fpl$dsub          fz_wm.l(daddsub_clz.o)
+    0x000048f4   0x00000056   Code   RO          764    x$fpl$f2d           fz_wm.l(f2d.o)
+    0x0000494a   0x0000008c   Code   RO          879    x$fpl$fnaninf       fz_wm.l(fnaninf.o)
+    0x000049d6   0x0000000a   Code   RO          968    x$fpl$fpinit        fz_wm.l(fpinit.o)
+    0x000049e0   0x0000000a   Code   RO          881    x$fpl$fretinf       fz_wm.l(fretinf.o)
+    0x000049ea   0x00000004   Code   RO          766    x$fpl$printf1       fz_wm.l(printf1.o)
+    0x000049ee   0x00000064   Code   RO         1132    x$fpl$retnan        fz_wm.l(retnan.o)
+    0x00004a52   0x0000005c   Code   RO         1113    x$fpl$scalbn        fz_wm.l(scalbn.o)
+    0x00004aae   0x00000004   Code   RO          972    x$fpl$scanf1        fz_wm.l(scanf1.o)
+    0x00004ab2   0x00000008   Code   RO         1039    x$fpl$scanf2        fz_wm.l(scanf2.o)
+    0x00004aba   0x00000030   Code   RO         1134    x$fpl$trapveneer    fz_wm.l(trapv.o)
+    0x00004aea   0x00000000   Code   RO          883    x$fpl$usenofp       fz_wm.l(usenofp.o)
+    0x00004aea   0x00000002   PAD
+    0x00004aec   0x0000001c   Data   RO           15    .constdata          main.o
+    0x00004b08   0x00000094   Data   RO          932    .constdata          c_w.l(bigflt0.o)
+    0x00004b9c   0x00000020   Data   RO         1136    Region$$Table       anon$$obj.o
+    0x00004bbc   0x00000008   Data   RO         1036    c$$dinf             fz_wm.l(fpconst.o)
+    0x00004bc4   0x0000001c   Data   RO          956    locale$$data        c_w.l(lc_numeric_c.o)
+    0x00004be0   0x00000110   Data   RO          989    locale$$data        c_w.l(lc_ctype_c.o)
 
 
     Execution Region RW_IRAM1 (Base: 0x20000000, Size: 0x00001548, Max: 0x00030000, ABSOLUTE)
@@ -1750,10 +1753,10 @@ Memory Map of the image
     0x20000068   0x00000008   Data   RW          156    .data               pwm.o
     0x20000070   0x0000006c   Data   RW          331    .data               bluetooth.o
     0x200000dc   0x00000008   Data   RW          481    .data               ultrasonic.o
-    0x200000e4   0x00000060   Zero   RW          886    .bss                c_w.l(libspace.o)
+    0x200000e4   0x00000060   Zero   RW          887    .bss                c_w.l(libspace.o)
     0x20000144   0x00000004   PAD
-    0x20000148   0x00001000   Zero   RW          574    HEAP                startup_mk64f12.o
-    0x20001148   0x00000400   Zero   RW          573    STACK               startup_mk64f12.o
+    0x20000148   0x00001000   Zero   RW          575    HEAP                startup_mk64f12.o
+    0x20001148   0x00000400   Zero   RW          574    STACK               startup_mk64f12.o
 
 
 ==============================================================================
@@ -1764,11 +1767,11 @@ Image component sizes
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
        820        116          0        108          0       5361   bluetooth.o
-       366         28          0          0          0       3094   gps.o
+       530         78          0          0          0       3182   gps.o
        230         24          0          0          0      26931   inits.o
         48         16          0          0          0        814   isr.o
        336         36          0          0          0       1385   leds.o
-      2128        372         28        104          0     358465   main.o
+      2208        386         28        104          0     358509   main.o
        640         68          0          8          0       2822   pwm.o
         92         48       1024          0       5120       1084   startup_mk64f12.o
        160         24          0          0          0        537   system_mk64f12.o
@@ -1776,7 +1779,7 @@ Image component sizes
        700         90          0          8          0       2429   ultrasonic.o
 
     ----------------------------------------------------------------------
-      5714        840       1084        228       5120     404320   Object Totals
+      5958        904       1084        228       5120     404452   Object Totals
          0          0         32          0          0          0   (incl. Generated)
          8          0          0          0          0          0   (incl. Padding)
 
@@ -1908,15 +1911,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     17912       1468       1540        228       5220     404812   Grand Totals
-     17912       1468       1540        228       5220     404812   ELF Image Totals
-     17912       1468       1540        228          0          0   ROM Totals
+     18156       1532       1540        228       5220     404944   Grand Totals
+     18156       1532       1540        228       5220     404944   ELF Image Totals
+     18156       1532       1540        228          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                19452 (  19.00kB)
+    Total RO  Size (Code + RO Data)                19696 (  19.23kB)
     Total RW  Size (RW Data + ZI Data)              5448 (   5.32kB)
-    Total ROM Size (Code + RO Data + RW Data)      19680 (  19.22kB)
+    Total ROM Size (Code + RO Data + RW Data)      19924 (  19.46kB)
 
 ==============================================================================
 

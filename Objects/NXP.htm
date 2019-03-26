@@ -3,9 +3,9 @@
 <title>Static Call Graph - [.\Objects\NXP.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\NXP.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060300: Last Updated: Tue Mar 26 14:08:43 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060300: Last Updated: Tue Mar 26 16:04:46 2019
 <BR><P>
-<H3>Maximum Stack Usage =       1208 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =       1272 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
 __rt_entry_main &rArr; main &rArr; distanceCalc &rArr; getGPS &rArr; __hardfp_atof &rArr; __strtod_int &rArr; _local_sscanf &rArr; _scanf_real &rArr; _scanf_really_real &rArr; _fp_value &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
 <P>
@@ -302,7 +302,7 @@ Global Symbols
 <P><STRONG><a name="[135]"></a>__rt_entry_postsh_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$00000009))
 
 <P><STRONG><a name="[89]"></a>__rt_entry_main</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$0000000D))
-<BR><BR>[Stack]<UL><LI>Max Depth = 1208 + Unknown Stack Size
+<BR><BR>[Stack]<UL><LI>Max Depth = 1272 + Unknown Stack Size
 <LI>Call Chain = __rt_entry_main &rArr; main &rArr; distanceCalc &rArr; getGPS &rArr; __hardfp_atof &rArr; __strtod_int &rArr; _local_sscanf &rArr; _scanf_real &rArr; _scanf_really_real &rArr; _fp_value &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
 </UL>
 <BR>[Calls]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -1155,7 +1155,6 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[37]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART3_RX_TX_IRQHandler
 <LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;waitForReady
 <LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnCalc
-<LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo
 </UL>
 
 <P><STRONG><a name="[f8]"></a>LeftDuty</STRONG> (Thumb, 98 bytes, Stack size 12 bytes, pwm.o(i.LeftDuty))
@@ -1300,24 +1299,24 @@ Global Symbols
 <LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo
 </UL>
 
-<P><STRONG><a name="[da]"></a>demo</STRONG> (Thumb, 208 bytes, Stack size 152 bytes, main.o(i.demo))
-<BR><BR>[Stack]<UL><LI>Max Depth = 600 + Unknown Stack Size
+<P><STRONG><a name="[da]"></a>demo</STRONG> (Thumb, 274 bytes, Stack size 216 bytes, main.o(i.demo))
+<BR><BR>[Stack]<UL><LI>Max Depth = 664 + Unknown Stack Size
 <LI>Call Chain = demo &rArr; __hardfp_atof &rArr; __strtod_int &rArr; _local_sscanf &rArr; _scanf_real &rArr; _scanf_really_real &rArr; _fp_value &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
 </UL>
-<BR>[Calls]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_putchar
-<LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_put
+<BR>[Calls]<UL><LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_putchar
+<LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_put
 <LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_get
 <LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put
-<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LEDon
 <LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay
 <LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atof
+<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
 <LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2snprintf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
 <P><STRONG><a name="[df]"></a>distanceCalc</STRONG> (Thumb, 344 bytes, Stack size 328 bytes, main.o(i.distanceCalc))
-<BR><BR>[Stack]<UL><LI>Max Depth = 944 + Unknown Stack Size
+<BR><BR>[Stack]<UL><LI>Max Depth = 1008 + Unknown Stack Size
 <LI>Call Chain = distanceCalc &rArr; getGPS &rArr; __hardfp_atof &rArr; __strtod_int &rArr; _local_sscanf &rArr; _scanf_real &rArr; _scanf_really_real &rArr; _fp_value &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put
@@ -1344,15 +1343,17 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_narrow
 </UL>
 
-<P><STRONG><a name="[e0]"></a>getGPS</STRONG> (Thumb, 122 bytes, Stack size 168 bytes, gps.o(i.getGPS))
-<BR><BR>[Stack]<UL><LI>Max Depth = 616 + Unknown Stack Size
+<P><STRONG><a name="[e0]"></a>getGPS</STRONG> (Thumb, 236 bytes, Stack size 232 bytes, gps.o(i.getGPS))
+<BR><BR>[Stack]<UL><LI>Max Depth = 680 + Unknown Stack Size
 <LI>Call Chain = getGPS &rArr; __hardfp_atof &rArr; __strtod_int &rArr; _local_sscanf &rArr; _scanf_real &rArr; _scanf_really_real &rArr; _fp_value &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_BT_GPS_dev
-<LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_putchar
-<LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_put
+<LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_putchar
+<LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_put
 <LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_get
+<LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put
 <LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atof
+<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
 <LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2snprintf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;distanceCalc
@@ -1427,7 +1428,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[8a]"></a>main</STRONG> (Thumb, 284 bytes, Stack size 264 bytes, main.o(i.main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 1208 + Unknown Stack Size
+<BR><BR>[Stack]<UL><LI>Max Depth = 1272 + Unknown Stack Size
 <LI>Call Chain = main &rArr; distanceCalc &rArr; getGPS &rArr; __hardfp_atof &rArr; __strtod_int &rArr; _local_sscanf &rArr; _scanf_real &rArr; _scanf_really_real &rArr; _fp_value &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put
@@ -1461,6 +1462,7 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_BT_GPS_dev
 <LI><a href="#[37]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART3_RX_TX_IRQHandler
+<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getGPS
 <LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;distanceCalc
 <LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo
@@ -1505,17 +1507,17 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initialize
 </UL>
 
-<P><STRONG><a name="[db]"></a>uart2_put</STRONG> (Thumb, 22 bytes, Stack size 4 bytes, gps.o(i.uart2_put))
+<P><STRONG><a name="[dc]"></a>uart2_put</STRONG> (Thumb, 22 bytes, Stack size 4 bytes, gps.o(i.uart2_put))
 <BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = uart2_put
 </UL>
-<BR>[Calls]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_putchar
+<BR>[Calls]<UL><LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_putchar
 </UL>
 <BR>[Called By]<UL><LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getGPS
 <LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo
 </UL>
 
-<P><STRONG><a name="[dc]"></a>uart2_putchar</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, gps.o(i.uart2_putchar))
-<BR><BR>[Called By]<UL><LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_put
+<P><STRONG><a name="[db]"></a>uart2_putchar</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, gps.o(i.uart2_putchar))
+<BR><BR>[Called By]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_put
 <LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getGPS
 <LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo
 </UL>
@@ -1684,8 +1686,10 @@ Global Symbols
 <P><STRONG><a name="[d7]"></a>__aeabi_cdrcmple</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, drleqf.o(x$fpl$drleqf))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __aeabi_cdrcmple
 </UL>
-<BR>[Called By]<UL><LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnCalc
+<BR>[Called By]<UL><LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getGPS
+<LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnCalc
 <LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;distanceCalc
+<LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo
 <LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_narrow
 </UL>
 

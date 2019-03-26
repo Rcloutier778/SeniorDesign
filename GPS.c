@@ -11,6 +11,9 @@
 #define BAUD_RATE 9600      //default baud rate 
 #define SYS_CLOCK 20485760 //default system clock (see DEFAULT_SYSTEM_CLOCK  in system_MK64F12.c)
 
+
+extern int VERBOSE;
+
 /*
 Send inerrupt to bluetooth, get gps from that
 Send interrupt to arduino, get gps from that
@@ -22,7 +25,8 @@ TODO: Don't calc distance or angle, average it with camera and ultrasonic.
 void getGPS(double *distance, double *angle){
     double phoneGPS[2]={0.0,0.0}; //GPS coords from phone
     char phoneChar[64];
-    char cartChar[64];
+    char distChar[64];
+    char angleChar[64];
     
     
     //Get GPS from Bluetooth  -- brian //TODO
@@ -31,19 +35,34 @@ void getGPS(double *distance, double *angle){
     
     //Send (XX.XXX,YY.YYY) to arduino
     snprintf(phoneChar,sizeof phoneChar, "%g", phoneGPS[0]);
+    if(phoneGPS[0] > 0){
+        uart2_putchar('+');
+    }
     uart2_put(phoneChar);
+
     uart2_putchar(',');
+
     snprintf(phoneChar,sizeof phoneChar, "%g", phoneGPS[1]);
+    if(phoneGPS[1] > 0){
+        uart2_putchar('+');
+    }
     uart2_put(phoneChar);
-    uart2_putchar(0);
-    
+    uart2_putchar('\n');
+
     //Get distance and angle
-    uart2_get(cartChar);
-    *distance = atof(cartChar);
+    uart2_get(distChar);
+    *distance = atof(distChar);
+    uart2_get(angleChar);
+    *angle = atof(angleChar);
     
-    uart2_get(cartChar);
-    *angle = atof(cartChar);
-    
+    if(VERBOSE){
+        put("Got distance of: ");
+        put(distChar);
+        put("\r\n");
+        put("Got angle of: ");
+        put(angleChar);
+        put("\r\n");
+    }
     
 }
 
@@ -124,7 +143,9 @@ void uart2_putchar(char ch)
 void uart2_put(char *ptr_str){
 	/*use putchar to print string*/
   while(*ptr_str){
+        //uart_putchar(*ptr_str);
         uart2_putchar(*ptr_str++);
+        
   }
 }
 
@@ -137,7 +158,7 @@ void uart2_get(char *ptr_str){
     if(cu == 0){ //if entered character is character return
       return;
     }
-    //uart_putchar(cu);
+//    uart_putchar(cu);
 	ptr_str[lcv] = cu;
     lcv++;
   }
