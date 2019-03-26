@@ -60,6 +60,25 @@ extern android_data *data;
 char sigStartBuffer[] = "00";
 char sigStopBuffer[] = "00";
 char dataNameBuffer[] = "00";
+
+
+char SIGNAL[2] = "AC";
+char SPEED[2]  = "Sp";
+char TURN[2]   = "Tu";
+char ACCELX[2] = "Ax";
+char ACCELY[2] = "Ay";
+char ACCELZ[2] = "Az";
+char GPSX[2]   = "Gx";
+char GPSY[2]   = "Gy";
+char ATN[2]    = "Au";
+char SENS[2]   = "Se";
+const int SZ_BOOL = 1, SZ_SHORT = 3, SZ_FLOAT = 4, SZ_DOUBLE = 8;
+int android_size[] = {0, SZ_SHORT, SZ_SHORT, SZ_FLOAT, SZ_FLOAT, SZ_FLOAT, SZ_DOUBLE, SZ_DOUBLE, SZ_BOOL, SZ_BOOL};
+const uint8_t ANDROID_DATA_ERR = (uint8_t) -9999;
+
+
+
+
 uint8_t *dataValueBuffer;
 
 /*
@@ -278,7 +297,7 @@ void bt_getAscii(char *ptr_str){
 /*
  * Primary function to get data from android app.
  */
-void bt_getData() {
+void bt_getData(void) {
   uint8_t b;                        // Storage for most recent bt byte
   int attempt = 0, lcv = 0, i = 0;  // Various loop control variables
   enum android_index index = Err;   // Android name control index
@@ -433,7 +452,7 @@ enum android_index checkDataName(char buffer[]) {
 void setData(enum android_index index, void* value) {
   switch (index) {
     case Speed:
-      data->speed = *(int32_t *) value;
+      data->adrd_speed = *(int32_t *) value;
       break;
     case Turn:
       data->turn = *(int32_t *) value;
@@ -480,7 +499,7 @@ uint8_t getData_b(enum android_index index) {
 int32_t getData_i(enum android_index index) {
   switch (index) {
     case Speed:
-      return data->speed;
+      return data->adrd_speed;
     case Turn:
       return data->turn;
       
