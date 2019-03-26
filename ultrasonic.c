@@ -31,9 +31,9 @@ int ultrasonic_counter=0;
 Gets a command to get the distance
 */
 
-float getUltrasonic(void){
+double getUltrasonic(void){
     //  uS/58=centimeter   uS/148=inch
-    float ultrasonic_distance=0.0f;
+    float ultrasonic_distance=0.0;
     ultrasonic_state=0;
     ultrasonic_counter=0;
     
@@ -64,9 +64,7 @@ float getUltrasonic(void){
     PIT_TFLG0 |= PIT_TFLG_TIF_MASK;
     while(ultrasonic_state != 3);
     
-    
-    
-    ultrasonic_distance=((ultrasonic_counter/148.0f)*SCALE_FACTOR)-1;
+    ultrasonic_distance=((ultrasonic_counter/148.0)*SCALE_FACTOR)-1;
     return ultrasonic_distance;
 }
 
