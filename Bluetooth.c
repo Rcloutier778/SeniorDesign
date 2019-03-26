@@ -95,8 +95,8 @@ void init_BT(){
   uint16_t ubd, brfa;
     
   // Memory allocations
-  //data = malloc(sizeof(android_data));
-  //dataValueBuffer = malloc(sizeof(uint8_t) * SZ_DOUBLE);
+  data = malloc(sizeof(android_data));
+  dataValueBuffer = malloc(sizeof(uint8_t) * SZ_DOUBLE);
     
   SIM_SCGC4 |= SIM_SCGC4_UART3_MASK;
   SIM_SCGC5 |= SIM_SCGC5_PORTC_MASK;

@@ -42,25 +42,25 @@ ARM Macro Assembler    Page 1
    27 00000400         ;   <o>  Heap Size (in Bytes) <0x0-0xFFFFFFFF:8>
    28 00000400         ; </h>
    29 00000400         
-   30 00000400 00000000 
+   30 00000400 00000FFF 
                        Heap_Size
-                               EQU              0x00000000
+                               EQU              0x00000FFF
    31 00000400         
    32 00000400                 AREA             HEAP, NOINIT, READWRITE, ALIGN=
 3
    33 00000000         __heap_base
    34 00000000         Heap_Mem
                                SPACE            Heap_Size
-   35 00000000         __heap_limit
-   36 00000000         
-   37 00000000         
-   38 00000000                 PRESERVE8
-   39 00000000                 THUMB
-   40 00000000         
-   41 00000000         
-   42 00000000         ; Vector Table Mapped to Address 0 at Reset
-   43 00000000         
-   44 00000000                 AREA             RESET, DATA, READONLY
+   35 00000FFF         __heap_limit
+   36 00000FFF         
+   37 00000FFF         
+   38 00000FFF                 PRESERVE8
+   39 00000FFF                 THUMB
+   40 00001000         
+   41 00001000         
+   42 00001000         ; Vector Table Mapped to Address 0 at Reset
+   43 00001000         
+   44 00001000                 AREA             RESET, DATA, READONLY
    45 00000000                 EXPORT           __Vectors
    46 00000000                 EXPORT           __Vectors_End
 
@@ -1060,8 +1060,8 @@ ARM Macro Assembler    Page 17
   733 00000024         
   734 00000024 4805            LDR              R0, =  Heap_Mem
   735 00000026 4906            LDR              R1, =(Stack_Mem + Stack_Size)
-  736 00000028 4A04            LDR              R2, = (Heap_Mem +  Heap_Size)
-  737 0000002A 4B06            LDR              R3, = Stack_Mem
+  736 00000028 4A06            LDR              R2, = (Heap_Mem +  Heap_Size)
+  737 0000002A 4B07            LDR              R3, = Stack_Mem
   738 0000002C 4770            BX               LR
   739 0000002E         
   740 0000002E 00 00           ALIGN
@@ -1075,6 +1075,7 @@ ARM Macro Assembler    Page 17
               00000000 
               00000000 
               00000400 
+              00000FFF 
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
 erwork --depend=.\objects\startup_mk64f12.d -o.\objects\startup_mk64f12.o -I"F:
@@ -1146,7 +1147,7 @@ Symbol: __heap_base
    Uses
       None
 Comment: __heap_base unused
-__heap_limit 00000000
+__heap_limit 00000FFF
 
 Symbol: __heap_limit
    Definitions
@@ -2517,7 +2518,7 @@ Symbol: FSEC
    Uses
       At line 461 in file RTE\Device\MK64FN1M0xxx12\startup_MK64F12.s
 Comment: FSEC used once
-Heap_Size 00000000
+Heap_Size 00000FFF
 
 Symbol: Heap_Size
    Definitions
