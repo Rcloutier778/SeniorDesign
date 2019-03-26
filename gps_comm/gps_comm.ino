@@ -99,9 +99,10 @@ void loop() {
     
     // Sends the distance to the k64
     dtostrf(distance_user,8,3,writechar);
-    Serial.println(writechar);
     k64.write(writechar);
     k64.write((byte)0x00);
+    Serial.println(writechar);
+    
     Serial.println(gps.cardinal(gps.course.deg()));
     Serial.println(gps.cardinal(angle_user));
     // Calculates the angle between the user and the course of the cart
@@ -112,12 +113,11 @@ void loop() {
     else if(difference_angle > 180){
       difference_angle -= 180;
     }
-    Serial.println("Difference angle: ");
+    Serial.print("Difference angle: ");
     dtostrf(difference_angle,8,3,writechar);
-    Serial.println(writechar);
     k64.write(writechar);
     k64.write((byte)0x00);
-
+    Serial.println(writechar);
     
   }
 
