@@ -18,7 +18,7 @@ Calc angle
 
 TODO: Don't calc distance or angle, average it with camera and ultrasonic.
 */
-void getGPS(double distance, double angle){
+void getGPS(double *distance, double *angle){
     double phoneGPS[2]={0.0,0.0}; //GPS coords from phone
     char phoneChar[64];
     char cartChar[64];
@@ -38,10 +38,10 @@ void getGPS(double distance, double angle){
     
     //Get distance and angle
     uart2_get(cartChar);
-    distance = atof(cartChar);
+    *distance = atof(cartChar);
     
     uart2_get(cartChar);
-    angle = atof(cartChar);
+    *angle = atof(cartChar);
     
     
 }

@@ -97,7 +97,7 @@ float manualDelta[2] = {0.0,0.0};
 int manualControl=0;
 
 int ready=0;
-int angle = 0;
+double angle = 0;
 double distance=0;
 
 //[0,359], 0==North, 90==East, 180==South, 270==West
@@ -150,7 +150,7 @@ int main(void){
       if(!ready){
         waitForReady();
       }
-      getGPS(distance, angle);
+      getGPS(&distance, &angle);
       
       //distance calc
       distanceCalc();
@@ -159,7 +159,7 @@ int main(void){
       turnCalc();
       
       if (VERBOSE){
-        sprintf(c,"Angle: %i",angle);
+        sprintf(c,"Angle: %g",angle);
         put(c);
         put("\r\n");
       }
@@ -243,7 +243,7 @@ void demo(void){
  Adjusts desired speed accordingly
  */
 void distanceCalc(void){
-  float distance = 0.0f; //GPS, camera, ultrasonic
+  double distance = 0.0; //GPS, camera, ultrasonic
   const float maxDistance=50.0f; //Max distance == max speed
   const float minDistance=15.0f;
   const int distRange[2] = {10, 3}; //Minimum distance ranges for distance calc methods
@@ -257,7 +257,7 @@ void distanceCalc(void){
   }
   
   //GPS
-  getGPS(distance, angle);
+  getGPS(&distance, &angle);
   if (distance < distRange[0]){
     //Camera call here
     

@@ -39,11 +39,11 @@ main.c(196): warning:  #177-D: variable "test" was declared but never referenced
 main.c(197): warning:  #177-D: variable "k64" was declared but never referenced
     char k64[255];
 main.c: 4 warnings, 0 errors
-compiling isr.c...
 compiling inits.c...
 inits.c(78): warning:  #1-D: last line of file ends without a newline
   }
 inits.c: 1 warning, 0 errors
+compiling isr.c...
 compiling Bluetooth.c...
 Bluetooth.c(222): warning:  #186-D: pointless comparison of unsigned integer with zero
     if(ctrl >= 0 && ctrl <= 14){
@@ -57,18 +57,13 @@ Bluetooth.c(396): warning:  #63-D: shift count is too large
         && (buffer[4] << 32) && (buffer[5] << 40) && (buffer[6] << 48) && (buffer[7] << 56);
 Bluetooth.c: 5 warnings, 0 errors
 compiling LEDS.c...
-compiling GPS.c...
-GPS.c(21): warning:  #550-D: parameter "distance" was set but never used
-  void getGPS(double distance, double angle){
-GPS.c(21): warning:  #550-D: parameter "angle" was set but never used
-  void getGPS(double distance, double angle){
-GPS.c: 2 warnings, 0 errors
-compiling ultrasonic.c...
 assembling startup_MK64F12.s...
+compiling GPS.c...
+compiling ultrasonic.c...
 compiling system_MK64F12.c...
 linking...
-Program Size: Code=15788 RO-data=1540 RW-data=204 ZI-data=1124  
-".\Objects\NXP.axf" - 0 Error(s), 12 Warning(s).
+Program Size: Code=17464 RO-data=1540 RW-data=204 ZI-data=1124  
+".\Objects\NXP.axf" - 0 Error(s), 10 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -94,9 +89,9 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE:5.0.0
 
    * Component: Keil::Device:Startup:1.0.0
-      Source file:   Device\Source\system_MK64F12.c
       Source file:   Device\Source\ARM\startup_MK64F12.s
-Build Time Elapsed:  00:00:10
+      Source file:   Device\Source\system_MK64F12.c
+Build Time Elapsed:  00:00:07
 </pre>
 </body>
 </html>
