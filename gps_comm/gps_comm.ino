@@ -29,6 +29,11 @@ void loop() {
   int gps_ran = 0;
   int k64_ran = 0;
   int test = 0;
+  int spoofGPS=1;
+  double spoofLat=50.0000;
+  double spoofLong=-80.0000;
+  char writechar[255];
+  
   // Checks for gps data
    while (gps_ss.available() > 0){
     // Converts the NMEA string to the gps object
@@ -51,7 +56,7 @@ void loop() {
     // Gets the sign for lat
     sign = k64.read();
     // Reads latitude then puts it into a double
-    k64_buffer_s = k64.readStringUntil(",");
+    k64_buffer_s = k64.readStringUntil(',');
     if(sign == '-'){
       user_lat = 0 - atof(k64_buffer_s.c_str());
     }
@@ -62,17 +67,61 @@ void loop() {
     // Gets the sign for longitude
     sign = k64.read();
     // Reads the longitude then puts it into a double
-    k64_buffer_s = Serial.readStringUntil('\n');
+    k64_buffer_s = k64.readStringUntil('\n');
     if(sign == '-'){
-      user_long = (float) (0 - atof(k64_buffer_s.c_str()));
+      user_long = (0 - atof(k64_buffer_s.c_str()));
     }
     else{
-      user_long = (float) atof(k64_buffer_s.c_str());
+      user_long =  atof(k64_buffer_s.c_str());
     }
-    Serial.println(user_long);
+    Serial.println(user_long,6);
     // Flags coordinates received from K64
     k64_ran = 1;
   }
+
+
+  if(k64_ran & spoofGPS){
+    // Resets the flags
+    k64_ran = 0;
+    // Calculates the distance between cart and user in m(converted to ft)
+    distance_user = gps.distanceBetween(
+      spoofLat,
+      spoofLong,
+      user_lat,
+      user_long) * m_to_ft;
+    // Calculates the angle between cart and user
+    angle_user = gps.courseTo(
+      spoofLat,
+      spoofLong,
+      user_lat,
+      user_long);
+    Serial.print("Distance to user: ");
+    
+    // Sends the distance to the k64
+    dtostrf(distance_user,6,2,writechar);
+    Serial.println(writechar);
+    k64.write(writechar);
+    k64.write((byte)0x00);
+    Serial.println(gps.cardinal(gps.course.deg()));
+    Serial.println(gps.cardinal(angle_user));
+    // Calculates the angle between the user and the course of the cart
+    difference_angle = gps.course.deg() - angle_user;
+    if(difference_angle < -180){
+      difference_angle += 180;
+    }
+    else if(difference_angle > 180){
+      difference_angle -= 180;
+    }
+    Serial.println("Difference angle: ");
+    dtostrf(distance_user,6,2,writechar);
+    Serial.println(writechar);
+    k64.write((byte)0x00);
+
+    
+  }
+
+
+  
   // Checks if cart and user data were received and the cart gps data was updated
   if(gps_ran & k64_ran & gps.location.isUpdated()){
     // Resets the flags
