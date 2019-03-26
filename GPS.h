@@ -1,7 +1,7 @@
 #ifndef GPS_H_
 #define GPS_H_
-void initGPS(void);
-void getGPS(void);
+
+void getGPS(double distance, double angle);
 void uart2_init(void);
 uint8_t uart2_getchar(void);
 void uart2_putchar(char ch);
