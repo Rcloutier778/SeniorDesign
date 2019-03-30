@@ -127,6 +127,7 @@ int main(void){
   char c[254]={0};
   //Run demo
   int demov=1;
+  int gps_demov=1;
   
   // Initialize everything
   initialize();
@@ -138,8 +139,10 @@ int main(void){
   SetDutyCycle(0,DC_freq);
   
   for(;;){
+	if (gps_demov==0){
     waitForReady();
-    
+    }
+	
     //Demo code
     if (demov==1){
       demo();
@@ -148,6 +151,7 @@ int main(void){
     //Main code
     for(;;){
       if(!ready){
+		
         waitForReady();
       }
       
@@ -201,47 +205,7 @@ void demo(void){
     char distChar[64];
     put("In demo\r\n");
 
-    for(;;){
-        phoneGPS[0]=45.123456;
-        phoneGPS[1]=-77.123456;
-
-        //Send (XX.XXX,YY.YYY) to arduino
-        snprintf(phoneChar,sizeof phoneChar, "%g", phoneGPS[0]);
-        if(phoneGPS[0] > 0){
-            uart2_putchar('+');
-        }
-        uart2_put(phoneChar);
-        put(phoneChar);
-        uart2_putchar(',');
-        put(",");
-        snprintf(phoneChar,sizeof phoneChar, "%g", phoneGPS[1]);
-        if(phoneGPS[1] > 0){
-            uart2_putchar('+');
-        }
-        uart2_put(phoneChar);
-        put(phoneChar);
-        put("\r\n");
-        uart2_putchar('\n');
-
-        //Get distance and angle
-        uart2_get(distChar);
-        distance = atof(distChar);
-        uart2_get(angleChar);
-        angle = atof(angleChar);
-        
-        
-        put("Got distance of: ");
-        put(distChar);
-        put("\r\n");
-        put("Got angle of: ");
-        put(angleChar);
-        put("\r\n");
-        
-        delay(1000);
-        
-        }
-      
-      
+    
       
       /*
        for(;;){

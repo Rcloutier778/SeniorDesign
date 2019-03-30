@@ -13,7 +13,7 @@
 
 
 extern int VERBOSE;
-
+extern void delay(int);
 /*
 Send inerrupt to bluetooth, get gps from that
 Send interrupt to arduino, get gps from that
@@ -53,7 +53,7 @@ void getGPS(double *distance, double *angle){
     uart2_get(distChar);
     *distance = atof(distChar);
     uart2_get(angleChar);
-    *angle = atof(angleChar);
+    *angle = atof(aaangleChar);
     
     if(VERBOSE){
         put("Got distance of: ");
@@ -65,6 +65,63 @@ void getGPS(double *distance, double *angle){
     }
     
 }
+
+void gpsDemo(void){
+    int demoi;
+    int demoj;
+    char test;
+    char k64[255];
+    char from_ard[255];
+    double phoneGPS[2]={0.0,0.0}; //GPS coords from phone
+    char phoneChar[64];
+    char angleChar[64];
+    char distChar[64];
+    float distance;
+    float angle;
+    put("In demo\r\n");
+
+    for(;;){
+        phoneGPS[0]=45.123456;
+        phoneGPS[1]=-77.123456;
+
+        //Send (XX.XXX,YY.YYY) to arduino
+        snprintf(phoneChar,sizeof phoneChar, "%g", phoneGPS[0]);
+        if(phoneGPS[0] > 0){
+            uart2_putchar('+');
+        }
+        uart2_put(phoneChar);
+        put(phoneChar);
+        uart2_putchar(',');
+        put(",");
+        snprintf(phoneChar,sizeof phoneChar, "%g", phoneGPS[1]);
+        if(phoneGPS[1] > 0){
+            uart2_putchar('+');
+        }
+        uart2_put(phoneChar);
+        put(phoneChar);
+        put("\r\n");
+        uart2_putchar('\n');
+
+        //Get distance and angle
+        uart2_get(distChar);
+        distance = atof(distChar);
+        uart2_get(angleChar);
+        angle = atof(angleChar);
+        
+        
+        put("Got distance of: ");
+        put(distChar);
+        put("\r\n");
+        put("Got angle of: ");
+        put(angleChar);
+        put("\r\n");
+        
+        delay(1000);
+        
+        }
+}
+
+
 
 void uart2_init(void){
 //define variables for baud rate and baud rate fine adjust
