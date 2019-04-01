@@ -58,7 +58,7 @@ extern float angle;
 extern android_data *data;
 
 char sigStartBuffer[] = "00";
-char sigStopBuffer[] = "00";
+char sigStopBuffer[]  = "00";
 char dataNameBuffer[] = "00";
 
 char SIGNAL[] = "AC";
@@ -76,8 +76,8 @@ const int SZ_BOOL = 1, SZ_SHORT = 3, SZ_FLOAT = 4, SZ_DOUBLE = 8;
 int android_size[] = {0, SZ_SHORT, SZ_SHORT, SZ_FLOAT, SZ_FLOAT, SZ_FLOAT, SZ_DOUBLE, SZ_DOUBLE, SZ_BOOL, SZ_BOOL};
 const uint8_t ANDROID_DATA_ERR = (uint8_t) -9999;
 
-int gotGPSdata=0;
-int receiveGPSdata=0;
+int gotGPSdata = 0;
+int receiveGPSdata = 0;
 
 extern void delay(int);
 float bt_lat;
@@ -92,12 +92,12 @@ uint8_t *dataValueBuffer;
  Initializes android data structure.
  */
 void init_BT(){
-  uint16_t ubd, brfa;
-    
+  uint16_t ubd, brfa = 0; //brfa needs initial value
+  
   // Memory allocations
   data = malloc(sizeof(android_data));
   dataValueBuffer = malloc(sizeof(uint8_t) * SZ_DOUBLE);
-    
+  
   SIM_SCGC4 |= SIM_SCGC4_UART3_MASK;
   SIM_SCGC5 |= SIM_SCGC5_PORTC_MASK;
   PORTB_PCR11 |= PORT_PCR_MUX(3); //BT TX
@@ -113,18 +113,16 @@ void init_BT(){
   UART3_C2 |= UART_C2_RIE_MASK; //Enable recieve interrupts
   UART3_C2 |= (UART_C2_TE_MASK | UART_C2_RE_MASK);
   NVIC_EnableIRQ(UART3_RX_TX_IRQn);
-  
-  
 }
 
 void get_BT_GPS_dev(double *latitude, double *longitude){
-    receiveGPSdata=1;
-    while(gotGPSdata==0);
-    receiveGPSdata=0;
-    *latitude=bt_lat;
-    *longitude=bt_long;
-    gotGPSdata=0;
-    put("past gps bt");
+  receiveGPSdata = 1;
+  while(gotGPSdata == 0);
+  receiveGPSdata = 0;
+  *latitude = bt_lat;
+  *longitude = bt_long;
+  gotGPSdata = 0;
+  put("past gps bt");
 }
 
 
@@ -198,7 +196,7 @@ void UART3_RX_TX_IRQHandler(void){
         LEDon(GREEN);
       }
       manualDelta[0]=0.0f;
-      manualDelta[1]=0.0f;      
+      manualDelta[1]=0.0f;
     }else if(ctrl == 4) { //ready
       ready = 1;
       manualDelta[0]=0.0f;
@@ -216,13 +214,13 @@ void UART3_RX_TX_IRQHandler(void){
       //put("\r\n");
       angle = (int)atoi(get_str);
     }else if (ctrl==7){
-        //Will fail and hard break if tested in lab
-        //Reason is due to lack of location services
-        bt_getAscii(get_str);
-        bt_lat=(float) atof(get_str);
-        bt_getAscii(get_str);
-        bt_long= (float) atof(get_str);
-        gotGPSdata=1;
+      //Will fail and hard break if tested in lab
+      //Reason is due to lack of location services
+      bt_getAscii(get_str);
+      bt_lat=(float) atof(get_str);
+      bt_getAscii(get_str);
+      bt_long= (float) atof(get_str);
+      gotGPSdata=1;
     }
   }
   //Re-enable interrupts
@@ -270,7 +268,7 @@ void bt_getData(void) {
   enum android_index index = Err;   // Android name control index
   
   while (attempt < 50) {                    // Arbitrary limit on data retrieval attempts
-    if (strcmp(sigStartBuffer, SIGNAL)) {   // If not equal, the app hasn't sent data yet
+    if (!strcmp(sigStartBuffer, SIGNAL)) {  // If not equal, the app hasn't sent data yet
       b = bt_getbyte();                     // Get current bt byte
       checkSigBuffer(sigStartBuffer, b);    // Cmp buffer to SIGNAL and modify as appropriate
       attempt += 1;                         // Increment control variable
@@ -348,19 +346,21 @@ void stitchBytes(uint8_t *buffer, enum android_index index) {
   switch (index) {
     case Speed:
     case Turn:
-      val_i = buffer[0] && (buffer[1] << 8) && (buffer[2] << 16) && (buffer[3] << 24);
+      val_i = 0;
+      memcpy(&val_i, buffer, sizeof(val_i));
       setData(index, &val_i);
       break;
     case AccelX:
     case AccelY:
     case AccelZ:
-      val_f = buffer[0] && (buffer[1] << 8) && (buffer[2] << 16) && (buffer[3] << 24);
+      val_f = 0;
+      memcpy(&val_f, buffer, sizeof(val_f));
       setData(index, &val_f);
       break;
     case GpsX:
     case GpsY: // TODO IDE says shift count 32 >= size of type. True? Double should be 8 bytes
-      val_d = buffer[0] && (buffer[1] << 8) && (buffer[2] << 16) && (buffer[3] << 24)
-      && (buffer[4] << 32) && (buffer[5] << 40) && (buffer[6] << 48) && (buffer[7] << 56);
+      val_d = 0;
+      memcpy(&val_d, buffer, sizeof(val_d));
       setData(index, &val_d);
       break;
     case Atn:
@@ -419,31 +419,31 @@ enum android_index checkDataName(char buffer[]) {
 void setData(enum android_index index, void* value) {
   switch (index) {
     case Speed:
-      data->adrd_speed = *(int32_t *) value;
+      memcpy(&data->speed,  value, sizeof(data->speed));
       break;
     case Turn:
-      data->turn = *(int32_t *) value;
+      memcpy(&data->turn,   value, sizeof(data->turn));
       break;
     case AccelX:
-      data->accelx = *(float *) value;
+      memcpy(&data->accelx, value, sizeof(data->accelx));
       break;
     case AccelY:
-      data->accely = *(float *) value;
+      memcpy(&data->accely, value, sizeof(data->accely));
       break;
     case AccelZ:
-      data->accelz = *(float *) value;
+      memcpy(&data->accelz, value, sizeof(data->accelz));
       break;
     case GpsX:
-      data->gpsx = *(double *) value;
+      memcpy(&data->gpsx,   value, sizeof(data->gpsx));
       break;
     case GpsY:
-      data->gpsy = *(double *) value;
+      memcpy(&data->gpsy,   value, sizeof(data->gpsy));
       break;
     case Atn:
-      data->atn = *(uint8_t *) value;
+      memcpy(&data->atn,    value, sizeof(data->atn));
       break;
     case Sensor:
-      data->sensor = *(uint8_t *) value;
+      memcpy(&data->sensor, value, sizeof(data->sensor));
       break;
       
     default:
@@ -466,7 +466,7 @@ uint8_t getData_b(enum android_index index) {
 int32_t getData_i(enum android_index index) {
   switch (index) {
     case Speed:
-      return data->adrd_speed;
+      return data->speed;
     case Turn:
       return data->turn;
       
