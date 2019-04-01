@@ -103,7 +103,7 @@ void gpsDemo(void){
             put("\r\n");
             
             
-            snprintf(phoneChar,sizeof phoneChar, "%g", data->speed);
+            snprintf(phoneChar,sizeof phoneChar, "%i", data->speed);
             put(phoneChar);
             put("\r\n");
             
