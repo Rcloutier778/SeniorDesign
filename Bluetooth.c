@@ -245,6 +245,8 @@ void UART3_RX_TX_IRQHandler(void){
         bt_getAscii(get_str);
         bt_long= (float) atof(get_str);
         gotGPSdata=1;
+    }else if(ctrl==14){
+        bt_getData();
     }
   }
   //Re-enable interrupts
