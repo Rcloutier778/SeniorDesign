@@ -14,6 +14,11 @@
 
 extern int VERBOSE;
 extern void delay(int);
+extern android_data *data;
+
+
+
+
 /*
 Send inerrupt to bluetooth, get gps from that
 Send interrupt to arduino, get gps from that
@@ -30,8 +35,10 @@ void getGPS(double *distance, double *angle){
     
     
     //Get GPS from Bluetooth  -- brian //TODO
-    get_BT_GPS_dev(&phoneGPS[0],&phoneGPS[1]);
-    
+    //get_BT_GPS_dev(&phoneGPS[0],&phoneGPS[1]);
+    phoneGPS[0]=data->gpsx;
+    phoneGPS[1]=data->gpsy;
+        
     
     //Send (XX.XXX,YY.YYY) to arduino
     snprintf(phoneChar,sizeof phoneChar, "%g", phoneGPS[0]);
@@ -53,7 +60,7 @@ void getGPS(double *distance, double *angle){
     uart2_get(distChar);
     *distance = atof(distChar);
     uart2_get(angleChar);
-    *angle = atof(aaangleChar);
+    *angle = atof(angleChar);
     
     if(VERBOSE){
         put("Got distance of: ");
@@ -83,7 +90,37 @@ void gpsDemo(void){
     for(;;){
         phoneGPS[0]=45.123456;
         phoneGPS[1]=-77.123456;
+    
+        
+        for(;;){
+            phoneGPS[0]=data->gpsx;
+            phoneGPS[1]=data->gpsy;
+            snprintf(phoneChar,sizeof phoneChar, "%g", phoneGPS[0]);
+            put(phoneChar);
+            put(",");
+            snprintf(phoneChar,sizeof phoneChar, "%g", phoneGPS[1]);
+            put(phoneChar);
+            put("\r\n");
+            delay(1000);
+        }
+        
+        /*
+        uart_putchar( bt_getbyte());
+                uart_putchar( bt_getbyte());
+        uart_putchar( bt_getbyte());
+        uart_putchar( bt_getbyte());
+        uart_putchar( bt_getbyte());
+        uart_putchar( bt_getbyte());
+        uart_putchar( bt_getbyte());
+        uart_putchar( bt_getbyte());
 
+        
+        bt_getData();
+        
+        */
+        
+        
+        
         //Send (XX.XXX,YY.YYY) to arduino
         snprintf(phoneChar,sizeof phoneChar, "%g", phoneGPS[0]);
         if(phoneGPS[0] > 0){
