@@ -76,8 +76,8 @@ const int SZ_BOOL = 1, SZ_SHORT = 3, SZ_FLOAT = 4, SZ_DOUBLE = 8;
 int android_size[] = {0, SZ_SHORT, SZ_SHORT, SZ_FLOAT, SZ_FLOAT, SZ_FLOAT, SZ_DOUBLE, SZ_DOUBLE, SZ_BOOL, SZ_BOOL};
 const uint8_t ANDROID_DATA_ERR = (uint8_t) -9999;
 
-int gotGPSdata=0;
-int receiveGPSdata=0;
+int gotGPSdata = 0;
+int receiveGPSdata = 0;
 
 extern void delay(int);
 float bt_lat;
@@ -97,6 +97,9 @@ void init_BT(){
   // Memory allocations
   data = malloc(sizeof(android_data));
   dataValueBuffer = malloc(sizeof(uint8_t) * SZ_DOUBLE);
+  
+  // Initialize struct
+  initAndroidData();
     
   SIM_SCGC4 |= SIM_SCGC4_UART3_MASK;
   SIM_SCGC5 |= SIM_SCGC5_PORTC_MASK;
@@ -118,13 +121,28 @@ void init_BT(){
 }
 
 void get_BT_GPS_dev(double *latitude, double *longitude){
-    receiveGPSdata=1;
-    while(gotGPSdata==0);
-    receiveGPSdata=0;
-    *latitude=bt_lat;
-    *longitude=bt_long;
-    gotGPSdata=0;
+    receiveGPSdata = 1;
+    while(gotGPSdata == 0);
+    receiveGPSdata = 0;
+    *latitude = bt_lat;
+    *longitude = bt_long;
+    gotGPSdata = 0;
     put("past gps bt");
+}
+
+/*
+ * Simple initialize for android data
+ */
+void initAndroidData() {
+  setData(Speed, 0);
+  setData(Turn, 0);
+  setData(AccelX, 0);
+  setData(AccelY, 0);
+  setData(AccelZ, 0);
+  setData(GpsX, 0);
+  setData(GpsY, 0);
+  setData(Atn, 0);
+  setData(Sensor, 0);
 }
 
 
@@ -180,42 +198,41 @@ void UART3_RX_TX_IRQHandler(void){
       return;
     }
     if(ctrl == 1){//stop car
-      LEFT_DESIRED = 0.0f;
-      RIGHT_DESIRED = 0.0f;
+      LEFT_DESIRED   = 0.0f;
+      RIGHT_DESIRED  = 0.0f;
       manualDelta[0] = 0.0f;
       manualDelta[1] = 0.0f;
-      manualControl=0;
-      ready=0;
-    }else if(ctrl == 2){ //normal speed
+      manualControl  = 0;
+      ready = 0;
+    } else if(ctrl == 2){ //normal speed
       normalSet();
-    }else if(ctrl == 3){//manual control
-      if(manualControl==0){
-        manualControl=1;
+    } else if(ctrl == 3){//manual control
+      if(manualControl == 0){
+        manualControl = 1;
         LEDon(WHITE);
-      }
-      else{
-        manualControl=0;
+      } else{
+        manualControl = 0;
         LEDon(GREEN);
       }
-      manualDelta[0]=0.0f;
-      manualDelta[1]=0.0f;      
-    }else if(ctrl == 4) { //ready
+      manualDelta[0] = 0.0f;
+      manualDelta[1] = 0.0f;
+    } else if(ctrl == 4) { //ready
       ready = 1;
-      manualDelta[0]=0.0f;
-      manualDelta[1]=0.0f;
-    }else if(ctrl==5){ //speed
+      manualDelta[0] = 0.0f;
+      manualDelta[1] = 0.0f;
+    } else if(ctrl == 5){ //speed
       bt_getAscii(get_str);
       //put(get_str);
       //put("\r\n");
-      f = (float)atof(get_str);
+      f = (float) atof(get_str);
       manualDelta[0] = f;
       manualDelta[1] = f;
-    }else if(ctrl == 6){//angle
+    } else if(ctrl == 6){//angle
       bt_getAscii(get_str);
       //put(get_str);
       //put("\r\n");
-      angle = (int)atoi(get_str);
-    }else if (ctrl==7){
+      angle = (int) atoi(get_str);
+    }else if (ctrl == 7){
         //Will fail and hard break if tested in lab
         //Reason is due to lack of location services
         bt_getAscii(get_str);
@@ -248,7 +265,7 @@ void pollGPSRx(void) {
 void bt_getAscii(char *ptr_str){
   int lcv;
   uint8_t cu;
-  lcv=0;
+  lcv = 0;
   while(lcv < 254){
     cu = bt_getbyte();
     if(cu == 0){ //if entered character is character return

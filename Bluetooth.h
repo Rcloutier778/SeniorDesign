@@ -19,6 +19,7 @@ typedef struct {
 void init_BT(void);
 void get_BT_GPS_dev(double *latitude, double *longitude);
 
+void initAndroidData(void);
 void delData(void);
 void setData(enum android_index index, void* value);
 uint8_t getData_b(enum android_index index);
