@@ -92,7 +92,7 @@ uint8_t *dataValueBuffer;
  Initializes android data structure.
  */
 void init_BT(){
-  uint16_t ubd, brfa;
+  uint16_t ubd, brfa = 0;
     
   // Memory allocations
   data = malloc(sizeof(android_data));
@@ -134,15 +134,20 @@ void get_BT_GPS_dev(double *latitude, double *longitude){
  * Simple initialize for android data
  */
 void initAndroidData() {
-  setData(Speed, 0);
-  setData(Turn, 0);
-  setData(AccelX, 0);
-  setData(AccelY, 0);
-  setData(AccelZ, 0);
-  setData(GpsX, 0);
-  setData(GpsY, 0);
-  setData(Atn, 0);
-  setData(Sensor, 0);
+  uint8_t val_b  = 0;
+  uint32_t val_i = 0;
+  float val_f    = 0;
+  double val_d   = 0;
+  
+  setData(Speed,  &val_i);
+  setData(Turn,   &val_i);
+  setData(AccelX, &val_f);
+  setData(AccelY, &val_f);
+  setData(AccelZ, &val_f);
+  setData(GpsX,   &val_d);
+  setData(GpsY,   &val_d);
+  setData(Atn,    &val_b);
+  setData(Sensor, &val_b);
 }
 
 
@@ -283,65 +288,75 @@ void bt_getAscii(char *ptr_str){
  */
 void bt_getData(void) {
   uint8_t b;                        // Storage for most recent bt byte
-  int lcv = 0, i = 0;               // Various loop control variables
+  int attempt = 0, lcv = 0, i = 0;  // Various loop control variables
   enum android_index index = Err;   // Android name control index
   
-  while (lcv < 254) {                     // Arbitrary limit
-    b = bt_getbyte();
-    checkSigBuffer(sigStopBuffer, b);     // If stop buffer receives SIGNAL, function exits
-    if (!strcmp(sigStopBuffer, SIGNAL)) { // Exit function
-      return;
-    }
-    if (index != Err) {             // index == Err on first loop, collect data name first
-      switch (index) {              // Switch so we know how many bytes are coming
-        case Speed:
-        case Turn:
-          dataValueBuffer[i] = b;
-          if (++i == SZ_SHORT) {                  // Let the loop go until we have all the bytes
-            stitchBytes(dataValueBuffer, index);  // Casts data to the right type and sets android data
-            index = Err;                          // Return to first loop status, index == Err
-          }
-          break;
-        case AccelX:
-        case AccelY:
-        case AccelZ:
-          dataValueBuffer[i] = b;
-          if (++i == SZ_FLOAT) {
-            stitchBytes(dataValueBuffer, index);
-            index = Err;
-          }
-          break;
-        case GpsX:
-        case GpsY:
-          dataValueBuffer[i] = b;
-          if (++i == SZ_DOUBLE) {
-            stitchBytes(dataValueBuffer, index);
-            index = Err;
-          }
-          break;
-        case Atn:
-        case Sensor:
-          dataValueBuffer[i] = b;
-          if (++i == SZ_BOOL) {
-            stitchBytes(dataValueBuffer, index);
-            index = Err;
-          }
-          break;
-          
-        default:
-          break;
-      }
+  while (attempt < 50) {                    // Arbitrary limit on data retrieval attempts
+    if (!strcmp(sigStartBuffer, SIGNAL)) {  // If not equal, the app hasn't sent data yet
+      b = bt_getbyte();                     // Get current bt byte
+      checkSigBuffer(sigStartBuffer, b);    // Cmp buffer to SIGNAL and modify as appropriate
+      attempt += 1;                         // Increment control variable
+      continue;                             // No point not continuing while start signal not received
     } else {
-      i = 0;                                    // Reset dataValueBuffer index after stitching
-      if (dataNameBuffer[0] == '0') {           // Various name -> easier to assume what's next
-        dataNameBuffer[0] = b;
-      } else if (dataNameBuffer[1] == '0') {
-        dataNameBuffer[1] = b;
-      } else {
-        index = checkDataName(dataNameBuffer);  // Will return Err if assumption failed
-        dataNameBuffer[0] = dataNameBuffer[1];  // Avoid potential alignment issues
-        dataNameBuffer[1] = '0';
+      while (lcv < 254) {                     // Arbitrary limit
+        b = bt_getbyte();
+        checkSigBuffer(sigStopBuffer, b);     // If stop buffer receives SIGNAL, function exits
+        if (!strcmp(sigStopBuffer, SIGNAL)) { // Exit function
+          return;
+        }
+        if (index != Err) {             // index == Err on first loop, collect data name first
+          switch (index) {              // Switch so we know how many bytes are coming
+            case Speed:
+            case Turn:
+              dataValueBuffer[i] = b;
+              if (++i == SZ_SHORT) {                  // Let the loop go until we have all the bytes
+                stitchBytes(dataValueBuffer, index);  // Casts data to the right type and sets android data
+                index = Err;                          // Return to first loop status, index == Err
+              }
+              break;
+            case AccelX:
+            case AccelY:
+            case AccelZ:
+              dataValueBuffer[i] = b;
+              if (++i == SZ_FLOAT) {
+                stitchBytes(dataValueBuffer, index);
+                index = Err;
+              }
+              break;
+            case GpsX:
+            case GpsY:
+              dataValueBuffer[i] = b;
+              if (++i == SZ_DOUBLE) {
+                stitchBytes(dataValueBuffer, index);
+                index = Err;
+              }
+              break;
+            case Atn:
+            case Sensor:
+              dataValueBuffer[i] = b;
+              if (++i == SZ_BOOL) {
+                stitchBytes(dataValueBuffer, index);
+                index = Err;
+              }
+              break;
+              
+            default:
+              break;
+          }
+        } else {
+          i = 0;                                    // Reset dataValueBuffer index after stitching
+          if (dataNameBuffer[0] == '0') {           // Various name -> easier to assume what's next
+            dataNameBuffer[0] = b;
+          } else if (dataNameBuffer[1] == '0') {
+            dataNameBuffer[1] = b;
+          } else {
+            index = checkDataName(dataNameBuffer);  // Will return Err if assumption failed
+            dataNameBuffer[0] = dataNameBuffer[1];  // Avoid potential alignment issues
+            dataNameBuffer[1] = '0';
+          }
+        }
       }
+      break;
     }
   }
 }
