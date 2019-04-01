@@ -22,51 +22,23 @@ Dialog DLL:      TCM.DLL V1.14.14.0
  
 <h2>Project:</h2>
 F:\Senior Design\Code\NXP.uvprojx
-Project File Date:  03/26/2019
+Project File Date:  03/30/2019
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 3 (build 300)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
-Rebuild target 'Target 1'
-compiling uart.c...
-compiling pwm.c...
-compiling main.c...
-main.c(193): warning:  #177-D: variable "demoi" was declared but never referenced
-      int demoi;
-main.c(194): warning:  #177-D: variable "demoj" was declared but never referenced
-      int demoj;
-main.c(195): warning:  #177-D: variable "test" was declared but never referenced
-      char test;
-main.c(196): warning:  #177-D: variable "k64" was declared but never referenced
-      char k64[255];
-main.c(197): warning:  #177-D: variable "from_ard" was declared but never referenced
-      char from_ard[255];
-main.c: 5 warnings, 0 errors
-compiling inits.c...
-inits.c(78): warning:  #1-D: last line of file ends without a newline
-  }
-inits.c: 1 warning, 0 errors
-compiling isr.c...
+Build target 'Target 1'
 compiling Bluetooth.c...
-Bluetooth.c(174): warning:  #186-D: pointless comparison of unsigned integer with zero
+Bluetooth.c(203): warning:  #111-D: statement is unreachable
+      
+ART3_C2 |= UART_C2_RIE_MASK;
+Bluetooth.c(206): warning:  #186-D: pointless comparison of unsigned integer with zero
     if(ctrl >= 0 && ctrl <= 14){
-Bluetooth.c(363): warning:  #63-D: shift count is too large
-        && (buffer[4] << 32) && (buffer[5] << 40) && (buffer[6] << 48) && (buffer[7] << 56);
-Bluetooth.c(363): warning:  #63-D: shift count is too large
-        && (buffer[4] << 32) && (buffer[5] << 40) && (buffer[6] << 48) && (buffer[7] << 56);
-Bluetooth.c(363): warning:  #63-D: shift count is too large
-        && (buffer[4] << 32) && (buffer[5] << 40) && (buffer[6] << 48) && (buffer[7] << 56);
-Bluetooth.c(363): warning:  #63-D: shift count is too large
-        && (buffer[4] << 32) && (buffer[5] << 40) && (buffer[6] << 48) && (buffer[7] << 56);
-Bluetooth.c: 5 warnings, 0 errors
-compiling ultrasonic.c...
-compiling LEDS.c...
-assembling startup_MK64F12.s...
-RTE\Device\MK64FN1M0xxx12\startup_MK64F12.s(39): warning: A1581W: Added 1 bytes of padding at address 0xfff
-compiling GPS.c...
-compiling system_MK64F12.c...
+Bluetooth.c(288): warning:  #186-D: pointless comparison of unsigned integer with zero
+      if (cu >= 0 && cu <= 9){
+Bluetooth.c: 3 warnings, 0 errors
 linking...
-Program Size: Code=18156 RO-data=1540 RW-data=228 ZI-data=5220  
-".\Objects\NXP.axf" - 0 Error(s), 12 Warning(s).
+Program Size: Code=18228 RO-data=1540 RW-data=228 ZI-data=5220  
+".\Objects\NXP.axf" - 0 Error(s), 3 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -92,9 +64,9 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE:5.0.0
 
    * Component: Keil::Device:Startup:1.0.0
-      Source file:   Device\Source\ARM\startup_MK64F12.s
       Source file:   Device\Source\system_MK64F12.c
-Build Time Elapsed:  00:00:10
+      Source file:   Device\Source\ARM\startup_MK64F12.s
+Build Time Elapsed:  00:00:03
 </pre>
 </body>
 </html>

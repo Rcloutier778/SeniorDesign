@@ -187,17 +187,26 @@ void UART3_RX_TX_IRQHandler(void){
   //LEDon(YELLOW);
   if(ctrl > 0){
     sprintf(c,"Command: %i",ctrl);
-    put(c);
-    put("\r\n");
+    //put(c);
+    //put("\r\n");
   }
   //LEDon(YELLOW);
   //sprintf(c,"Command: %i",ctrl);
   //put(c);
   //put("\r\n");
+  if (ctrl == 14){
+    UART3_C2 &= ~UART_C2_RIE_MASK;
+    for(;;){
+        bt_getAscii(c);
+    }
+    //bt_getData();
+    UART3_C2 |= UART_C2_RIE_MASK;
+    return;
+  }
   if(ctrl >= 0 && ctrl <= 14){
     //Disable interrupts, start polling
     UART3_C2 &= ~UART_C2_RIE_MASK;
-    if(ready == 0 && ctrl != 4){
+    if(ready == 0 && ctrl != 4 && ctrl != 14){
       //Re-enable interrupts
       UART3_C2 |= UART_C2_RIE_MASK;
       return;
@@ -271,10 +280,13 @@ void bt_getAscii(char *ptr_str){
   int lcv;
   uint8_t cu;
   lcv = 0;
-  while(lcv < 254){
+  while(lcv < 60){
     cu = bt_getbyte();
-    if(cu == 0){ //if entered character is character return
-      return;
+    //if(cu == 0){ //if entered character is character return
+    //  return;
+    //}
+    if (cu >= 0 && cu <= 9){
+        cu = cu + 48;
     }
     uart_putchar(cu);
     ptr_str[lcv] = cu;
@@ -286,12 +298,12 @@ void bt_getAscii(char *ptr_str){
 /*
  * Primary function to get data from android app.
  */
-void bt_getData(void) {
+void bt_getData(void) { //TODO: Make this actually work.
   uint8_t b;                        // Storage for most recent bt byte
   int attempt = 0, lcv = 0, i = 0;  // Various loop control variables
   enum android_index index = Err;   // Android name control index
   
-  while (attempt < 50) {                    // Arbitrary limit on data retrieval attempts
+  while (attempt < DEFAULT_SYSTEM_CLOCK*10) {                    // Arbitrary limit on data retrieval attempts
     if (!strcmp(sigStartBuffer, SIGNAL)) {  // If not equal, the app hasn't sent data yet
       b = bt_getbyte();                     // Get current bt byte
       checkSigBuffer(sigStartBuffer, b);    // Cmp buffer to SIGNAL and modify as appropriate

@@ -126,7 +126,7 @@ n=upper;\
 int main(void){
   char c[254]={0};
   //Run demo
-  int demov=1;
+  int demov=0;
   int gps_demov=1;
   
   // Initialize everything
@@ -147,7 +147,9 @@ int main(void){
     if (demov==1){
       demo();
     }
-    
+    if(gps_demov==1){
+        gpsDemo();
+    }
     //Main code
     for(;;){
       if(!ready){

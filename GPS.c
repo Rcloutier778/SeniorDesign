@@ -101,7 +101,13 @@ void gpsDemo(void){
             snprintf(phoneChar,sizeof phoneChar, "%g", phoneGPS[1]);
             put(phoneChar);
             put("\r\n");
-            delay(1000);
+            
+            
+            snprintf(phoneChar,sizeof phoneChar, "%g", data->speed);
+            put(phoneChar);
+            put("\r\n");
+            
+            delay(500);
         }
         
         /*
