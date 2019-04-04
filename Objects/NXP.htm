@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\NXP.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\NXP.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060300: Last Updated: Mon Apr 01 16:31:02 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060300: Last Updated: Mon Apr 01 19:10:54 2019
 <BR><P>
 <H3>Maximum Stack Usage =       1272 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -674,8 +674,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sputc
 <LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_char_common
 </UL>
-<BR>[Called By]<UL><LI><a href="#[37]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART3_RX_TX_IRQHandler
-<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;distanceCalc
 </UL>
 
@@ -686,7 +685,8 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sputc
 <LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_char_common
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpsDemo
+<BR>[Called By]<UL><LI><a href="#[37]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART3_RX_TX_IRQHandler
+<LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpsDemo
 <LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getGPS
 </UL>
 
@@ -800,7 +800,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_errno_addr
 </UL>
-<BR>[Called By]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atof
+<BR>[Called By]<UL><LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atof
 </UL>
 
 <P><STRONG><a name="[a2]"></a>__set_errno</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, _rserrno.o(.text))
@@ -808,8 +808,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_errno_addr
 </UL>
-<BR>[Called By]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atof
-<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_ldexp
+<BR>[Called By]<UL><LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atof
+<LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_ldexp
 <LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_narrow
 </UL>
 
@@ -856,7 +856,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_local_sscanf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atof
+<BR>[Called By]<UL><LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atof
 </UL>
 
 <P><STRONG><a name="[9c]"></a>strtol</STRONG> (Thumb, 112 bytes, Stack size 32 bytes, strtol.o(.text))
@@ -1151,7 +1151,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;waitForReady
 </UL>
 
-<P><STRONG><a name="[cc]"></a>LEDon</STRONG> (Thumb, 168 bytes, Stack size 0 bytes, leds.o(i.LEDon))
+<P><STRONG><a name="[cf]"></a>LEDon</STRONG> (Thumb, 168 bytes, Stack size 0 bytes, leds.o(i.LEDon))
 <BR><BR>[Called By]<UL><LI><a href="#[37]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART3_RX_TX_IRQHandler
 <LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;waitForReady
 <LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnCalc
@@ -1189,17 +1189,18 @@ Global Symbols
 <P><STRONG><a name="[69]"></a>SystemInit</STRONG> (Thumb, 136 bytes, Stack size 0 bytes, system_mk64f12.o(i.SystemInit))
 <BR>[Address Reference Count : 1]<UL><LI> startup_mk64f12.o(.text)
 </UL>
-<P><STRONG><a name="[37]"></a>UART3_RX_TX_IRQHandler</STRONG> (Thumb, 426 bytes, Stack size 536 bytes, bluetooth.o(i.UART3_RX_TX_IRQHandler))
+<P><STRONG><a name="[37]"></a>UART3_RX_TX_IRQHandler</STRONG> (Thumb, 738 bytes, Stack size 536 bytes, bluetooth.o(i.UART3_RX_TX_IRQHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 984 + Unknown Stack Size
 <LI>Call Chain = UART3_RX_TX_IRQHandler &rArr; __hardfp_atof &rArr; __strtod_int &rArr; _local_sscanf &rArr; _scanf_real &rArr; _scanf_really_real &rArr; _fp_value &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bt_getAscii
-<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LEDon
-<LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;normalSet
-<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atof
-<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
+<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put
+<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LEDon
+<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;normalSet
+<LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atof
+<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
 <LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atoi
-<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
+<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2snprintf
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_mk64f12.o(RESET)
 </UL>
@@ -1209,7 +1210,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_dec_real
 </UL>
 
-<P><STRONG><a name="[cd]"></a>__hardfp_atof</STRONG> (Thumb, 44 bytes, Stack size 24 bytes, atof.o(i.__hardfp_atof))
+<P><STRONG><a name="[cb]"></a>__hardfp_atof</STRONG> (Thumb, 44 bytes, Stack size 24 bytes, atof.o(i.__hardfp_atof))
 <BR><BR>[Stack]<UL><LI>Max Depth = 448<LI>Call Chain = __hardfp_atof &rArr; __strtod_int &rArr; _local_sscanf &rArr; _scanf_real &rArr; _scanf_really_real &rArr; _fp_value &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__strtod_int
@@ -1220,42 +1221,42 @@ Global Symbols
 <LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getGPS
 </UL>
 
-<P><STRONG><a name="[cf]"></a>__hardfp_ldexp</STRONG> (Thumb, 200 bytes, Stack size 48 bytes, ldexp.o(i.__hardfp_ldexp))
+<P><STRONG><a name="[d0]"></a>__hardfp_ldexp</STRONG> (Thumb, 200 bytes, Stack size 48 bytes, ldexp.o(i.__hardfp_ldexp))
 <BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = __hardfp_ldexp &rArr; __mathlib_dbl_underflow &rArr; __aeabi_dmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__set_errno
-<LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_underflow
-<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_overflow
-<LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_scalbn
-<LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmpeq
+<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_underflow
+<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_overflow
+<LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_scalbn
+<LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmpeq
 </UL>
 <BR>[Called By]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__support_ldexp
 </UL>
 
-<P><STRONG><a name="[d3]"></a>__mathlib_dbl_overflow</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, dunder.o(i.__mathlib_dbl_overflow))
+<P><STRONG><a name="[d4]"></a>__mathlib_dbl_overflow</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, dunder.o(i.__mathlib_dbl_overflow))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = __mathlib_dbl_overflow &rArr; __aeabi_dmul
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
+<BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 </UL>
-<BR>[Called By]<UL><LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_ldexp
+<BR>[Called By]<UL><LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_ldexp
 </UL>
 
-<P><STRONG><a name="[d2]"></a>__mathlib_dbl_underflow</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, dunder.o(i.__mathlib_dbl_underflow))
+<P><STRONG><a name="[d3]"></a>__mathlib_dbl_underflow</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, dunder.o(i.__mathlib_dbl_underflow))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = __mathlib_dbl_underflow &rArr; __aeabi_dmul
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
+<BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 </UL>
-<BR>[Called By]<UL><LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_ldexp
+<BR>[Called By]<UL><LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_ldexp
 </UL>
 
 <P><STRONG><a name="[bd]"></a>__mathlib_narrow</STRONG> (Thumb, 166 bytes, Stack size 32 bytes, narrow.o(i.__mathlib_narrow))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = __mathlib_narrow &rArr; frexp &rArr; __aeabi_dmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__set_errno
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
-<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
-<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;frexp
-<LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmpeq
+<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
+<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
+<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;frexp
+<LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmpeq
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_scanf_really_real
 <LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_scanf_really_hex_real
@@ -1264,7 +1265,7 @@ Global Symbols
 <P><STRONG><a name="[c3]"></a>__support_ldexp</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, ldexp.o(i.__support_ldexp))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = __support_ldexp &rArr; __hardfp_ldexp &rArr; __mathlib_dbl_underflow &rArr; __aeabi_dmul
 </UL>
-<BR>[Calls]<UL><LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_ldexp
+<BR>[Calls]<UL><LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_ldexp
 </UL>
 <BR>[Called By]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_scanf_really_hex_real
 </UL>
@@ -1273,16 +1274,16 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_scanf_really_real
 </UL>
 
-<P><STRONG><a name="[ca]"></a>bt_getAscii</STRONG> (Thumb, 44 bytes, Stack size 16 bytes, bluetooth.o(i.bt_getAscii))
+<P><STRONG><a name="[ca]"></a>bt_getAscii</STRONG> (Thumb, 36 bytes, Stack size 16 bytes, bluetooth.o(i.bt_getAscii))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = bt_getAscii
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bt_getbyte
-<LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_putchar
+<BR>[Calls]<UL><LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bt_getbyte
+<LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_putchar
 </UL>
 <BR>[Called By]<UL><LI><a href="#[37]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART3_RX_TX_IRQHandler
 </UL>
 
-<P><STRONG><a name="[d7]"></a>bt_getbyte</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, bluetooth.o(i.bt_getbyte))
+<P><STRONG><a name="[d8]"></a>bt_getbyte</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, bluetooth.o(i.bt_getbyte))
 <BR><BR>[Called By]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bt_getAscii
 </UL>
 
@@ -1297,10 +1298,10 @@ Global Symbols
 <LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[d9]"></a>demo</STRONG> (Thumb, 20 bytes, Stack size 24 bytes, main.o(i.demo))
+<P><STRONG><a name="[da]"></a>demo</STRONG> (Thumb, 20 bytes, Stack size 24 bytes, main.o(i.demo))
 <BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = demo &rArr; put
 </UL>
-<BR>[Calls]<UL><LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put
+<BR>[Calls]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -1309,26 +1310,26 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 1008 + Unknown Stack Size
 <LI>Call Chain = distanceCalc &rArr; getGPS &rArr; __hardfp_atof &rArr; __strtod_int &rArr; _local_sscanf &rArr; _scanf_real &rArr; _scanf_really_real &rArr; _fp_value &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
 </UL>
-<BR>[Calls]<UL><LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put
+<BR>[Calls]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put
 <LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getUltrasonic
 <LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getGPS
 <LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
-<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
+<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
+<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmple
 <LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
 <LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
-<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
+<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[d5]"></a>frexp</STRONG> (Thumb, 118 bytes, Stack size 16 bytes, frexp.o(i.frexp))
+<P><STRONG><a name="[d6]"></a>frexp</STRONG> (Thumb, 118 bytes, Stack size 16 bytes, frexp.o(i.frexp))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = frexp &rArr; __aeabi_dmul
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
+<BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 </UL>
 <BR>[Called By]<UL><LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_narrow
 </UL>
@@ -1340,9 +1341,9 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_putchar
 <LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_put
 <LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_get
-<LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put
-<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atof
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
+<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put
+<LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atof
+<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
 <LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2snprintf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;distanceCalc
@@ -1352,11 +1353,11 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = getUltrasonic &rArr; __aeabi_dmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
-<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
+<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
 <LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
-<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
+<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
 </UL>
 <BR>[Called By]<UL><LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;distanceCalc
 </UL>
@@ -1365,7 +1366,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 208 + Unknown Stack Size
 <LI>Call Chain = gpsDemo &rArr; __2snprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put
+<BR>[Calls]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put
 <LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay
 <LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2snprintf
 </UL>
@@ -1431,17 +1432,17 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 1272 + Unknown Stack Size
 <LI>Call Chain = main &rArr; distanceCalc &rArr; getGPS &rArr; __hardfp_atof &rArr; __strtod_int &rArr; _local_sscanf &rArr; _scanf_real &rArr; _scanf_really_real &rArr; _fp_value &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
 </UL>
-<BR>[Calls]<UL><LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put
+<BR>[Calls]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put
 <LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpsDemo
 <LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetDutyCycle
 <LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RightDuty
 <LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LeftDuty
 <LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;waitForReady
 <LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnCalc
-<LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;normalSet
+<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;normalSet
 <LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initialize
 <LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;distanceCalc
-<LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo
+<LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo
 <LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay
 <LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calc
 <LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
@@ -1451,21 +1452,22 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
 </UL>
 
-<P><STRONG><a name="[cb]"></a>normalSet</STRONG> (Thumb, 70 bytes, Stack size 0 bytes, main.o(i.normalSet))
+<P><STRONG><a name="[ce]"></a>normalSet</STRONG> (Thumb, 70 bytes, Stack size 0 bytes, main.o(i.normalSet))
 <BR><BR>[Called By]<UL><LI><a href="#[37]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART3_RX_TX_IRQHandler
 <LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[da]"></a>put</STRONG> (Thumb, 22 bytes, Stack size 4 bytes, uart.o(i.put))
+<P><STRONG><a name="[cd]"></a>put</STRONG> (Thumb, 22 bytes, Stack size 4 bytes, uart.o(i.put))
 <BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = put
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_putchar
+<BR>[Calls]<UL><LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_putchar
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpsDemo
+<BR>[Called By]<UL><LI><a href="#[37]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART3_RX_TX_IRQHandler
+<LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpsDemo
 <LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getGPS
 <LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;distanceCalc
-<LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo
+<LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo
 </UL>
 
 <P><STRONG><a name="[ea]"></a>setData</STRONG> (Thumb, 126 bytes, Stack size 0 bytes, bluetooth.o(i.setData))
@@ -1481,9 +1483,9 @@ Global Symbols
 <P><STRONG><a name="[f8]"></a>turnCalc</STRONG> (Thumb, 142 bytes, Stack size 16 bytes, main.o(i.turnCalc))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = turnCalc &rArr; __aeabi_d2iz
 </UL>
-<BR>[Calls]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LEDon
+<BR>[Calls]<UL><LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LEDon
 <LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turn
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
+<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
 <LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
 <LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
 </UL>
@@ -1523,9 +1525,9 @@ Global Symbols
 <LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getGPS
 </UL>
 
-<P><STRONG><a name="[d8]"></a>uart_putchar</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, uart.o(i.uart_putchar))
+<P><STRONG><a name="[d9]"></a>uart_putchar</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, uart.o(i.uart_putchar))
 <BR><BR>[Called By]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bt_getAscii
-<LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put
+<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put
 </UL>
 
 <P><STRONG><a name="[f7]"></a>waitForReady</STRONG> (Thumb, 202 bytes, Stack size 8 bytes, main.o(i.waitForReady))
@@ -1533,7 +1535,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RightDuty
 <LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LeftDuty
-<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LEDon
+<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LEDon
 <LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LEDoff
 <LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay
 <LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calc
@@ -1558,7 +1560,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> rt_ctype_table.o(.text)
 </UL>
-<P><STRONG><a name="[ce]"></a>__aeabi_d2f</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, d2f.o(x$fpl$d2f))
+<P><STRONG><a name="[cc]"></a>__aeabi_d2f</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, d2f.o(x$fpl$d2f))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = __aeabi_d2f
 </UL>
 <BR>[Called By]<UL><LI><a href="#[37]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART3_RX_TX_IRQHandler
@@ -1587,7 +1589,7 @@ Global Symbols
 <P><STRONG><a name="[107]"></a>__fpl_dcheck_NaN1</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, dcheck1.o(x$fpl$dcheck1))
 <BR><BR>[Calls]<UL><LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_return_NaN
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_scalbn
+<BR>[Called By]<UL><LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_scalbn
 </UL>
 
 <P><STRONG><a name="[10b]"></a>__fpl_dcmp_Inf</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, dcmpi.o(x$fpl$dcmpinf), UNUSED)
@@ -1607,10 +1609,10 @@ Global Symbols
 <LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_dnaninf
 </UL>
 
-<P><STRONG><a name="[d0]"></a>__aeabi_cdcmpeq</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, deqf.o(x$fpl$deqf))
+<P><STRONG><a name="[d1]"></a>__aeabi_cdcmpeq</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, deqf.o(x$fpl$deqf))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = __aeabi_cdcmpeq
 </UL>
-<BR>[Called By]<UL><LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_ldexp
+<BR>[Called By]<UL><LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_ldexp
 <LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_narrow
 </UL>
 
@@ -1651,14 +1653,14 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_drcmple
 </UL>
 
-<P><STRONG><a name="[d4]"></a>__aeabi_dmul</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, dmul.o(x$fpl$dmul))
+<P><STRONG><a name="[d5]"></a>__aeabi_dmul</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, dmul.o(x$fpl$dmul))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = __aeabi_dmul
 </UL>
 <BR>[Called By]<UL><LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getUltrasonic
 <LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;distanceCalc
-<LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_underflow
-<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_overflow
-<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;frexp
+<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_underflow
+<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_overflow
+<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;frexp
 </UL>
 
 <P><STRONG><a name="[10e]"></a>_dmul</STRONG> (Thumb, 332 bytes, Stack size 32 bytes, dmul.o(x$fpl$dmul), UNUSED)
@@ -1684,7 +1686,7 @@ Global Symbols
 <LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_dadd
 </UL>
 
-<P><STRONG><a name="[d6]"></a>__aeabi_cdrcmple</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, drleqf.o(x$fpl$drleqf))
+<P><STRONG><a name="[d7]"></a>__aeabi_cdrcmple</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, drleqf.o(x$fpl$drleqf))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __aeabi_cdrcmple
 </UL>
 <BR>[Called By]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getGPS
@@ -1752,10 +1754,10 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_dcheck_NaN1
 </UL>
 
-<P><STRONG><a name="[d1]"></a>__ARM_scalbn</STRONG> (Thumb, 92 bytes, Stack size 0 bytes, scalbn.o(x$fpl$scalbn))
+<P><STRONG><a name="[d2]"></a>__ARM_scalbn</STRONG> (Thumb, 92 bytes, Stack size 0 bytes, scalbn.o(x$fpl$scalbn))
 <BR><BR>[Calls]<UL><LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_dcheck_NaN1
 </UL>
-<BR>[Called By]<UL><LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_ldexp
+<BR>[Called By]<UL><LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_ldexp
 </UL>
 
 <P><STRONG><a name="[ad]"></a>_scanf_real</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, scanf1.o(x$fpl$scanf1))

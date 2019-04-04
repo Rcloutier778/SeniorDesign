@@ -180,28 +180,75 @@ void UART3_RX_TX_IRQHandler(void){
   char get_str[254];
   char  c[255];
   float f;
-  
+  int d;
+  float q;
+  UART3_C2 &= ~UART_C2_RIE_MASK;
   UART3_S1; //clears interrupt
   ctrl = UART3_D;
   
+  
   //LEDon(YELLOW);
-  if(ctrl > 0){
-    sprintf(c,"Command: %i",ctrl);
+  //if(ctrl > 0){
+   // sprintf(c,"Command: %i",ctrl);
     //put(c);
     //put("\r\n");
-  }
+  //}
   //LEDon(YELLOW);
   //sprintf(c,"Command: %i",ctrl);
   //put(c);
   //put("\r\n");
   if (ctrl == 14){
-    UART3_C2 &= ~UART_C2_RIE_MASK;
-    for(;;){
-        bt_getAscii(c);
-    }
-    //bt_getData();
-    UART3_C2 |= UART_C2_RIE_MASK;
-    return;
+      bt_getAscii(c);
+      bt_getAscii(c);
+      bt_getAscii(c);
+      data->speed=atoi(c);
+      
+      bt_getAscii(c);
+      bt_getAscii(c);
+      data->turn=atoi(c);
+      
+      bt_getAscii(c);
+      bt_getAscii(c);
+      data->accelx=atof(c);  
+      
+      bt_getAscii(c);
+      bt_getAscii(c);
+      data->accely=atof(c);  
+      
+      bt_getAscii(c);
+      bt_getAscii(c);
+      data->accelz=atof(c);  
+      
+      bt_getAscii(c);
+      bt_getAscii(c);
+      data->gpsx=atof(c);  
+      
+      bt_getAscii(c);
+      bt_getAscii(c);
+      data->gpsy=atof(c);  
+      
+      bt_getAscii(c);
+      bt_getAscii(c);
+      data->atn=atoi(c);  
+      
+      bt_getAscii(c);
+      bt_getAscii(c);
+      data->sensor=atoi(c);  
+      bt_getAscii(c);
+      
+      
+
+
+          
+        //bt_getData();
+      UART3_C2 |= UART_C2_RIE_MASK;
+      
+      snprintf(c,sizeof c, "%i", data->speed);
+      put("\r\nspeed:");
+            put(c);
+            put("\r\n");
+      
+      return;
   }
   if(ctrl >= 0 && ctrl <= 14){
     //Disable interrupts, start polling
@@ -280,13 +327,10 @@ void bt_getAscii(char *ptr_str){
   int lcv;
   uint8_t cu;
   lcv = 0;
-  while(lcv < 60){
+  while(lcv < 255){
     cu = bt_getbyte();
-    //if(cu == 0){ //if entered character is character return
-    //  return;
-    //}
-    if (cu >= 0 && cu <= 9){
-        cu = cu + 48;
+    if(cu == 0){ //if entered character is character return
+      return;
     }
     uart_putchar(cu);
     ptr_str[lcv] = cu;
