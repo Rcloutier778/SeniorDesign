@@ -38,7 +38,8 @@ void getGPS(double *distance, double *angle){
     //get_BT_GPS_dev(&phoneGPS[0],&phoneGPS[1]);
     phoneGPS[0]=data->gpsx;
     phoneGPS[1]=data->gpsy;
-        
+    
+    
     
     //Send (XX.XXX,YY.YYY) to arduino
     snprintf(phoneChar,sizeof phoneChar, "%g", phoneGPS[0]);
@@ -57,10 +58,15 @@ void getGPS(double *distance, double *angle){
     uart2_putchar('\n');
 
     //Get distance and angle
+    if (VERBOSE){
+        put("Waiting on arduino\r\n");
+    }
     uart2_get(distChar);
     *distance = atof(distChar);
     uart2_get(angleChar);
     *angle = atof(angleChar);
+    
+    
     
     if(VERBOSE){
         put("Got distance of: ");

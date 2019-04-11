@@ -107,8 +107,8 @@ int direction=0;
 float location[2]={0.0f,0.0f};
 
 int control[10];
-
-int VERBOSE=0; //Print to uart0 (terminal)
+int use_ultrasonic=0;
+int VERBOSE=1; //Print to uart0 (terminal)
 
 
 /*
@@ -127,7 +127,7 @@ int main(void){
   char c[254]={0};
   //Run demo
   int demov=0;
-  int gps_demov=1;
+  int gps_demov=0;
   
   // Initialize everything
   initialize();
@@ -264,7 +264,9 @@ void distanceCalc(void){
     
     if (distance < distRange[0]){
       //Ultrasonic
-      distance=getUltrasonic();
+      if (use_ultrasonic==1){
+        distance=getUltrasonic();
+      }
     }
   }
   
