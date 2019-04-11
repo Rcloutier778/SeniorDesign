@@ -29,45 +29,58 @@ void loop() {
   int gps_ran = 0;
   int k64_ran = 0;
   int test = 0;
-  int spoofGPS=1;
+  int spoofGPS=0;
   double spoofLat=43.085254;
   double spoofLong=-77.678110;
   char writechar[255];
+  while(1){
   if(not spoofGPS){
-    k64.listen();
-    // Checks for coordinates over serial
-    while(k64.available() > 0){
-      // Format to be read {'+/-'LATITUDE,'+/-'LONGITUDE}
-      // Gets the sign for lat
-      sign = k64.read();
-      // Reads latitude then puts it into a double
-      k64_buffer_s = k64.readStringUntil(',');
-      if(sign == '-'){
-        user_lat = 0 - atof(k64_buffer_s.c_str());
+    if (k64_ran==0){
+      if (not k64.isListening()){
+        k64.listen();
       }
-      else{
-        user_lat = atof(k64_buffer_s.c_str());
+      // Checks for coordinates over serial
+      while(k64.available() > 0){
+        Serial.println("Got k64");
+        // Format to be read {'+/-'LATITUDE,'+/-'LONGITUDE}
+        // Gets the sign for lat
+        sign = k64.read();
+        // Reads latitude then puts it into a double
+        k64_buffer_s = k64.readStringUntil(',');
+        if(sign == '-'){
+          user_lat = 0 - atof(k64_buffer_s.c_str());
+        }
+        else{
+          user_lat = atof(k64_buffer_s.c_str());
+        }
+        Serial.println(user_lat,6);
+        // Gets the sign for longitude
+        sign = k64.read();
+        // Reads the longitude then puts it into a double
+        k64_buffer_s = k64.readStringUntil('\n');
+        if(sign == '-'){
+          user_long = (0 - atof(k64_buffer_s.c_str()));
+        }
+        else{
+          user_long =  atof(k64_buffer_s.c_str());
+        }
+        Serial.println(user_long,6);
+        // Flags coordinates received from K64
+        k64_ran = 1;
       }
-      Serial.println(user_lat,6);
-      // Gets the sign for longitude
-      sign = k64.read();
-      // Reads the longitude then puts it into a double
-      k64_buffer_s = k64.readStringUntil('\n');
-      if(sign == '-'){
-        user_long = (0 - atof(k64_buffer_s.c_str()));
-      }
-      else{
-        user_long =  atof(k64_buffer_s.c_str());
-      }
-      Serial.println(user_long,6);
-      // Flags coordinates received from K64
-      k64_ran = 1;
     }
   }
+
+  //GPS
+  if (k64_ran==1){
+    Serial.println("K64 ran. Waiting on gps.");
   //if(not spoofGPS){
-    gps_ss.listen();
+    if(not gps_ss.isListening()){
+      gps_ss.listen();
+    }
     // Checks for gps data
     while(gps_ss.available() > 0){
+      //Serial.println("In GPS Loop");
       // Converts the NMEA string to the gps object
       if(gps.encode(gps_ss.read())){
         // Checks for an updated location
@@ -79,10 +92,12 @@ void loop() {
           Serial.println(gps.location.lng(), 6);
           // Flags the gps got data
           gps_ran = 1;
+          Serial.println("Finished getting GPS");
         }
       }
     }
   //}
+  }
   
   if(k64_ran & spoofGPS){
     // Resets the flags
@@ -233,4 +248,5 @@ void loop() {
     }
     delay(2000);
   }
+}
 }
