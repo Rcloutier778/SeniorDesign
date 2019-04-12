@@ -65,7 +65,8 @@ void getGPS(){
     uart2_get_DistAngle(distChar, angleChar);
 
     sscanf(distChar, "%lf", &distance);
-    sscanf(angleChar, "%lf", &angle);    
+    sscanf(angleChar, "%lf", &angle);  
+    distance *= 12.0;
     
     if(VERBOSE){
         put("Got distance of: ");

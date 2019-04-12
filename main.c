@@ -244,8 +244,8 @@ void demo(void){
  Adjusts desired speed accordingly
  */
 void distanceCalc(void){
-  const float maxDistance=50.0f; //Max distance == max speed
-  const float minDistance=15.0f;
+  const float maxDistance=30.0f; //Max distance == max speed
+  const float minDistance=1.0f;
   const int distRange[2] = {10, 3}; //Minimum distance ranges for distance calc methods
   float desiredSpeed = 0.0f;
   char  c[255];
@@ -263,14 +263,14 @@ void distanceCalc(void){
     
     if (distance < distRange[0]){
       //Ultrasonic
-      if (use_ultrasonic==1){
+      if (use_ultrasonicrc){
         distance=getUltrasonic();
       }
     }
   }
   
   if(VERBOSE){
-    sprintf(c,"Distance: %g inches",distance);
+    sprintf(c,"Distance: %lf inches",distance);
     put(c);
     put("\r\n");
   }
