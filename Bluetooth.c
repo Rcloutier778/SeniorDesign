@@ -81,7 +81,7 @@ const uint8_t ANDROID_DATA_ERR = (uint8_t) -9999;
 
 int gotGPSdata = 0;
 int receiveGPSdata = 0;
-
+extern int VERBOSE;
 extern void delay(int);
 float bt_lat;
 float bt_long;
@@ -195,6 +195,7 @@ void UART3_RX_TX_IRQHandler(void){
 
     if (ctrl == 14){
         bt_getStream(stream);
+        put("#############################BT updated #####################\r\n");
         //put("\r\n");
         splitStream = strtok(stream," ");
         while(splitStream != NULL){
@@ -202,16 +203,20 @@ void UART3_RX_TX_IRQHandler(void){
             //put("\r\n");
             if (!strcmp(splitStream,"ALo")){
                 splitStream = strtok(NULL, " ");
-                /*put("BT Lat: ");
-                put(splitStream);
-                put("\r\n");*/
+                if(VERBOSE){
+                    put("BT Lat: ");
+                    put(splitStream);
+                    put("\r\n");
+                }
                 sscanf(splitStream, "%lf", &d);
                 data->avggpsx=d;
                 splitStream = strtok(NULL, " ");
                 splitStream = strtok(NULL, " ");
-                /*put("BT Long: ");
-                put(splitStream);
-                put("\r\n");*/
+                if(VERBOSE){
+                    put("BT Long: ");
+                    put(splitStream);
+                    put("\r\n");
+                }
                 sscanf(splitStream, "%lf", &d);
                 data->avggpsy=d;
                 break;
