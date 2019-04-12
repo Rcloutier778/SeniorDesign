@@ -45,8 +45,6 @@ void getGPS(){
     phoneGPS[0]=data->gpsx;
     phoneGPS[1]=data->gpsy;
     
-    
-    
     //Send (XX.XXX,YY.YYY) to arduino
     snprintf(phoneChar,sizeof phoneChar, "%g", phoneGPS[0]);
     if(phoneGPS[0] > 0){
@@ -64,16 +62,11 @@ void getGPS(){
     uart2_putchar('\n');
 
     //Get distance and angle
-    if (VERBOSE){
-        put("Waiting on arduino\r\n");
-    }
-    uart2_get(distChar);
-    uart2_get(angleChar);
-    
-    distance = atof(distChar);
-    angle = atof(angleChar);
-    
-    
+    uart2_get_DistAngle(distChar, angleChar);
+
+    sscanf(distChar, "%lf", &distance);
+    sscanf(angleChar, "%lf", &angle);  
+    distance *= 12.0;
     
     if(VERBOSE){
         put("Got distance of: ");
@@ -83,7 +76,6 @@ void getGPS(){
         put(angleChar);
         put("\r\n");
     }
-    
 }
 
 void gpsDemo(void){
@@ -159,9 +151,10 @@ void gpsDemo(void){
         uart2_putchar('\n');
 
         //Get distance and angle
-        uart2_get(distChar);
+        uart2_get_DistAngle(distChar, angleChar);
+        //uart2_get(distChar);
         tDistance = atof(distChar);
-        uart2_get(angleChar);
+        //uart2_get(angleChar);
         tAngle = atof(angleChar);
         
         
@@ -273,6 +266,36 @@ void uart2_get(char *ptr_str){
     }
 //    uart_putchar(cu);
 	ptr_str[lcv] = cu;
+    lcv++;
+  }
+  return;
+}
+
+void uart2_get_DistAngle(char *ptr_str_dist, char *ptr_str_angle){
+  /*
+    Used instead of two instances of uart2_get because the k64 
+    is slower than the arduino and will miss the second message.
+  */
+  int lcv;
+  uint8_t cu;
+  lcv=0;
+  while(lcv < 254){
+    cu = uart2_getchar();
+    if(cu == 0){ //if entered character is character return
+      break;
+    }
+//    uart_putchar(cu);
+	ptr_str_dist[lcv] = cu;
+    lcv++;
+  }
+  lcv=0;
+  while(lcv < 254){
+    cu = uart2_getchar();
+    if(cu == 0){ //if entered character is character return
+      break;
+    }
+//    uart_putchar(cu);
+	ptr_str_angle[lcv] = cu;
     lcv++;
   }
   return;
