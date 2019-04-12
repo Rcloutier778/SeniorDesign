@@ -237,12 +237,12 @@ void UART3_RX_TX_IRQHandler(void){
     bt_getAscii(c);
     bt_getAscii(c);
     sscanf(c, "%lf", &d);
-    data->accloc = d;
-  
+    data->avggpsx = d;
+    
     bt_getAscii(c);
     bt_getAscii(c);
     sscanf(c, "%lf", &d);
-    data->avggpsx = d;
+    data->accloc = d;
   
     bt_getAscii(c);
     bt_getAscii(c);
