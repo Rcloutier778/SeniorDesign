@@ -263,7 +263,7 @@ void distanceCalc(void){
     
     if (distance < distRange[0]){
       //Ultrasonic
-      if (use_ultrasonicrc){
+      if (use_ultrasonic){
         distance=getUltrasonic();
       }
     }

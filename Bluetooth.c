@@ -5,6 +5,7 @@
 #include "MK64F12.h"
 #include "uart.h"
 #include "LEDS.h"
+#include <string.h>
 #include "Bluetooth.h"
 
 
@@ -181,89 +182,114 @@ void delData() {
 void UART3_RX_TX_IRQHandler(void){
   uint8_t ctrl;
   char get_str[254];
+  char stream[1024];
+  char *splitStream;
   char  c[255];
   float f;
   double d;
+
   UART3_C2 &= ~UART_C2_RIE_MASK;
   UART3_S1; //clears interrupt
   ctrl = UART3_D;
   
-  
-  //LEDon(YELLOW);
-  //if(ctrl > 0){
-   // sprintf(c,"Command: %i",ctrl);
-    //put(c);
-    //put("\r\n");
-  //}
-  //LEDon(YELLOW);
-  //sprintf(c,"Command: %i",ctrl);
-  //put(c);
-  //put("\r\n");
-  if (ctrl == 14){
-    bt_getAscii(c);
-    bt_getAscii(c);
-    bt_getAscii(c);
-    data->speed = atoi(c);
-    
-    bt_getAscii(c);
-    bt_getAscii(c);
-    data->turn = atoi(c);
-    
-    bt_getAscii(c);
-    bt_getAscii(c);
-    sscanf(c, "%lf", &d);
-    data->accelx = d;
-    
-    bt_getAscii(c);
-    bt_getAscii(c);
-    sscanf(c, "%lf", &d);
-    data->accely = d;
-    
-    bt_getAscii(c);
-    bt_getAscii(c);
-    sscanf(c, "%lf", &d);
-    data->accelz = d;
-    
-    bt_getAscii(c);
-    bt_getAscii(c);
-    sscanf(c, "%lf", &d);
-    data->gpsx = d;
-    
-    bt_getAscii(c);
-    bt_getAscii(c);
-    sscanf(c, "%lf", &d);
-    data->gpsy = d;
-    
-    bt_getAscii(c);
-    bt_getAscii(c);
-    sscanf(c, "%lf", &d);
-    data->avggpsx = d;
-    
-    bt_getAscii(c);
-    bt_getAscii(c);
-    sscanf(c, "%lf", &d);
-    data->accloc = d;
-  
-    bt_getAscii(c);
-    bt_getAscii(c);
-    sscanf(c, "%lf", &d);
-    data->avggpsy = d;
-    
-    bt_getAscii(c);
-    bt_getAscii(c);
-    sscanf(c, "%lf", &d);
-    data->accavg = d;
-    
-    //bt_getData();
-    UART3_C2 |= UART_C2_RIE_MASK;
-    
-    snprintf(c,sizeof c, "%i", data->speed);
-    put("\r\nspeed:");
-          put(c);
-          put("\r\n");
-    
-    return;
-  }
+
+    if (ctrl == 14){
+        bt_getStream(stream);
+        put("\r\n");
+        splitStream = strtok(stream," ");
+        while(splitStream != NULL){
+            put(splitStream);
+            put("\r\n");
+            if (!strcmp(splitStream,"ALo")){
+                splitStream = strtok(NULL, " ");
+                put("BT Lat: ");
+                put(splitStream);
+                put("\r\n");
+                sscanf(splitStream, "%lf", &d);
+                data->avggpsx=d;
+                splitStream = strtok(NULL, " ");
+                splitStream = strtok(NULL, " ");
+                put("BT Long: ");
+                put(splitStream);
+                put("\r\n");
+                sscanf(splitStream, "%lf", &d);
+                data->avggpsy=d;
+                break;
+            }
+            splitStream = strtok(NULL, " ");
+        }
+      
+      
+      
+        /*  
+        bt_getAscii(c);
+        bt_getAscii(c);
+        bt_getAscii(c);
+        data->speed = atoi(c);
+
+        bt_getAscii(c);
+        bt_getAscii(c);
+        data->turn = atoi(c);
+
+        bt_getAscii(c);
+        bt_getAscii(c);
+        sscanf(c, "%lf", &d);
+        data->accelx = d;
+
+        bt_getAscii(c);
+        bt_getAscii(c);
+        sscanf(c, "%lf", &d);
+        data->accely = d;
+
+        bt_getAscii(c);
+        bt_getAscii(c);
+        sscanf(c, "%lf", &d);
+        data->accelz = d;
+
+        bt_getAscii(c);
+        bt_getAscii(c);
+        sscanf(c, "%lf", &d);
+        data->gpsx = d;
+
+        bt_getAscii(c);
+        bt_getAscii(c);
+        sscanf(c, "%lf", &d);
+        data->gpsy = d;
+
+
+
+        bt_getAscii(c);
+        bt_getAscii(c);
+        sscanf(c, "%lf", &d);
+        data->accloc = d;
+
+        bt_getAscii(c);
+        bt_getAscii(c);
+        //put(c);
+        //put("\r\n");
+        sscanf(c, "%lf", &d);
+        data->avggpsx = d;
+
+
+        bt_getAscii(c);
+        bt_getAscii(c);
+        //put(c);
+        //put("\r\n");
+        sscanf(c, "%lf", &d);
+        data->avggpsy = d;
+
+        bt_getAscii(c);
+        bt_getAscii(c);
+        sscanf(c, "%lf", &d);
+        data->accavg = d;
+
+        //bt_getData();
+        */
+        UART3_C2 |= UART_C2_RIE_MASK;
+
+
+        return;
+    }
   if(ctrl >= 0 && ctrl <= 14){
     //Disable interrupts, start polling
     UART3_C2 &= ~UART_C2_RIE_MASK;
@@ -336,6 +362,44 @@ void sendFloatTx(void) {
 void pollGPSRx(void) {
   
 }
+
+
+
+
+
+
+
+
+void bt_getStream(char *stream_ptr){
+    const int data_array_sections = 9; //items in bt data array
+    int lcv=0;
+    int kcv=0;
+    int qcv=0;
+    uint8_t cu;
+    uint8_t au;
+    while(lcv < 1024){
+        cu = bt_getbyte();
+        if(cu==0){
+            stream_ptr[lcv] = ' ';
+            lcv++;
+            stream_ptr[lcv] = ' ';
+            lcv++;
+            continue;
+        }
+        //uart_putchar(cu);
+        stream_ptr[lcv] = cu;
+        lcv++;
+        if (stream_ptr[lcv-2]=='A' & stream_ptr[lcv-1]=='C'){
+            kcv++;
+            if(kcv==2){
+                return;
+            }
+        }
+    }
+    
+    
+}
+
 
 void bt_getAscii(char *ptr_str){
   int lcv;

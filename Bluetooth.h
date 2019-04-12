@@ -37,6 +37,7 @@ enum android_index checkDataName(char buffer[]);
 void UART3_RX_IRQHandler(void);
 void UART3_TX_IRQHandler(void);
 void UART3_RX_TX_IRQHandler(void);
+void bt_getStream(char *stream_ptr);
 void sendFloatTx(void);
 void pollGPSRx(void);
 uint8_t bt_getbyte(void);

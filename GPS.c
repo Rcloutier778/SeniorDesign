@@ -38,35 +38,40 @@ void getGPS(){
     
     //Get GPS from Bluetooth  -- brian //TODO
     //get_BT_GPS_dev(&phoneGPS[0],&phoneGPS[1]);
-    if (data->gpsx == 0.0f){//Init values
-        data->gpsx = 43.136269f;
-        data->gpsy = -77.750473f;
+    if (data->avggpsx == 0.0f){//Init values
+        data->avggpsx = 43.136269;
+        data->avggpsy = -77.750473;
     }
-    phoneGPS[0]=data->gpsx;
-    phoneGPS[1]=data->gpsy;
+    phoneGPS[0]=data->avggpsx;
+    phoneGPS[1]=data->avggpsy;
     
     //Send (XX.XXX,YY.YYY) to arduino
-    snprintf(phoneChar,sizeof phoneChar, "%g", phoneGPS[0]);
-    if(phoneGPS[0] > 0){
-        uart2_putchar('+');
-    }
+    snprintf(phoneChar,sizeof phoneChar, "%lf", phoneGPS[0]);
+
     uart2_put(phoneChar);
+    
+    put("User lat: ");
+    put(phoneChar); //TODO
+    put("\r\n");
 
     uart2_putchar(',');
 
-    snprintf(phoneChar,sizeof phoneChar, "%g", phoneGPS[1]);
-    if(phoneGPS[1] > 0){
-        uart2_putchar('+');
-    }
+    snprintf(phoneChar,sizeof phoneChar, "%lf", phoneGPS[1]);
+
     uart2_put(phoneChar);
-    uart2_putchar('\n');
+    
+    
+    put("User long: ");
+    put(phoneChar); //TODO
+    put("\r\n"); 
+    
+    uart2_putchar(0);
 
     //Get distance and angle
     uart2_get_DistAngle(distChar, angleChar);
 
     sscanf(distChar, "%lf", &distance);
-    sscanf(angleChar, "%lf", &angle);  
-    distance *= 12.0;
+    sscanf(angleChar, "%lf", &angle);    
     
     if(VERBOSE){
         put("Got distance of: ");

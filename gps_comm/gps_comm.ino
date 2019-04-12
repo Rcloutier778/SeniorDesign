@@ -1,6 +1,7 @@
 #include <TinyGPS++.h>
 #include <SoftwareSerial.h>
 
+
 // The TinyGPS++ object
 TinyGPSPlus gps;
 
@@ -21,13 +22,13 @@ void setup() {
 }
 
 
-float user_lat;
-float user_long;
-float gps_lat;
-float gps_long;
-float gps_course_deg;
+double user_lat;
+double user_long;
+double gps_lat;
+double gps_long;
+double gps_course_deg;
 
-int VERBOSE=0;
+int VERBOSE=1;
 
 
 void loop() {
@@ -96,14 +97,10 @@ void loop() {
       Serial.println();
     }
   }
-
-  
 }
 
 
 void k64Calc(int spoofK64){
-  char sign;
-  String k64_buffer_s;
   if(spoofK64){ //spoof coords
     user_lat = 43.085254;
     user_long = -77.678110;
@@ -120,32 +117,20 @@ void k64Calc(int spoofK64){
     
     while(k64.available() > 0){
       //Serial.println("Got k64");
-      // Format to be read {'+/-'LATITUDE,'+/-'LONGITUDE}
-      // Gets the sign for lat
-      sign = k64.read();
+      // Format to be read {LATITUDE,LONGITUDE}
       // Reads latitude then puts it into a double
-      k64_buffer_s = k64.readStringUntil(',');
-      if(sign == '-'){
-        user_lat = 0 - atof(k64_buffer_s.c_str());
-      }
-      else{
-        user_lat = atof(k64_buffer_s.c_str());
-      }
+      user_lat = k64.readStringUntil(',').toDouble();
+
+
       // Gets the sign for longitude
-      sign = k64.read();
       // Reads the longitude then puts it into a double
-      k64_buffer_s = k64.readStringUntil('\n');
-      if(sign == '-'){
-        user_long = (0 - atof(k64_buffer_s.c_str()));
-      }
-      else{
-        user_long =  atof(k64_buffer_s.c_str());
-      }
+      user_long = k64.readStringUntil(NULL).toDouble();
+      
       if(VERBOSE){
         Serial.print("User latitude: ");
-        Serial.println(user_lat,6);
+        Serial.println(user_lat,8);
         Serial.print("User longitude: ");
-        Serial.println(user_long,6);
+        Serial.println(user_long,8);
       }
     }
   }
@@ -154,9 +139,9 @@ void k64Calc(int spoofK64){
 //Moving avg number
 const int movingAvgN = 20;
 
-float gpsLatCum[movingAvgN];
-float gpsLongCum[movingAvgN];
-float gpsCourseCum[movingAvgN];
+double gpsLatCum[movingAvgN];
+double gpsLongCum[movingAvgN];
+double gpsCourseCum[movingAvgN];
 
 int tempMovingAvg=0; //Used to init the moving avg arrays. Only used for the first N vals.
 
@@ -167,9 +152,9 @@ int tempMovingAvg=0; //Used to init the moving avg arrays. Only used for the fir
 
 void gpsCalc(int spoofGPS){
   //GPS
-  float temp_gps_lat;
-  float temp_gps_long;
-  float temp_gps_course;
+  double temp_gps_lat;
+  double temp_gps_long;
+  double temp_gps_course;
   
   if(spoofGPS){ //spoofed gps coords
     gps_lat= 43.136269f;
