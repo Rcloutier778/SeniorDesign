@@ -27,6 +27,7 @@ float gps_lat;
 float gps_long;
 float gps_course_deg;
 
+int VERBOSE=0;
 
 
 void loop() {
@@ -41,22 +42,26 @@ void loop() {
   
   while(1){       
     k64Calc(spoofK64);
-    Serial.println("K64 ran. Waiting on gps.");
+    if(VERBOSE){Serial.println("K64 ran. Waiting on gps.");}
     gpsCalc(spoofGPS);
     
     // Checks if cart and user data were received and the cart gps data was updated
     // Calculates the distance between cart and user in m(converted to ft)
     distance_user = gps.distanceBetween(gps_lat,gps_long,user_lat,user_long) * m_to_ft;
     
-    Serial.print("Distance to user: ");
-    dtostrf(distance_user,8,3,writechar);
-    Serial.print(writechar);
-    Serial.println(" ft");
+    
+    
     
     // Sends the distance to the k64
+    dtostrf(distance_user,8,3,writechar);
     k64.write(writechar);
     k64.write((byte)0x00);
 
+    if(VERBOSE){
+      Serial.print("Distance to user: ");
+      Serial.print(writechar);
+      Serial.println(" ft");
+    }
     
 
     // Calculates the angle between cart and user
@@ -79,14 +84,17 @@ void loop() {
     */
     
 
-    Serial.print("Difference angle: ");
+    
     dtostrf(angle_user,8,3,writechar);
-    Serial.println(writechar);
     // Send angle to k64
     k64.write(writechar);
     k64.write((byte)0x00);
-    
-    Serial.println();
+
+    if(VERBOSE){
+      Serial.print("Difference angle: ");
+      Serial.println(writechar);
+      Serial.println();
+    }
   }
 
   
@@ -133,10 +141,12 @@ void k64Calc(int spoofK64){
       else{
         user_long =  atof(k64_buffer_s.c_str());
       }
-      Serial.print("User latitude: ");
-      Serial.println(user_lat,6);
-      Serial.print("User longitude: ");
-      Serial.println(user_long,6);
+      if(VERBOSE){
+        Serial.print("User latitude: ");
+        Serial.println(user_lat,6);
+        Serial.print("User longitude: ");
+        Serial.println(user_long,6);
+      }
     }
   }
 }
@@ -162,8 +172,8 @@ void gpsCalc(int spoofGPS){
   float temp_gps_course;
   
   if(spoofGPS){ //spoofed gps coords
-    gps_lat= 43.136369f;
-    gps_long = -77.750573f;
+    gps_lat= 43.136269f;
+    gps_long = -77.750473f;
     gps_course_deg = 90.000000;    
     Serial.println("Spoofing GPS coordinates");
   }else{ //actual code
@@ -230,13 +240,14 @@ void gpsCalc(int spoofGPS){
           gps_long /= movingAvgN;
           gps_course_deg /= movingAvgN;
         }
-        
-        Serial.print("GPS latitude: ");
-        Serial.println(gps_lat,6);
-        Serial.print("GPS longitude: ");
-        Serial.println(gps_long,6);
-        Serial.print("GPS Course degree: ");
-        Serial.println(gps_course_deg,6);
+        if(VERBOSE){
+          Serial.print("GPS latitude: ");
+          Serial.println(gps_lat,6);
+          Serial.print("GPS longitude: ");
+          Serial.println(gps_long,6);
+          Serial.print("GPS Course degree: ");
+          Serial.println(gps_course_deg,6);
+        }
         return;
       }
       if (gps.satellites.value()==0){
