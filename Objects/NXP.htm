@@ -3,9 +3,9 @@
 <title>Static Call Graph - [.\Objects\NXP.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\NXP.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060300: Last Updated: Mon Apr 01 19:10:54 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060300: Last Updated: Fri Apr 12 12:24:44 2019
 <BR><P>
-<H3>Maximum Stack Usage =       1272 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =       1256 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
 __rt_entry_main &rArr; main &rArr; distanceCalc &rArr; getGPS &rArr; __hardfp_atof &rArr; __strtod_int &rArr; _local_sscanf &rArr; _scanf_real &rArr; _scanf_really_real &rArr; _fp_value &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
 <P>
@@ -302,7 +302,7 @@ Global Symbols
 <P><STRONG><a name="[137]"></a>__rt_entry_postsh_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$00000009))
 
 <P><STRONG><a name="[89]"></a>__rt_entry_main</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$0000000D))
-<BR><BR>[Stack]<UL><LI>Max Depth = 1272 + Unknown Stack Size
+<BR><BR>[Stack]<UL><LI>Max Depth = 1256 + Unknown Stack Size
 <LI>Call Chain = __rt_entry_main &rArr; main &rArr; distanceCalc &rArr; getGPS &rArr; __hardfp_atof &rArr; __strtod_int &rArr; _local_sscanf &rArr; _scanf_real &rArr; _scanf_really_real &rArr; _fp_value &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
 </UL>
 <BR>[Calls]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -1225,10 +1225,10 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = __hardfp_ldexp &rArr; __mathlib_dbl_underflow &rArr; __aeabi_dmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__set_errno
+<LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmpeq
 <LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_underflow
 <LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_overflow
 <LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_scalbn
-<LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmpeq
 </UL>
 <BR>[Called By]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__support_ldexp
 </UL>
@@ -1254,9 +1254,9 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__set_errno
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
+<LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmpeq
 <LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
 <LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;frexp
-<LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmpeq
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_scanf_really_real
 <LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_scanf_really_hex_real
@@ -1306,8 +1306,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[db]"></a>distanceCalc</STRONG> (Thumb, 344 bytes, Stack size 328 bytes, main.o(i.distanceCalc))
-<BR><BR>[Stack]<UL><LI>Max Depth = 1008 + Unknown Stack Size
+<P><STRONG><a name="[db]"></a>distanceCalc</STRONG> (Thumb, 364 bytes, Stack size 320 bytes, main.o(i.distanceCalc))
+<BR><BR>[Stack]<UL><LI>Max Depth = 992 + Unknown Stack Size
 <LI>Call Chain = distanceCalc &rArr; getGPS &rArr; __hardfp_atof &rArr; __strtod_int &rArr; _local_sscanf &rArr; _scanf_real &rArr; _scanf_really_real &rArr; _fp_value &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
 </UL>
 <BR>[Calls]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put
@@ -1334,8 +1334,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_narrow
 </UL>
 
-<P><STRONG><a name="[dc]"></a>getGPS</STRONG> (Thumb, 252 bytes, Stack size 232 bytes, gps.o(i.getGPS))
-<BR><BR>[Stack]<UL><LI>Max Depth = 680 + Unknown Stack Size
+<P><STRONG><a name="[dc]"></a>getGPS</STRONG> (Thumb, 322 bytes, Stack size 224 bytes, gps.o(i.getGPS))
+<BR><BR>[Stack]<UL><LI>Max Depth = 672 + Unknown Stack Size
 <LI>Call Chain = getGPS &rArr; __hardfp_atof &rArr; __strtod_int &rArr; _local_sscanf &rArr; _scanf_real &rArr; _scanf_really_real &rArr; _fp_value &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_putchar
@@ -1344,6 +1344,7 @@ Global Symbols
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put
 <LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atof
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
+<LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmpeq
 <LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2snprintf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;distanceCalc
@@ -1429,7 +1430,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[8a]"></a>main</STRONG> (Thumb, 296 bytes, Stack size 264 bytes, main.o(i.main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 1272 + Unknown Stack Size
+<BR><BR>[Stack]<UL><LI>Max Depth = 1256 + Unknown Stack Size
 <LI>Call Chain = main &rArr; distanceCalc &rArr; getGPS &rArr; __hardfp_atof &rArr; __strtod_int &rArr; _local_sscanf &rArr; _scanf_real &rArr; _scanf_really_real &rArr; _fp_value &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
 </UL>
 <BR>[Calls]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put
@@ -1612,7 +1613,8 @@ Global Symbols
 <P><STRONG><a name="[d1]"></a>__aeabi_cdcmpeq</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, deqf.o(x$fpl$deqf))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = __aeabi_cdcmpeq
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_ldexp
+<BR>[Called By]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getGPS
+<LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_ldexp
 <LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_narrow
 </UL>
 
@@ -1672,11 +1674,11 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_dmul
 <LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_dcmple
 <LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_dfix
+<LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_dcmpeq
 <LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_ddiv
 <LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_dsub
 <LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_dadd
 <LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_d2f
-<LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_dcmpeq
 </UL>
 
 <P><STRONG><a name="[106]"></a>__fpl_dretinf</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, dretinf.o(x$fpl$dretinf), UNUSED)

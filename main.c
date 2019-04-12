@@ -53,7 +53,7 @@ void normalSet(void);
 void turnCalc(void);
 void distanceCalc(void);
 void demo(void);
-void turn(int angle);
+void turn(int turn_angle);
 void waitForReady(void);
 
 const int DC_freq = 25000;
@@ -107,8 +107,8 @@ int direction=0;
 float location[2]={0.0f,0.0f};
 
 int control[10];
-
-int VERBOSE=0; //Print to uart0 (terminal)
+int use_ultrasonic=0;
+int VERBOSE=1; //Print to uart0 (terminal)
 
 
 /*
@@ -127,7 +127,7 @@ int main(void){
   char c[254]={0};
   //Run demo
   int demov=0;
-  int gps_demov=1;
+  int gps_demov=0;
   
   // Initialize everything
   initialize();
@@ -244,7 +244,6 @@ void demo(void){
  Adjusts desired speed accordingly
  */
 void distanceCalc(void){
-  double distance = 0.0; //GPS, camera, ultrasonic
   const float maxDistance=50.0f; //Max distance == max speed
   const float minDistance=15.0f;
   const int distRange[2] = {10, 3}; //Minimum distance ranges for distance calc methods
@@ -258,13 +257,15 @@ void distanceCalc(void){
   }
   
   //GPS
-  getGPS(&distance, &angle);
+  getGPS();
   if (distance < distRange[0]){
     //Camera call here
     
     if (distance < distRange[0]){
       //Ultrasonic
-      distance=getUltrasonic();
+      if (use_ultrasonic==1){
+        distance=getUltrasonic();
+      }
     }
   }
   
@@ -318,24 +319,24 @@ void turnCalc(void){
  Turn the cart
  angle in range [-180,180], 0 being directly in front.
  */
-void turn(int angle){
+void turn(int turn_angle){
   //Angle at which the inner wheel will be set to negative pwm of outer wheel
   const int maxAngle=180;
   //Angle at which reverse braking will start. Inner wheel pwm == 0 at this point.
   const int revBrakeAngle=90;
   
-  if(angle > 0){ //Right turn
-    if (angle <= revBrakeAngle){
-      RIGHT_DESIRED = (LEFT_DESIRED*(revBrakeAngle-angle))/revBrakeAngle;
+  if(turn_angle > 0){ //Right turn
+    if (turn_angle <= revBrakeAngle){
+      RIGHT_DESIRED = (LEFT_DESIRED*(revBrakeAngle-turn_angle))/revBrakeAngle;
     }else{ //reverse braking
-      RIGHT_DESIRED = -LEFT_DESIRED*(angle-revBrakeAngle)/(maxAngle-revBrakeAngle);
+      RIGHT_DESIRED = -LEFT_DESIRED*(turn_angle-revBrakeAngle)/(maxAngle-revBrakeAngle);
     }
     clip(RIGHT_DESIRED,LB,UB);
-  }else if(angle < 0){ //Left
-    if (abs(angle) <= revBrakeAngle){
-      LEFT_DESIRED = (RIGHT_DESIRED*(revBrakeAngle-abs(angle)))/revBrakeAngle;
+  }else if(turn_angle < 0){ //Left
+    if (abs(turn_angle) <= revBrakeAngle){
+      LEFT_DESIRED = (RIGHT_DESIRED*(revBrakeAngle-abs(turn_angle)))/revBrakeAngle;
     }else{ //reverse braking
-      LEFT_DESIRED = -RIGHT_DESIRED*(abs(angle)-revBrakeAngle)/(maxAngle-revBrakeAngle);
+      LEFT_DESIRED = -RIGHT_DESIRED*(abs(turn_angle)-revBrakeAngle)/(maxAngle-revBrakeAngle);
     }
     clip(LEFT_DESIRED,LB,UB);
   }
