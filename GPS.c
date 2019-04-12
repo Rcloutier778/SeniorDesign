@@ -39,8 +39,8 @@ void getGPS(){
     //Get GPS from Bluetooth  -- brian //TODO
     //get_BT_GPS_dev(&phoneGPS[0],&phoneGPS[1]);
     if (data->avggpsx == 0.0f){//Init values
-        data->avggpsx = 43.136269;
-        data->avggpsy = -77.750473;
+        data->avggpsx = 43.084514;//43.136269;
+        data->avggpsy = -77.678525;//-77.750473;
     }
     phoneGPS[0]=data->avggpsx;
     phoneGPS[1]=data->avggpsy;

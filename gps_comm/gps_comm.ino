@@ -157,8 +157,8 @@ void gpsCalc(int spoofGPS){
   double temp_gps_course;
   
   if(spoofGPS){ //spoofed gps coords
-    gps_lat= 43.136269f;
-    gps_long = -77.750473f;
+    gps_lat= 43.084514;
+    gps_long = -77.678525;
     gps_course_deg = 90.000000;    
     Serial.println("Spoofing GPS coordinates");
   }else{ //actual code

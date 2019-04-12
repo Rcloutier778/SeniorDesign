@@ -195,23 +195,23 @@ void UART3_RX_TX_IRQHandler(void){
 
     if (ctrl == 14){
         bt_getStream(stream);
-        put("\r\n");
+        //put("\r\n");
         splitStream = strtok(stream," ");
         while(splitStream != NULL){
-            put(splitStream);
-            put("\r\n");
+            //put(splitStream);
+            //put("\r\n");
             if (!strcmp(splitStream,"ALo")){
                 splitStream = strtok(NULL, " ");
-                put("BT Lat: ");
+                /*put("BT Lat: ");
                 put(splitStream);
-                put("\r\n");
+                put("\r\n");*/
                 sscanf(splitStream, "%lf", &d);
                 data->avggpsx=d;
                 splitStream = strtok(NULL, " ");
                 splitStream = strtok(NULL, " ");
-                put("BT Long: ");
+                /*put("BT Long: ");
                 put(splitStream);
-                put("\r\n");
+                put("\r\n");*/
                 sscanf(splitStream, "%lf", &d);
                 data->avggpsy=d;
                 break;

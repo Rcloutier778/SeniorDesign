@@ -270,7 +270,7 @@ void distanceCalc(void){
   }
   
   if(VERBOSE){
-    sprintf(c,"Distance: %lf inches",distance);
+    sprintf(c,"Distance: %lf ft",distance);
     put(c);
     put("\r\n");
   }
