@@ -58,19 +58,21 @@ extern float angle;
 extern android_data *data;
 
 char sigStartBuffer[] = "00";
-char sigStopBuffer[] = "00";
+char sigStopBuffer[]  = "00";
 char dataNameBuffer[] = "00";
 
-char SIGNAL[] = "AC";
-char SPEED[]  = "Sp";
-char TURN[]   = "Tu";
-char ACCELX[] = "Ax";
-char ACCELY[] = "Ay";
-char ACCELZ[] = "Az";
-char GPSX[]   = "Gx";
-char GPSY[]   = "Gy";
-char ATN[]    = "Au";
-char SENS[]   = "Se";
+char SIGNAL[]  = "AC";
+char SPEED[]   = "Sp";
+char TURN[]    = "Tu";
+char ACCELX[]  = "Ax";
+char ACCELY[]  = "Ay";
+char ACCELZ[]  = "Az";
+char GPSX[]    = "Gx";
+char GPSY[]    = "Gy";
+char AVGGPSX[] = "Agx";
+char AVGGPSY[] = "Agy";
+char ATN[]     = "Au";
+char SENS[]    = "Se";
 
 const int SZ_BOOL = 1, SZ_SHORT = 3, SZ_FLOAT = 4, SZ_DOUBLE = 8;
 int android_size[] = {0, SZ_SHORT, SZ_SHORT, SZ_FLOAT, SZ_FLOAT, SZ_FLOAT, SZ_DOUBLE, SZ_DOUBLE, SZ_BOOL, SZ_BOOL};
@@ -146,6 +148,8 @@ void initAndroidData() {
   setData(AccelZ, &val_f);
   setData(GpsX,   &val_d);
   setData(GpsY,   &val_d);
+  setData(AvgGpsX,&val_d);
+  setData(AvgGpsY,&val_d);
   setData(Atn,    &val_b);
   setData(Sensor, &val_b);
 }
@@ -180,8 +184,7 @@ void UART3_RX_TX_IRQHandler(void){
   char get_str[254];
   char  c[255];
   float f;
-  int d;
-  float q;
+  double d;
   UART3_C2 &= ~UART_C2_RIE_MASK;
   UART3_S1; //clears interrupt
   ctrl = UART3_D;
@@ -198,57 +201,68 @@ void UART3_RX_TX_IRQHandler(void){
   //put(c);
   //put("\r\n");
   if (ctrl == 14){
-      bt_getAscii(c);
-      bt_getAscii(c);
-      bt_getAscii(c);
-      data->speed=atoi(c);
-      
-      bt_getAscii(c);
-      bt_getAscii(c);
-      data->turn=atoi(c);
-      
-      bt_getAscii(c);
-      bt_getAscii(c);
-      data->accelx=atof(c);  
-      
-      bt_getAscii(c);
-      bt_getAscii(c);
-      data->accely=atof(c);  
-      
-      bt_getAscii(c);
-      bt_getAscii(c);
-      data->accelz=atof(c);  
-      
-      bt_getAscii(c);
-      bt_getAscii(c);
-      data->gpsx=atof(c);  
-      
-      bt_getAscii(c);
-      bt_getAscii(c);
-      data->gpsy=atof(c);  
-      
-      bt_getAscii(c);
-      bt_getAscii(c);
-      data->atn=atoi(c);  
-      
-      bt_getAscii(c);
-      bt_getAscii(c);
-      data->sensor=atoi(c);  
-      bt_getAscii(c);
-      
-      
-
-
-          
-        //bt_getData();
-      UART3_C2 |= UART_C2_RIE_MASK;
-      
-      snprintf(c,sizeof c, "%i", data->speed);
-      put("\r\nspeed:");
-            put(c);
-            put("\r\n");
-      
-      return;
+    bt_getAscii(c);
+    bt_getAscii(c);
+    bt_getAscii(c);
+    data->speed = atoi(c);
+    
+    bt_getAscii(c);
+    bt_getAscii(c);
+    data->turn = atoi(c);
+    
+    bt_getAscii(c);
+    bt_getAscii(c);
+    sscanf(c, "%lf", &d);
+    data->accelx = d;
+    
+    bt_getAscii(c);
+    bt_getAscii(c);
+    sscanf(c, "%lf", &d);
+    data->accely = d;
+    
+    bt_getAscii(c);
+    bt_getAscii(c);
+    sscanf(c, "%lf", &d);
+    data->accelz = d;
+    
+    bt_getAscii(c);
+    bt_getAscii(c);
+    sscanf(c, "%lf", &d);
+    data->gpsx = d;
+    
+    bt_getAscii(c);
+    bt_getAscii(c);
+    sscanf(c, "%lf", &d);
+    data->gpsy = d;
+  
+    bt_getAscii(c);
+    bt_getAscii(c);
+    sscanf(c, "%lf", &d);
+    data->avggpsx = d;
+  
+    bt_getAscii(c);
+    bt_getAscii(c);
+    sscanf(c, "%lf", &d);
+    data->avggpsy = d;
+    
+    bt_getAscii(c);
+    bt_getAscii(c);
+    data->atn = atoi(c);
+    
+    bt_getAscii(c);
+    bt_getAscii(c);
+    data->sensor = atoi(c);
+    bt_getAscii(c);
+    
+    //bt_getData();
+    UART3_C2 |= UART_C2_RIE_MASK;
+    
+    snprintf(c,sizeof c, "%i", data->speed);
+    put("\r\nspeed:");
+          put(c);
+          put("\r\n");
+    
+    return;
   }
   if(ctrl >= 0 && ctrl <= 14){
     //Disable interrupts, start polling
@@ -293,7 +307,7 @@ void UART3_RX_TX_IRQHandler(void){
       //put(get_str);
       //put("\r\n");
       angle = (int) atoi(get_str);
-    }else if (ctrl == 7){
+    } else if (ctrl == 7){
         //Will fail and hard break if tested in lab
         //Reason is due to lack of location services
         bt_getAscii(get_str);
@@ -381,6 +395,8 @@ void bt_getData(void) { //TODO: Make this actually work.
               break;
             case GpsX:
             case GpsY:
+            case AvgGpsX:
+            case AvgGpsY:
               dataValueBuffer[i] = b;
               if (++i == SZ_DOUBLE) {
                 stitchBytes(dataValueBuffer, index);
@@ -439,6 +455,8 @@ void stitchBytes(uint8_t *buffer, enum android_index index) {
       break;
     case GpsX:
     case GpsY: // TODO IDE says shift count 32 >= size of type. True? Double should be 8 bytes
+    case AvgGpsX:
+    case AvgGpsY:
       val_d = 0;
       memcpy(&val_d, buffer, sizeof(val_d));
       setData(index, &val_d);
@@ -487,6 +505,10 @@ enum android_index checkDataName(char buffer[]) {
     return GpsX;
   } else if(!strcmp(buffer, GPSY)) {
     return GpsY;
+  } else if(!strcmp(buffer, AVGGPSX)) {
+    return AvgGpsX;
+  } else if(!strcmp(buffer, AVGGPSY)) {
+    return AvgGpsY;
   } else if(!strcmp(buffer, ATN)) {
     return Atn;
   } else if(!strcmp(buffer, SENS)) {
@@ -499,31 +521,37 @@ enum android_index checkDataName(char buffer[]) {
 void setData(enum android_index index, void* value) {
   switch (index) {
     case Speed:
-      memcpy(&data->speed,  value, sizeof(data->speed));
+      memcpy(&data->speed,   value, sizeof(data->speed));
       break;
     case Turn:
-      memcpy(&data->turn,   value, sizeof(data->turn));
+      memcpy(&data->turn,    value, sizeof(data->turn));
       break;
     case AccelX:
-      memcpy(&data->accelx, value, sizeof(data->accelx));
+      memcpy(&data->accelx,  value, sizeof(data->accelx));
       break;
     case AccelY:
-      memcpy(&data->accely, value, sizeof(data->accely));
+      memcpy(&data->accely,  value, sizeof(data->accely));
       break;
     case AccelZ:
-      memcpy(&data->accelz, value, sizeof(data->accelz));
+      memcpy(&data->accelz,  value, sizeof(data->accelz));
       break;
     case GpsX:
-      memcpy(&data->gpsx,   value, sizeof(data->gpsx));
+      memcpy(&data->gpsx,    value, sizeof(data->gpsx));
       break;
     case GpsY:
-      memcpy(&data->gpsy,   value, sizeof(data->gpsy));
+      memcpy(&data->gpsy,    value, sizeof(data->gpsy));
+      break;
+    case AvgGpsX:
+      memcpy(&data->avggpsx, value, sizeof(data->avggpsx));
+      break;
+    case AvgGpsY:
+      memcpy(&data->avggpsy, value, sizeof(data->avggpsy));
       break;
     case Atn:
-      memcpy(&data->atn,    value, sizeof(data->atn));
+      memcpy(&data->atn,     value, sizeof(data->atn));
       break;
     case Sensor:
-      memcpy(&data->sensor, value, sizeof(data->sensor));
+      memcpy(&data->sensor,  value, sizeof(data->sensor));
       break;
       
     default:
@@ -537,7 +565,6 @@ uint8_t getData_b(enum android_index index) {
       return data->atn;
     case Sensor:
       return data->sensor;
-      
     default:
       return ANDROID_DATA_ERR;
   }
@@ -575,6 +602,10 @@ double getData_d(enum android_index index) {
       return data->gpsx;
     case GpsY:
       return data->gpsy;
+    case AvgGpsX:
+      return data->avggpsx;
+    case AvgGpsY:
+      return data->avggpsy;
       
     default:
       return ANDROID_DATA_ERR;

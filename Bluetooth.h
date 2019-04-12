@@ -1,7 +1,7 @@
 #ifndef Bluetooth_H_
 #define Bluetooth_H_
 
-enum android_index{Err=-1, Speed=0, Turn, AccelX, AccelY, AccelZ, GpsX, GpsY, Atn, Sensor};
+enum android_index{Err=-1, Speed=0, Turn, AccelX, AccelY, AccelZ, GpsX, GpsY, AvgGpsX, AvgGpsY, Atn, Sensor};
 
 typedef struct {
   int32_t speed;
@@ -11,6 +11,8 @@ typedef struct {
   float accelz;
   double gpsx;
   double gpsy;
+  double avggpsx;
+  double avggpsy;
   uint8_t atn;
   uint8_t sensor;
 } android_data;
