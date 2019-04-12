@@ -39,7 +39,7 @@ void loop() {
   int spoofK64=0; //spoof k64 coord
   char writechar[255];
   
-  while(1){   
+  while(1){       
     k64Calc(spoofK64);
     Serial.println("K64 ran. Waiting on gps.");
     gpsCalc(spoofGPS);
@@ -48,15 +48,16 @@ void loop() {
     // Calculates the distance between cart and user in m(converted to ft)
     distance_user = gps.distanceBetween(gps_lat,gps_long,user_lat,user_long) * m_to_ft;
     
+    Serial.print("Distance to user: ");
+    dtostrf(distance_user,8,3,writechar);
+    Serial.print(writechar);
+    Serial.println(" ft");
     
     // Sends the distance to the k64
     k64.write(writechar);
     k64.write((byte)0x00);
 
-    Serial.print("Distance to user: ");
-    dtostrf(distance_user,8,3,writechar);
-    Serial.print(writechar);
-    Serial.println(" ft");
+    
 
     // Calculates the angle between cart and user
     angle_user = gps.courseTo(gps_lat,gps_long,user_lat,user_long);
@@ -76,14 +77,15 @@ void loop() {
       difference_angle -= 180;
     }
     */
-    // Send angle to k64
-    k64.write(writechar);
-    k64.write((byte)0x00);
+    
 
     Serial.print("Difference angle: ");
     dtostrf(angle_user,8,3,writechar);
     Serial.println(writechar);
-
+    // Send angle to k64
+    k64.write(writechar);
+    k64.write((byte)0x00);
+    
     Serial.println();
   }
 
@@ -151,7 +153,7 @@ int tempMovingAvg=0; //Used to init the moving avg arrays. Only used for the fir
 //TODO: use gps.satellites (returns # of visible, participating satellites) 
 //      to guage how accurate data is and how large the moving average should be?
 //TODO: gps.hdop (horizontal diminution of precision?
-//TODO: Thresholding?
+//TODO: Thresholding? More info below
 
 void gpsCalc(int spoofGPS){
   //GPS
@@ -207,6 +209,7 @@ void gpsCalc(int spoofGPS){
           }
 
           //Thresholding
+          //If the distance between the last mv avg point and new point is above X ft, reduce?
          
 
           

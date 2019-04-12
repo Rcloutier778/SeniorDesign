@@ -16,6 +16,8 @@ extern int VERBOSE;
 extern void delay(int);
 extern android_data *data;
 
+extern double distance;
+extern double angle;
 
 
 
@@ -27,7 +29,7 @@ Calc angle
 
 TODO: Don't calc distance or angle, average it with camera and ultrasonic.
 */
-void getGPS(double *distance, double *angle){
+void getGPS(){
     double phoneGPS[2]={0.0,0.0}; //GPS coords from phone
     char phoneChar[64];
     char distChar[64];
@@ -36,7 +38,7 @@ void getGPS(double *distance, double *angle){
     
     //Get GPS from Bluetooth  -- brian //TODO
     //get_BT_GPS_dev(&phoneGPS[0],&phoneGPS[1]);
-    if (data->gpsx == 0.0f){
+    if (data->gpsx == 0.0f){//Init values
         data->gpsx = 43.136269f;
         data->gpsy = -77.750473f;
     }
@@ -66,9 +68,10 @@ void getGPS(double *distance, double *angle){
         put("Waiting on arduino\r\n");
     }
     uart2_get(distChar);
-    *distance = atof(distChar);
     uart2_get(angleChar);
-    *angle = atof(angleChar);
+    
+    distance = atof(distChar);
+    angle = atof(angleChar);
     
     
     
@@ -93,8 +96,8 @@ void gpsDemo(void){
     char phoneChar[64];
     char angleChar[64];
     char distChar[64];
-    float distance;
-    float angle;
+    float tDistance;
+    float tAngle;
     put("In demo\r\n");
 
     for(;;){
@@ -157,9 +160,9 @@ void gpsDemo(void){
 
         //Get distance and angle
         uart2_get(distChar);
-        distance = atof(distChar);
+        tDistance = atof(distChar);
         uart2_get(angleChar);
-        angle = atof(angleChar);
+        tAngle = atof(angleChar);
         
         
         put("Got distance of: ");
