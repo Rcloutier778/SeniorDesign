@@ -22,6 +22,8 @@ float gps_lat;
 float gps_long;
 float gps_course_deg;
 
+
+
 void loop() {
   static const double m_to_ft = 3.28084;
   
@@ -127,8 +129,17 @@ void k64Calc(int spoofK64){
   }
 }
 
+
+const int movingAvgN = 20;
+float gpsLatCum[movingAvgN];
+float gpsLongCum[movingAvgN];
+
+int tempMovingAvg=0;
+
 void gpsCalc(int spoofGPS){
   //GPS
+  float temp_gps_lat;
+  float temp_gps_long;
   int gpsEncoded=0;
   
   if(spoofGPS){ //spoofed gps coords
@@ -154,13 +165,57 @@ void gpsCalc(int spoofGPS){
       if(gps.location.isUpdated()){
         
         // Shows the latitude and longitude
-        gps_lat = gps.location.lat();
-        gps_long = gps.location.lng();
+        temp_gps_lat = gps.location.lat();
+        temp_gps_long = gps.location.lng();
+
+        /*if (gpsLatCum[0]==0.00){
+          gps_lat = temp_gps_lat;
+          gps_long = temp_gps_long;
+          for (int ii=0;ii<movingAvgN;ii++){
+            gpsLatCum[ii] = gps_lat;
+            gpsLongCum[ii] = gps_long;
+          }
+        }*/
+        if (tempMovingAvg<movingAvgN){
+          gpsLatCum[tempMovingAvg] = temp_gps_lat;
+          gpsLongCum[tempMovingAvg] = temp_gps_long;
+          tempMovingAvg +=1;
+          gps_lat = temp_gps_lat;
+          gps_long = temp_gps_long;
+        }
+        else{
+          for (int k = 0; k < movingAvgN-1; k++){
+            gpsLatCum[k] = gpsLatCum[k+1];
+            gpsLongCum[k] = gpsLongCum[k+1];
+          }
+
+          //Thresholding
+         
+
+          
+          gpsLatCum[movingAvgN-1] = temp_gps_lat;
+          gpsLongCum[movingAvgN-1] = temp_gps_long;
+
+          gps_lat=0.0f;
+          gps_long=0.0f;
+          for (int k = 0; k < movingAvgN; k++){
+            gps_lat += gpsLatCum[k];
+            gps_long += gpsLongCum[k];
+          }
+          Serial.println(gps_lat);
+          Serial.println(movingAvgN);
+          gps_lat /= movingAvgN;
+          gps_long /= movingAvgN;
+        }
+
+
+        
   
         Serial.print("GPS latitude: ");
         Serial.println(gps_lat,6);
         Serial.print("GPS longitude: ");
         Serial.println(gps_long,6);
+        //TODO: Gps.course.deg()?
         return;
       }
       delay(100);

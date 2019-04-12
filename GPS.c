@@ -36,6 +36,10 @@ void getGPS(double *distance, double *angle){
     
     //Get GPS from Bluetooth  -- brian //TODO
     //get_BT_GPS_dev(&phoneGPS[0],&phoneGPS[1]);
+    if (data->gpsx == 0.0f){
+        data->gpsx = 43.136269f;
+        data->gpsy = -77.750473f;
+    }
     phoneGPS[0]=data->gpsx;
     phoneGPS[1]=data->gpsy;
     
