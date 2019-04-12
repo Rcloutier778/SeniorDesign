@@ -15,6 +15,9 @@ void setup() {
   Serial.println("Ready");
   gps_ss.begin(9600);
   k64.begin(9600);
+
+  //LED for number of satellites
+  pinMode(13,OUTPUT);
 }
 float user_lat;
 float user_long;
@@ -30,7 +33,7 @@ void loop() {
   double distance_user;
   double angle_user;
   double difference_angle;
-  int spoofGPS=0; //spoof gps coord
+  int spoofGPS=1; //spoof gps coord
   int spoofK64=0; //spoof k64 coord
   char writechar[255];
 
@@ -88,6 +91,7 @@ void k64Calc(int spoofK64){
   if(spoofK64){ //spoof coords
     user_lat = 43.085254;
     user_long = -77.678110;
+    Serial.println("Spoofing K64 coordinates");
   }else{ //Actual code
     //Make software serial listen to k64 if it's not
     if (not k64.isListening()){
@@ -136,16 +140,20 @@ float gpsLongCum[movingAvgN];
 
 int tempMovingAvg=0;
 
+//TODO: use gps.satellites (returns # of visible, participating satellites) 
+//      to guage how accurate data is and how large the moving average should be?
+//TODO: gps.hdop (horizontal diminution of precision?
+
 void gpsCalc(int spoofGPS){
   //GPS
   float temp_gps_lat;
   float temp_gps_long;
-  int gpsEncoded=0;
   
   if(spoofGPS){ //spoofed gps coords
-    gps_lat=50.000000;
-    gps_long = -80.000000;
+    gps_lat= 43.136369f;
+    gps_long = -77.750573f;
     gps_course_deg = 90.000000;    
+    Serial.println("Spoofing GPS coordinates");
   }else{ //actual code
     //Make software serial listen to gps if it's not
     if(not gps_ss.isListening()){
@@ -163,6 +171,9 @@ void gpsCalc(int spoofGPS){
       
       // Checks for an updated location
       if(gps.location.isUpdated()){
+
+        //Turn off no-satellite LED indicator
+        digitalWrite(13,LOW);
         
         // Shows the latitude and longitude
         temp_gps_lat = gps.location.lat();
@@ -218,7 +229,12 @@ void gpsCalc(int spoofGPS){
         //TODO: Gps.course.deg()?
         return;
       }
-      delay(100);
+      if (gps.satellites.value()==0){
+        Serial.println("No satellites found");
+        digitalWrite(13,HIGH);
+      }
+      //delay(100);
+      Serial.println("Where delay was");
     }
   }
 }
