@@ -19,6 +19,8 @@ void setup() {
   //LED for number of satellites
   pinMode(13,OUTPUT);
 }
+
+
 float user_lat;
 float user_long;
 float gps_lat;
@@ -36,11 +38,8 @@ void loop() {
   int spoofGPS=1; //spoof gps coord
   int spoofK64=0; //spoof k64 coord
   char writechar[255];
-
-  //Setup software serial stuff
-  //setup();
   
-  while(1){
+  while(1){   
     k64Calc(spoofK64);
     Serial.println("K64 ran. Waiting on gps.");
     gpsCalc(spoofGPS);
@@ -49,9 +48,7 @@ void loop() {
     // Calculates the distance between cart and user in m(converted to ft)
     distance_user = gps.distanceBetween(gps_lat,gps_long,user_lat,user_long) * m_to_ft;
     
-    // Calculates the angle between cart and user
-    angle_user = gps.courseTo(gps_lat,gps_long,user_lat,user_long);
-      
+    
     // Sends the distance to the k64
     k64.write(writechar);
     k64.write((byte)0x00);
@@ -61,6 +58,14 @@ void loop() {
     Serial.print(writechar);
     Serial.println(" ft");
 
+    // Calculates the angle between cart and user
+    angle_user = gps.courseTo(gps_lat,gps_long,user_lat,user_long);
+    if (angle_user >270.0){
+      angle_user -= 180;
+    }else{
+      angle_user = 90-angle_user;
+    }
+    
     // Calculates the angle between the user and the course of the cart
     difference_angle = gps_course_deg - angle_user;
     if(difference_angle < -180){
@@ -133,21 +138,25 @@ void k64Calc(int spoofK64){
   }
 }
 
-
+//Moving avg number
 const int movingAvgN = 20;
+
 float gpsLatCum[movingAvgN];
 float gpsLongCum[movingAvgN];
+float gpsCourseCum[movingAvgN];
 
-int tempMovingAvg=0;
+int tempMovingAvg=0; //Used to init the moving avg arrays. Only used for the first N vals.
 
 //TODO: use gps.satellites (returns # of visible, participating satellites) 
 //      to guage how accurate data is and how large the moving average should be?
 //TODO: gps.hdop (horizontal diminution of precision?
+//TODO: Thresholding?
 
 void gpsCalc(int spoofGPS){
   //GPS
   float temp_gps_lat;
   float temp_gps_long;
+  float temp_gps_course;
   
   if(spoofGPS){ //spoofed gps coords
     gps_lat= 43.136369f;
@@ -178,26 +187,22 @@ void gpsCalc(int spoofGPS){
         // Shows the latitude and longitude
         temp_gps_lat = gps.location.lat();
         temp_gps_long = gps.location.lng();
+        temp_gps_course = gps.course.deg();
 
-        /*if (gpsLatCum[0]==0.00){
-          gps_lat = temp_gps_lat;
-          gps_long = temp_gps_long;
-          for (int ii=0;ii<movingAvgN;ii++){
-            gpsLatCum[ii] = gps_lat;
-            gpsLongCum[ii] = gps_long;
-          }
-        }*/
         if (tempMovingAvg<movingAvgN){
           gpsLatCum[tempMovingAvg] = temp_gps_lat;
           gpsLongCum[tempMovingAvg] = temp_gps_long;
+          gpsCourseCum[tempMovingAvg] = temp_gps_course;
           tempMovingAvg +=1;
           gps_lat = temp_gps_lat;
           gps_long = temp_gps_long;
+          gps_course_deg = temp_gps_course;
         }
         else{
           for (int k = 0; k < movingAvgN-1; k++){
             gpsLatCum[k] = gpsLatCum[k+1];
             gpsLongCum[k] = gpsLongCum[k+1];
+            gpsCourseCum[k] = gpsCourseCum[k+1];
           }
 
           //Thresholding
@@ -206,27 +211,28 @@ void gpsCalc(int spoofGPS){
           
           gpsLatCum[movingAvgN-1] = temp_gps_lat;
           gpsLongCum[movingAvgN-1] = temp_gps_long;
+          gpsCourseCum[movingAvgN-1] = temp_gps_course;
 
           gps_lat=0.0f;
           gps_long=0.0f;
+          gps_course_deg = 0.0f;
           for (int k = 0; k < movingAvgN; k++){
             gps_lat += gpsLatCum[k];
             gps_long += gpsLongCum[k];
+            gps_course_deg += gpsCourseCum[k];
+            
           }
-          Serial.println(gps_lat);
-          Serial.println(movingAvgN);
           gps_lat /= movingAvgN;
           gps_long /= movingAvgN;
+          gps_course_deg /= movingAvgN;
         }
-
-
         
-  
         Serial.print("GPS latitude: ");
         Serial.println(gps_lat,6);
         Serial.print("GPS longitude: ");
         Serial.println(gps_long,6);
-        //TODO: Gps.course.deg()?
+        Serial.print("GPS Course degree: ");
+        Serial.println(gps_course_deg,6);
         return;
       }
       if (gps.satellites.value()==0){
