@@ -65,7 +65,8 @@ void loop() {
     }else{
       angle_user = 90-angle_user;
     }
-    
+
+    /*
     // Calculates the angle between the user and the course of the cart
     difference_angle = gps_course_deg - angle_user;
     if(difference_angle < -180){
@@ -74,13 +75,13 @@ void loop() {
     else if(difference_angle > 180){
       difference_angle -= 180;
     }
-
+    */
     // Send angle to k64
     k64.write(writechar);
     k64.write((byte)0x00);
 
     Serial.print("Difference angle: ");
-    dtostrf(difference_angle,8,3,writechar);
+    dtostrf(angle_user,8,3,writechar);
     Serial.println(writechar);
 
     Serial.println();
