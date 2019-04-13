@@ -4,7 +4,7 @@
  * 
  * Author:  Richard Cloutier
  * Created:  12/1/2017
-*/
+ */
 
 #include "MK64F12.h"
 #include "inits.h"
@@ -24,10 +24,10 @@
 
 
 /* Set up pins for GPIO
-* 	PTB9 		- camera clk
-*   PTB23		- camera SI
-*	PTB22		- red LED
-*/
+ * 	PTB9 		- camera clk
+ *   PTB23		- camera SI
+ *	PTB22		- red LED
+ */
 void init_GPIO(void){
     //INIT CLOCKS
     SIM_SCGC5 |= SIM_SCGC5_PORTB_MASK;//Camera,LEDs

@@ -4,7 +4,7 @@
  * Author:  Richard Cloutier
  * Created:  12/1/2017
  * Modified:  
-*/
+ */
 #include "MK64F12.h"
 #include "LEDS.h"
 
@@ -15,8 +15,8 @@
 
 
 /*
-Initializes the LED GPIO pins red green and blue.
-*/
+   Initializes the LED GPIO pins red green and blue.
+   */
 void init_LEDS(){
     //INIT
     SIM_SCGC5 |= SIM_SCGC5_PORTB_MASK;//Camera,LEDs
@@ -43,39 +43,39 @@ void init_LEDS(){
 }
 
 /*
-Turns on the LED to the inputted color. 
-Input is the LED defined in LEDS.h
-*/
+   Turns on the LED to the inputted color. 
+   Input is the LED defined in LEDS.h
+   */
 void LEDon(int color){
-	if(color==RED){
-		GPIOE_PSOR = cg;
-		GPIOB_PSOR = cb;
-		GPIOB_PCOR=cr;
-	}else if(color==GREEN){
-		GPIOE_PCOR = cg;
-		GPIOB_PSOR = cb;
-		GPIOB_PSOR=cr;
-	}else if(color==BLUE){
-		GPIOE_PSOR = cg;
-		GPIOB_PCOR = cb;
-		GPIOB_PSOR=cr;
-	}else if(color==CYAN){
-		GPIOE_PCOR = cg;
-		GPIOB_PCOR = cb;
-		GPIOB_PSOR=cr;
-	}else if(color==MAGENTA){
-		GPIOE_PSOR = cg;
-		GPIOB_PCOR = cb;
-		GPIOB_PCOR=cr;
-	}else if(color==YELLOW){
-		GPIOE_PCOR = cg;
-		GPIOB_PSOR = cb;
-		GPIOB_PCOR=cr;
-	}else if(color==WHITE){
-		GPIOE_PCOR = cg;
-		GPIOB_PCOR = cb;
-		GPIOB_PCOR=cr;
-	}
+    if(color==RED){
+        GPIOE_PSOR = cg;
+        GPIOB_PSOR = cb;
+        GPIOB_PCOR=cr;
+    }else if(color==GREEN){
+        GPIOE_PCOR = cg;
+        GPIOB_PSOR = cb;
+        GPIOB_PSOR=cr;
+    }else if(color==BLUE){
+        GPIOE_PSOR = cg;
+        GPIOB_PCOR = cb;
+        GPIOB_PSOR=cr;
+    }else if(color==CYAN){
+        GPIOE_PCOR = cg;
+        GPIOB_PCOR = cb;
+        GPIOB_PSOR=cr;
+    }else if(color==MAGENTA){
+        GPIOE_PSOR = cg;
+        GPIOB_PCOR = cb;
+        GPIOB_PCOR=cr;
+    }else if(color==YELLOW){
+        GPIOE_PCOR = cg;
+        GPIOB_PSOR = cb;
+        GPIOB_PCOR=cr;
+    }else if(color==WHITE){
+        GPIOE_PCOR = cg;
+        GPIOB_PCOR = cb;
+        GPIOB_PCOR=cr;
+    }
 }
 
 void LEDoff(void){

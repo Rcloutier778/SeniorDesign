@@ -4,17 +4,17 @@
 enum android_index{Err=-1, Speed=0, Turn, AccelX, AccelY, AccelZ, GpsX, GpsY, AvgGpsX, AvgGpsY, AccLoc, AccAvg};
 
 typedef struct {
-  int32_t speed;
-  int32_t turn;
-  float accelx;
-  float accely;
-  float accelz;
-  double gpsx;
-  double gpsy;
-  double accloc;
-  double avggpsx;
-  double avggpsy;
-  double accavg;
+    int32_t speed;
+    int32_t turn;
+    float accelx;
+    float accely;
+    float accelz;
+    double gpsx;
+    double gpsy;
+    double accloc;
+    double avggpsx;
+    double avggpsy;
+    double accavg;
 } android_data;
 
 

@@ -112,89 +112,88 @@ int VERBOSE=1; //Print to uart0 (terminal)
 
 
 /*
- Limit n to the lower and upper bounds only.
- */
+   Limit n to the lower and upper bounds only.
+   */
 #define clip(n, lower, upper){\
-if(n<lower){\
-n=lower;\
-}else if(n>upper){\
-n=upper;\
-}\
+    if(n<lower){\
+        n=lower;\
+    }else if(n>upper){\
+        n=upper;\
+    }\
 }
 
 
 int main(void){
-  char c[254]={0};
-  //Run demo
-  int demov=0;
-  int gps_demov=0;
-  
-  // Initialize everything
-  initialize();
-  
-  // Print welcome over serial
-  put("Running... \n\r");
-  
-  normalSet();
-  SetDutyCycle(0,DC_freq);
-  
-  for(;;){
-	if (gps_demov==0){
-    waitForReady();
+    char c[254]={0};
+    //Run demo
+    int demov=0;
+    int gps_demov=0;
+
+    // Initialize everything
+    initialize();
+
+    // Print welcome over serial
+    put("Running... \n\r");
+
+    normalSet();
+    SetDutyCycle(0,DC_freq);
+
+
+    if (gps_demov==0){
+        waitForReady();
     }
-	
+
     //Demo code
     if (demov==1){
-      demo();
+        demo();
     }
     if(gps_demov==1){
         gpsDemo();
     }
     //Main code
     for(;;){
-      if(!ready){
-		
-        waitForReady();
-      }
-      
-      //distance calc
-      distanceCalc();
-      
-      //turn calc
-      turnCalc();
-      
-      if (VERBOSE){
-        sprintf(c,"Angle: %g",angle);
-        put(c);
-        put("\r\n");
-      }
-      
-      //set duty cycles
-      LPWM=calc(LPWM, LEFT_DESIRED, LEFT);
-      RPWM=calc(RPWM, RIGHT_DESIRED, RIGHT);
-      
-      if (VERBOSE){
-        sprintf(c,"PWM: %g",LPWM);
-        put(c);
-        sprintf(c,"   %g",RPWM);
-        put(c);
-        put("\r\n");
-      }
-      
-      
-      LeftDuty((int)LPWM,DC_freq);
-      RightDuty((int)RPWM,DC_freq);
-      
-      delay(100);
+        if(!ready){
+            waitForReady();
+        }
+
+        //distance calc
+        distanceCalc();
+
+        //turn calc
+        turnCalc();
+
+        if (VERBOSE){
+            sprintf(c,"Angle: %g",angle);
+            put(c);
+            put("\r\n");
+        }
+
+        //set duty cycles
+        LPWM=calc(LPWM, LEFT_DESIRED, LEFT);
+        RPWM=calc(RPWM, RIGHT_DESIRED, RIGHT);
+
+        if (VERBOSE){
+            sprintf(c,"PWM: %g",LPWM);
+            put(c);
+            sprintf(c,"   %g",RPWM);
+            put(c);
+            put("\r\n");
+        }
+
+
+        LeftDuty((int)LPWM,DC_freq);
+        RightDuty((int)RPWM,DC_freq);
+
+        delay(100);
     }
-  }
+}
 }
 
 
 
 /*
- Demo code
- */
+   Demo code
+   */
 void demo(void){
     int demoi;
     int demoj;
@@ -207,139 +206,139 @@ void demo(void){
     char distChar[64];
     put("In demo\r\n");
 
-    
-      
-      /*
+
+
+    /*
        for(;;){
        distanceCalc();
        LPWM=calc(LPWM, LEFT_DESIRED, LEFT);
        RPWM=calc(RPWM, RIGHT_DESIRED, RIGHT);
-       
+
        sprintf(c,"LPWM: %g",LPWM);
        put(c);
        put("\r\n");
        sprintf(c,"RPWM: %g",RPWM);
        put(c);
        put("\r\n");
-       
+
        LeftDuty((int)LPWM,DC_freq);
        RightDuty((int)RPWM,DC_freq);
        delay(100);
        }
-       
-       //Stop
-       LEDon(WHITE);
-       for(;;){
-       LPWM=calc(LPWM, 0.0, LEFT);
-       LeftDuty((int)LPWM,DC_freq);
-       RPWM=calc(RPWM, 0.0, RIGHT);
-       RightDuty((int)RPWM,DC_freq);
-       }
-       */
-  
+
+    //Stop
+    LEDon(WHITE);
+    for(;;){
+    LPWM=calc(LPWM, 0.0, LEFT);
+    LeftDuty((int)LPWM,DC_freq);
+    RPWM=calc(RPWM, 0.0, RIGHT);
+    RightDuty((int)RPWM,DC_freq);
+    }
+    */
+
 }
 
 /*
- Calculates distance between user and cart.
- Adjusts desired speed accordingly
- */
+   Calculates distance between user and cart.
+   Adjusts desired speed accordingly
+   */
 void distanceCalc(void){
-  const float maxDistance=30.0f; //Max distance == max speed
-  const float minDistance=1.0f;
-  const int distRange[2] = {10, 3}; //Minimum distance ranges for distance calc methods
-  float desiredSpeed = 0.0f;
-  char  c[255];
-  
-  if(manualControl){
-    LEFT_DESIRED=manualDelta[0];
-    RIGHT_DESIRED=manualDelta[1];
-    return;
-  }
-  
-  //GPS
-  getGPS();
-  if (distance < distRange[0]){
-    //Camera call here
-    
+    const float maxDistance=30.0f; //Max distance == max speed
+    const float minDistance=1.0f;
+    const int distRange[2] = {10, 3}; //Minimum distance ranges for distance calc methods
+    float desiredSpeed = 0.0f;
+    char  c[255];
+
+    if(manualControl){
+        LEFT_DESIRED=manualDelta[0];
+        RIGHT_DESIRED=manualDelta[1];
+        return;
+    }
+
+    //GPS
+    getGPS();
     if (distance < distRange[0]){
-      //Ultrasonic
-      if (use_ultrasonic){
-        distance=getUltrasonic();
-      }
+        //Camera call here
+
+        if (distance < distRange[0]){
+            //Ultrasonic
+            if (use_ultrasonic){
+                distance=getUltrasonic();
+            }
+        }
     }
-  }
-  
-  if(VERBOSE){
-    sprintf(c,"Distance: %lf ft",distance);
-    put(c);
-    put("\r\n");
-  }
-  //linear calc
-  if(distance < minDistance){
-    desiredSpeed=0.0f;
-  }else{
-    desiredSpeed=6.0f+((UB*distance)/maxDistance);
-    clip(desiredSpeed,0.0f,UB); //TODO LB=-UB?
-  }
-  LEFT_DESIRED=desiredSpeed;
-  RIGHT_DESIRED=desiredSpeed;
+
+    if(VERBOSE){
+        sprintf(c,"Distance: %lf ft",distance);
+        put(c);
+        put("\r\n");
+    }
+    //linear calc
+    if(distance < minDistance){
+        desiredSpeed=0.0f;
+    }else{
+        desiredSpeed=6.0f+((UB*distance)/maxDistance);
+        clip(desiredSpeed,0.0f,UB); //TODO LB=-UB?
+    }
+    LEFT_DESIRED=desiredSpeed;
+    RIGHT_DESIRED=desiredSpeed;
 }
 
 
 /*
- Calculates angle between user and current path of cart.
- Angle range is [0,359], with 0 being directly in front
- */
+   Calculates angle between user and current path of cart.
+   Angle range is [0,359], with 0 being directly in front
+   */
 void turnCalc(void){
-  const int minAngle = 5;
-  
-  if(manualControl){
-    turn(angle);
-    return;
-  }
-  
-  //TODO angle calculations for camera
-  
-  if (abs(angle) > minAngle) {
-    /*
-     Slows inner wheel. Then drive in reverse
-     Max slow speed == -UB
-     Slow speed dictated by speed of other wheel
-     */
-    if(angle>180){
-      angle=angle-360;
+    const int minAngle = 5;
+
+    if(manualControl){
+        turn(angle);
+        return;
     }
-    turn(angle);
-  }else{
-    LEDon(GREEN);
-  }
+
+    //TODO angle calculations for camera
+
+    if (abs(angle) > minAngle) {
+        /*
+           Slows inner wheel. Then drive in reverse
+           Max slow speed == -UB
+           Slow speed dictated by speed of other wheel
+           */
+        if(angle>180){
+            angle=angle-360;
+        }
+        turn(angle);
+    }else{
+        LEDon(GREEN);
+    }
 }
 
 /*
- Turn the cart
- angle in range [-180,180], 0 being directly in front.
- */
+   Turn the cart
+   angle in range [-180,180], 0 being directly in front.
+   */
 void turn(int turn_angle){
-  //Angle at which the inner wheel will be set to negative pwm of outer wheel
-  const int maxAngle=180;
-  //Angle at which reverse braking will start. Inner wheel pwm == 0 at this point.
-  const int revBrakeAngle=90;
-  
-  if(turn_angle > 0){ //Right turn
-    if (turn_angle <= revBrakeAngle){
-      RIGHT_DESIRED = (LEFT_DESIRED*(revBrakeAngle-turn_angle))/revBrakeAngle;
-    }else{ //reverse braking
-      RIGHT_DESIRED = -LEFT_DESIRED*(turn_angle-revBrakeAngle)/(maxAngle-revBrakeAngle);
+    //Angle at which the inner wheel will be set to negative pwm of outer wheel
+    const int maxAngle=180;
+    //Angle at which reverse braking will start. Inner wheel pwm == 0 at this point.
+    const int revBrakeAngle=45;
+
+    if(turn_angle > 0){ //Right turn
+        if (turn_angle <= revBrakeAngle){
+            RIGHT_DESIRED = (LEFT_DESIRED*(revBrakeAngle-turn_angle))/revBrakeAngle;
+        }else{ //reverse braking
+            RIGHT_DESIRED = -LEFT_DESIRED*(turn_angle-revBrakeAngle)/(maxAngle-revBrakeAngle);
+        }
+        clip(RIGHT_DESIRED,LB,UB);
+    }else if(turn_angle < 0){ //Left
+        if (abs(turn_angle) <= revBrakeAngle){
+            LEFT_DESIRED = (RIGHT_DESIRED*(revBrakeAngle-abs(turn_angle)))/revBrakeAngle;
+        }else{ //reverse braking
+            LEFT_DESIRED = -RIGHT_DESIRED*(abs(turn_angle)-revBrakeAngle)/(maxAngle-revBrakeAngle);
+        }
+        clip(LEFT_DESIRED,LB,UB);
     }
-    clip(RIGHT_DESIRED,LB,UB);
-  }else if(turn_angle < 0){ //Left
-    if (abs(turn_angle) <= revBrakeAngle){
-      LEFT_DESIRED = (RIGHT_DESIRED*(revBrakeAngle-abs(turn_angle)))/revBrakeAngle;
-    }else{ //reverse braking
-      LEFT_DESIRED = -RIGHT_DESIRED*(abs(turn_angle)-revBrakeAngle)/(maxAngle-revBrakeAngle);
-    }
-    clip(LEFT_DESIRED,LB,UB);
-  }
 }
 
 /**
@@ -348,90 +347,90 @@ void turn(int turn_angle){
  * del - The delay in milliseconds
  */
 void delay(int del){
-  int i;
-  for (i=0; i<del*(DEFAULT_SYSTEM_CLOCK/1000); i++){
-    // Do nothing
-  }
-}
-
-/*
- Reset all vars to nominal/safe values
- */
-void normalSet(void){
-  LEFT_DESIRED=0.0f;//75.0f;
-  RIGHT_DESIRED=0.0f;//80.0f
-  KP=0.45f; //0.45
-  KI=0.0f; //0.63
-  KD=0.0f; //0.15
-  manualDelta[0]=0.0f;
-  manualDelta[1]=0.0f;
-}
-
-/*
- Calculate the PID PWM value based on the current PWM value,
- the desired PWM value, and if the car is going straight or turning.
- Wheel=0: Left wheel
- Wheel=1: Right wheel
- */
-float calc(const float currentPWM, const float desiredPWM, const int wheel){
-  float err = desiredPWM - currentPWM; //e(n)
-  /*
-   float newPWM = currentPWM +\
-   (KP * (err-PWMErrOld1[wheel])) + \
-   (KI * ((err+PWMErrOld1[wheel])/2.0f)) + \
-   (KD * (err - (2.0f * PWMErrOld1[wheel]) + PWMErrOld2[wheel])) + \
-   manualDelta[wheel];
-   */
-  
-  float newPWM=currentPWM+(KP*err);
-  clip(newPWM,LB,UB);
-  
-  PWMErrOld2[wheel]=PWMErrOld1[wheel];
-  PWMErrOld1[wheel]=err;
-  return newPWM;
-}
-
-/*
- Wait for the ready flag to be set.
- Flash the red led until ready is set, then count down with yellow led
- */
-void waitForReady(void){
-  int demoi;
-  while(!ready){
-    if(LPWM!=0.0f || RPWM!=0.0f){
-      LPWM=calc(LPWM, 0.0f, LEFT);
-      RPWM=calc(RPWM, 0.0f, RIGHT);
-      LeftDuty((int)LPWM,DC_freq);
-      RightDuty((int)RPWM,DC_freq);
+    int i;
+    for (i=0; i<del*(DEFAULT_SYSTEM_CLOCK/1000); i++){
+        // Do nothing
     }
-    LEDon(RED);
-    delay(10);
-    LEDoff();
-    delay(10);
-  }
-  for(demoi=3; demoi>0; demoi--){
-    LEDon(YELLOW);
-    delay(50*demoi);
-    LEDoff();
-    delay(50*demoi);
-  }
-  LEDon(GREEN);
-  
 }
 
 /*
- Initializes all required modules
- */
+   Reset all vars to nominal/safe values
+   */
+void normalSet(void){
+    LEFT_DESIRED=0.0f;//75.0f;
+    RIGHT_DESIRED=0.0f;//80.0f
+    KP=0.45f; //0.45
+    KI=0.0f; //0.63
+    KD=0.0f; //0.15
+    manualDelta[0]=0.0f;
+    manualDelta[1]=0.0f;
+}
+
+/*
+   Calculate the PID PWM value based on the current PWM value,
+   the desired PWM value, and if the car is going straight or turning.
+   Wheel=0: Left wheel
+   Wheel=1: Right wheel
+   */
+float calc(const float currentPWM, const float desiredPWM, const int wheel){
+    float err = desiredPWM - currentPWM; //e(n)
+    /*
+       float newPWM = currentPWM +\
+       (KP * (err-PWMErrOld1[wheel])) + \
+       (KI * ((err+PWMErrOld1[wheel])/2.0f)) + \
+       (KD * (err - (2.0f * PWMErrOld1[wheel]) + PWMErrOld2[wheel])) + \
+       manualDelta[wheel];
+       */
+
+    float newPWM=currentPWM+(KP*err);
+    clip(newPWM,LB,UB);
+
+    PWMErrOld2[wheel]=PWMErrOld1[wheel];
+    PWMErrOld1[wheel]=err;
+    return newPWM;
+}
+
+/*
+   Wait for the ready flag to be set.
+   Flash the red led until ready is set, then count down with yellow led
+   */
+void waitForReady(void){
+    int demoi;
+    while(!ready){
+        if(LPWM!=0.0f || RPWM!=0.0f){
+            LPWM=calc(LPWM, 0.0f, LEFT);
+            RPWM=calc(RPWM, 0.0f, RIGHT);
+            LeftDuty((int)LPWM,DC_freq);
+            RightDuty((int)RPWM,DC_freq);
+        }
+        LEDon(RED);
+        delay(10);
+        LEDoff();
+        delay(10);
+    }
+    for(demoi=3; demoi>0; demoi--){
+        LEDon(YELLOW);
+        delay(50*demoi);
+        LEDoff();
+        delay(50*demoi);
+    }
+    LEDon(GREEN);
+
+}
+
+/*
+   Initializes all required modules
+   */
 void initialize(void){
-  // Initialize UART
-  uart0_init();    //Terminal
-  uart2_init();   //arduino comm
-  
-  // Initialize the FlexTimer
-  InitPWM();
-  
-  init_GPIO(); // For CLK and SI output on GPIO
-  init_LEDS();
-  if(BLUETOOTH) {init_BT();} //Initialize the bluetooth controller
-  init_ultrasonic();
+    // Initialize UART
+    uart0_init();    //Terminal
+    uart2_init();   //arduino comm
+
+    // Initialize the FlexTimer
+    InitPWM();
+
+    init_GPIO(); // For CLK and SI output on GPIO
+    init_LEDS();
+    if(BLUETOOTH) {init_BT();} //Initialize the bluetooth controller
+    init_ultrasonic();
 }

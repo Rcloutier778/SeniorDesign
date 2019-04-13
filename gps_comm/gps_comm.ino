@@ -28,7 +28,7 @@ double gps_lat;
 double gps_long;
 double gps_course_deg;
 
-int VERBOSE=1;
+int VERBOSE=0;
 
 
 void loop() {
@@ -37,7 +37,7 @@ void loop() {
   double distance_user;
   double angle_user;
   double difference_angle;
-  int spoofGPS=1; //spoof gps coord
+  int spoofGPS=0; //spoof gps coord
   int spoofK64=0; //spoof k64 coord
   char writechar[255];
   
@@ -236,11 +236,15 @@ void gpsCalc(int spoofGPS){
         return;
       }
       if (gps.satellites.value()==0){
-        Serial.println("No satellites found");
         digitalWrite(13,HIGH);
+        while(not gps.satellites.value()){
+          Serial.println("No satellites found");
+          delay(100);
+        }
+        
       }
-      //delay(100);
-      Serial.println("Where delay was");
+      delay(100);
+      //Serial.println("Where delay was");
     }
   }
 }

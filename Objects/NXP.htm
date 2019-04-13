@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\NXP.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\NXP.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060300: Last Updated: Fri Apr 12 17:28:00 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060300: Last Updated: Fri Apr 12 20:15:10 2019
 <BR><P>
 <H3>Maximum Stack Usage =       1808 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -752,7 +752,7 @@ Global Symbols
 
 <P><STRONG><a name="[147]"></a>_memset_w</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rt_memclr_w.o(.text), UNUSED)
 
-<P><STRONG><a name="[d5]"></a>strcmp</STRONG> (Thumb, 128 bytes, Stack size 0 bytes, strcmpv7m.o(.text))
+<P><STRONG><a name="[d4]"></a>strcmp</STRONG> (Thumb, 128 bytes, Stack size 0 bytes, strcmpv7m.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[37]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART3_RX_TX_IRQHandler
 <LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_get_lc_numeric
 <LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_get_lc_ctype
@@ -1218,6 +1218,7 @@ Global Symbols
 
 <P><STRONG><a name="[d7]"></a>LEDon</STRONG> (Thumb, 168 bytes, Stack size 0 bytes, leds.o(i.LEDon))
 <BR><BR>[Called By]<UL><LI><a href="#[37]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART3_RX_TX_IRQHandler
+<LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getGPS
 <LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;waitForReady
 <LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnCalc
 </UL>
@@ -1254,17 +1255,17 @@ Global Symbols
 <P><STRONG><a name="[69]"></a>SystemInit</STRONG> (Thumb, 136 bytes, Stack size 0 bytes, system_mk64f12.o(i.SystemInit))
 <BR>[Address Reference Count : 1]<UL><LI> startup_mk64f12.o(.text)
 </UL>
-<P><STRONG><a name="[37]"></a>UART3_RX_TX_IRQHandler</STRONG> (Thumb, 606 bytes, Stack size 1312 bytes, bluetooth.o(i.UART3_RX_TX_IRQHandler))
+<P><STRONG><a name="[37]"></a>UART3_RX_TX_IRQHandler</STRONG> (Thumb, 600 bytes, Stack size 1312 bytes, bluetooth.o(i.UART3_RX_TX_IRQHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 1808<LI>Call Chain = UART3_RX_TX_IRQHandler &rArr; __0sscanf &rArr; __vfscanf_char &rArr; __vfscanf &rArr; _scanf_real &rArr; _scanf_really_real &rArr; _fp_value &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bt_getStream
 <LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bt_getAscii
-<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put
+<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LEDon
 <LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;normalSet
 <LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atof
 <LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
-<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcmp
+<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcmp
 <LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strtok
 <LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atoi
 <LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__0sscanf
@@ -1376,7 +1377,7 @@ Global Symbols
 <P><STRONG><a name="[e5]"></a>demo</STRONG> (Thumb, 20 bytes, Stack size 24 bytes, main.o(i.demo))
 <BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = demo &rArr; put
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put
+<BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -1385,7 +1386,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 1040 + Unknown Stack Size
 <LI>Call Chain = distanceCalc &rArr; getGPS &rArr; __0sscanf &rArr; __vfscanf_char &rArr; __vfscanf &rArr; _scanf_real &rArr; _scanf_really_real &rArr; _fp_value &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put
+<BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put
 <LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getUltrasonic
 <LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getGPS
 <LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
@@ -1409,14 +1410,15 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_narrow
 </UL>
 
-<P><STRONG><a name="[e7]"></a>getGPS</STRONG> (Thumb, 266 bytes, Stack size 224 bytes, gps.o(i.getGPS))
+<P><STRONG><a name="[e7]"></a>getGPS</STRONG> (Thumb, 278 bytes, Stack size 224 bytes, gps.o(i.getGPS))
 <BR><BR>[Stack]<UL><LI>Max Depth = 720 + Unknown Stack Size
 <LI>Call Chain = getGPS &rArr; __0sscanf &rArr; __vfscanf_char &rArr; __vfscanf &rArr; _scanf_real &rArr; _scanf_really_real &rArr; _fp_value &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_putchar
 <LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_put
 <LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_get_DistAngle
-<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put
+<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put
+<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LEDon
 <LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmpeq
 <LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__0sscanf
 <LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2snprintf
@@ -1441,7 +1443,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 208 + Unknown Stack Size
 <LI>Call Chain = gpsDemo &rArr; __2snprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put
+<BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put
 <LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay
 <LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2snprintf
 </UL>
@@ -1507,7 +1509,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 1304 + Unknown Stack Size
 <LI>Call Chain = main &rArr; distanceCalc &rArr; getGPS &rArr; __0sscanf &rArr; __vfscanf_char &rArr; __vfscanf &rArr; _scanf_real &rArr; _scanf_really_real &rArr; _fp_value &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put
+<BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put
 <LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpsDemo
 <LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetDutyCycle
 <LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RightDuty
@@ -1532,7 +1534,7 @@ Global Symbols
 <LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[d4]"></a>put</STRONG> (Thumb, 22 bytes, Stack size 4 bytes, uart.o(i.put))
+<P><STRONG><a name="[d5]"></a>put</STRONG> (Thumb, 22 bytes, Stack size 4 bytes, uart.o(i.put))
 <BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = put
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_putchar
@@ -1602,7 +1604,7 @@ Global Symbols
 
 <P><STRONG><a name="[e4]"></a>uart_putchar</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, uart.o(i.uart_putchar))
 <BR><BR>[Called By]<UL><LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bt_getAscii
-<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put
+<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put
 </UL>
 
 <P><STRONG><a name="[102]"></a>waitForReady</STRONG> (Thumb, 202 bytes, Stack size 8 bytes, main.o(i.waitForReady))
@@ -1621,7 +1623,7 @@ Global Symbols
 <P><STRONG><a name="[86]"></a>_get_lc_numeric</STRONG> (Thumb, 44 bytes, Stack size 8 bytes, lc_numeric_c.o(locale$$code))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = _get_lc_numeric
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcmp
+<BR>[Calls]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcmp
 </UL>
 <BR>[Called By]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init_lc_numeric_2
 </UL>
@@ -1629,7 +1631,7 @@ Global Symbols
 <P><STRONG><a name="[73]"></a>_get_lc_ctype</STRONG> (Thumb, 44 bytes, Stack size 8 bytes, lc_ctype_c.o(locale$$code))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = _get_lc_ctype
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcmp
+<BR>[Calls]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcmp
 </UL>
 <BR>[Called By]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init_lc_ctype_2
 </UL>
