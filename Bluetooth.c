@@ -86,6 +86,8 @@ extern void delay(int);
 float bt_lat;
 float bt_long;
 
+int __allow_interrupts=1;
+
 uint8_t *dataValueBuffer;
 
 /*
@@ -162,6 +164,22 @@ void delData() {
     free(data);
     free(dataValueBuffer);
 }
+
+
+
+
+void bt_toggle_interrupts(int toggle){
+    if (toggle){
+        __allow_interrupts=1;
+        UART3_C2 |= UART_C2_RIE_MASK;
+    }else{
+        __allow_interrupts=0;
+        UART3_C2 &= ~UART_C2_RIE_MASK;
+    }
+}
+
+
+
 
 
 /*
@@ -377,12 +395,9 @@ void pollGPSRx(void) {
 
 
 void bt_getStream(char *stream_ptr){
-    const int data_array_sections = 9; //items in bt data array
     int lcv=0;
     int kcv=0;
-    int qcv=0;
     uint8_t cu;
-    uint8_t au;
     while(lcv < 1024){
         cu = bt_getbyte();
         if(cu==0){

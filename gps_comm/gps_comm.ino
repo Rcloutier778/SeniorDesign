@@ -43,9 +43,9 @@ void loop() {
   
   while(1){       
     k64Calc(spoofK64);
-    if(VERBOSE){Serial.println("K64 ran. Waiting on gps.");}
+    Serial.println("K64 ran. Waiting on gps.");
     gpsCalc(spoofGPS);
-    
+    Serial.println("Got GPS, sending to K64");
     // Checks if cart and user data were received and the cart gps data was updated
     // Calculates the distance between cart and user in m(converted to ft)
     distance_user = gps.distanceBetween(gps_lat,gps_long,user_lat,user_long) * m_to_ft;
@@ -104,7 +104,7 @@ void k64Calc(int spoofK64){
   if(spoofK64){ //spoof coords
     user_lat = 43.085254;
     user_long = -77.678110;
-    Serial.println("Spoofing K64 coordinates");
+    Serial.println("!!!Spoofing K64 coordinates!!!");
   }else{ //Actual code
     //Make software serial listen to k64 if it's not
     if (not k64.isListening()){
@@ -155,12 +155,13 @@ void gpsCalc(int spoofGPS){
   double temp_gps_lat;
   double temp_gps_long;
   double temp_gps_course;
+  char test_gps;
   
   if(spoofGPS){ //spoofed gps coords
     gps_lat= 43.084514;
     gps_long = -77.678525;
     gps_course_deg = 90.000000;    
-    Serial.println("Spoofing GPS coordinates");
+    Serial.println("!!!Spoofing GPS coordinates!!!");
   }else{ //actual code
     //Make software serial listen to gps if it's not
     if(not gps_ss.isListening()){
@@ -170,15 +171,20 @@ void gpsCalc(int spoofGPS){
     // Checks for gps data
     while(1){
       while(gps_ss.available() > 0){
-        gps.encode(gps_ss.read());
+        test_gps = gps_ss.read();
+        //Serial.print(test_gps);
+        gps.encode(test_gps);
       }
+      
+      //Serial.println(gps.location.lat());
+      //Serial.println(gps.location.lng());
+      
       //Serial.println("In GPS Loop");
       // Converts the NMEA string to the gps object
       
       
       // Checks for an updated location
       if(gps.location.isUpdated()){
-
         //Turn off no-satellite LED indicator
         digitalWrite(13,LOW);
         
@@ -235,16 +241,8 @@ void gpsCalc(int spoofGPS){
         }
         return;
       }
-      if (gps.satellites.value()==0){
-        digitalWrite(13,HIGH);
-        while(not gps.satellites.value()){
-          Serial.println("No satellites found");
-          delay(100);
-        }
-        
-      }
-      delay(100);
-      //Serial.println("Where delay was");
+      //DO NOT PUT A DELAY HERE
+      //It'll mess up the aquisition of NMEA data from module cause it'll max out the uart buffer and mess up the checksum
     }
   }
 }

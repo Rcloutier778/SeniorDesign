@@ -108,7 +108,7 @@ float location[2]={0.0f,0.0f};
 
 int control[10];
 int use_ultrasonic=0;
-int VERBOSE=1; //Print to uart0 (terminal)
+int VERBOSE=2; //0 = none, 1 = dist/angle/pwm, 2 = everything
 
 
 /*

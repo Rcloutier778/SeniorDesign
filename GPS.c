@@ -35,12 +35,14 @@ void getGPS(){
     char distChar[64];
     char angleChar[64];
 
-
+    bt_toggle_interrupts(0);
     //Get GPS from Bluetooth  -- brian //TODO
     //get_BT_GPS_dev(&phoneGPS[0],&phoneGPS[1]);
     if (data->avggpsx == 0.0f){//Init values
-        data->avggpsx = 43.084514;//43.136269;
-        data->avggpsy = -77.678525;//-77.750473;
+        //home   43.136269;    -77.750473;
+        //school   43.084514;    -77.678525;
+        data->avggpsx = 43.136269;
+        data->avggpsy = -77.750473;
     }
     phoneGPS[0]=data->avggpsx;
     phoneGPS[1]=data->avggpsy;
@@ -74,6 +76,8 @@ void getGPS(){
 
     sscanf(distChar, "%lf", &distance);
     sscanf(angleChar, "%lf", &angle);    
+    bt_toggle_interrupts(1);
+    
     LEDon(GREEN);
     if(VERBOSE){
         put("Got distance of: ");

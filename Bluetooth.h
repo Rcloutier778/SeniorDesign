@@ -29,7 +29,7 @@ int32_t getData_i(enum android_index index);
 float getData_f(enum android_index index);
 double getData_d(enum android_index index);
 void bt_getData(void);
-
+void bt_toggle_interrupts(int toggle);
 void stitchBytes(uint8_t *buffer, enum android_index index);
 void checkSigBuffer(char buffer[], uint8_t byte);
 enum android_index checkDataName(char buffer[]);
