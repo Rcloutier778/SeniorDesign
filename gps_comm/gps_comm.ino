@@ -28,7 +28,7 @@ double gps_lat;
 double gps_long;
 double gps_course_deg;
 
-int VERBOSE=2;
+int VERBOSE=0;
 
 
 void loop() {

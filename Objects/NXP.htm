@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\NXP.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\NXP.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060528: Last Updated: Sat Apr 13 10:58:51 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060528: Last Updated: Sat Apr 13 11:10:40 2019
 <BR><P>
 <H3>Maximum Stack Usage =       1820 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -310,7 +310,7 @@ Global Symbols
 <P><STRONG><a name="[143]"></a>__rt_entry_postsh_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$00000009))
 
 <P><STRONG><a name="[8b]"></a>__rt_entry_main</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$0000000D))
-<BR><BR>[Stack]<UL><LI>Max Depth = 1332 + Unknown Stack Size
+<BR><BR>[Stack]<UL><LI>Max Depth = 1324 + Unknown Stack Size
 <LI>Call Chain = __rt_entry_main &rArr; main &rArr; distanceCalc &rArr; getGPS &rArr; __0sscanf &rArr; __vfscanf_char &rArr; __vfscanf &rArr; _scanf_real &rArr; _scanf_really_real &rArr; _fp_value &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
 </UL>
 <BR>[Calls]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -664,7 +664,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__Heap_Full
 <LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_heap_descriptor
 </UL>
-<BR>[Called By]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_BT
+<BR>[Called By]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_BT
 </UL>
 
 <P><STRONG><a name="[95]"></a>free</STRONG> (Thumb, 78 bytes, Stack size 16 bytes, h1_free.o(.text))
@@ -693,7 +693,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sputc
 <LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_char_common
 </UL>
-<BR>[Called By]<UL><LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpsDemo
+<BR>[Called By]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpsDemo
 <LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getGPS
 </UL>
 
@@ -740,7 +740,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[37]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART3_RX_TX_IRQHandler
 </UL>
 
-<P><STRONG><a name="[103]"></a>__aeabi_memclr4</STRONG> (Thumb, 0 bytes, Stack size 4 bytes, rt_memclr_w.o(.text))
+<P><STRONG><a name="[102]"></a>__aeabi_memclr4</STRONG> (Thumb, 0 bytes, Stack size 4 bytes, rt_memclr_w.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = __aeabi_memclr4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -1208,25 +1208,25 @@ Global Symbols
 <P><STRONG><a name="[3c]"></a>FTM0_IRQHandler</STRONG> (Thumb, 32 bytes, Stack size 0 bytes, pwm.o(i.FTM0_IRQHandler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_mk64f12.o(RESET)
 </UL>
-<P><STRONG><a name="[101]"></a>InitPWM</STRONG> (Thumb, 216 bytes, Stack size 0 bytes, pwm.o(i.InitPWM))
-<BR><BR>[Called By]<UL><LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initialize
+<P><STRONG><a name="[100]"></a>InitPWM</STRONG> (Thumb, 216 bytes, Stack size 0 bytes, pwm.o(i.InitPWM))
+<BR><BR>[Called By]<UL><LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initialize
 </UL>
 
 <P><STRONG><a name="[10c]"></a>LEDoff</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, leds.o(i.LEDoff))
-<BR><BR>[Called By]<UL><LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;waitForReady
+<BR><BR>[Called By]<UL><LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;waitForReady
 </UL>
 
 <P><STRONG><a name="[d7]"></a>LEDon</STRONG> (Thumb, 168 bytes, Stack size 0 bytes, leds.o(i.LEDon))
 <BR><BR>[Called By]<UL><LI><a href="#[37]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART3_RX_TX_IRQHandler
 <LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getGPS
-<LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;waitForReady
-<LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnCalc
+<LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;waitForReady
+<LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnCalc
 </UL>
 
-<P><STRONG><a name="[108]"></a>LeftDuty</STRONG> (Thumb, 98 bytes, Stack size 12 bytes, pwm.o(i.LeftDuty))
+<P><STRONG><a name="[107]"></a>LeftDuty</STRONG> (Thumb, 98 bytes, Stack size 12 bytes, pwm.o(i.LeftDuty))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = LeftDuty
 </UL>
-<BR>[Called By]<UL><LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;waitForReady
+<BR>[Called By]<UL><LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;waitForReady
 <LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
@@ -1239,14 +1239,14 @@ Global Symbols
 <P><STRONG><a name="[4f]"></a>PORTC_IRQHandler</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, isr.o(i.PORTC_IRQHandler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_mk64f12.o(RESET)
 </UL>
-<P><STRONG><a name="[109]"></a>RightDuty</STRONG> (Thumb, 98 bytes, Stack size 12 bytes, pwm.o(i.RightDuty))
+<P><STRONG><a name="[108]"></a>RightDuty</STRONG> (Thumb, 98 bytes, Stack size 12 bytes, pwm.o(i.RightDuty))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = RightDuty
 </UL>
-<BR>[Called By]<UL><LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;waitForReady
+<BR>[Called By]<UL><LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;waitForReady
 <LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[104]"></a>SetDutyCycle</STRONG> (Thumb, 128 bytes, Stack size 12 bytes, pwm.o(i.SetDutyCycle))
+<P><STRONG><a name="[103]"></a>SetDutyCycle</STRONG> (Thumb, 128 bytes, Stack size 12 bytes, pwm.o(i.SetDutyCycle))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = SetDutyCycle
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -1375,14 +1375,14 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getGPS
 </UL>
 
-<P><STRONG><a name="[107]"></a>calc</STRONG> (Thumb, 112 bytes, Stack size 0 bytes, main.o(i.calc))
-<BR><BR>[Called By]<UL><LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;waitForReady
+<P><STRONG><a name="[106]"></a>calc</STRONG> (Thumb, 112 bytes, Stack size 0 bytes, main.o(i.calc))
+<BR><BR>[Called By]<UL><LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;waitForReady
 <LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[f6]"></a>delay</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, main.o(i.delay))
-<BR><BR>[Called By]<UL><LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpsDemo
-<LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;waitForReady
+<P><STRONG><a name="[f5]"></a>delay</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, main.o(i.delay))
+<BR><BR>[Called By]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpsDemo
+<LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;waitForReady
 <LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
@@ -1395,7 +1395,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[e7]"></a>distanceCalc</STRONG> (Thumb, 362 bytes, Stack size 320 bytes, main.o(i.distanceCalc))
-<BR><BR>[Stack]<UL><LI>Max Depth = 1068 + Unknown Stack Size
+<BR><BR>[Stack]<UL><LI>Max Depth = 1060 + Unknown Stack Size
 <LI>Call Chain = distanceCalc &rArr; getGPS &rArr; __0sscanf &rArr; __vfscanf_char &rArr; __vfscanf &rArr; _scanf_real &rArr; _scanf_really_real &rArr; _fp_value &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put
@@ -1422,8 +1422,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp___mathlib_tofloat
 </UL>
 
-<P><STRONG><a name="[e8]"></a>getGPS</STRONG> (Thumb, 360 bytes, Stack size 240 bytes, gps.o(i.getGPS))
-<BR><BR>[Stack]<UL><LI>Max Depth = 748 + Unknown Stack Size
+<P><STRONG><a name="[e8]"></a>getGPS</STRONG> (Thumb, 342 bytes, Stack size 232 bytes, gps.o(i.getGPS))
+<BR><BR>[Stack]<UL><LI>Max Depth = 740 + Unknown Stack Size
 <LI>Call Chain = getGPS &rArr; __0sscanf &rArr; __vfscanf_char &rArr; __vfscanf &rArr; _scanf_real &rArr; _scanf_really_real &rArr; _fp_value &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_putchar
@@ -1432,8 +1432,7 @@ Global Symbols
 <LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bt_toggle_interrupts
 <LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LEDon
-<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
-<LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
+<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmple
 <LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmpeq
 <LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
 <LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__0sscanf
@@ -1455,91 +1454,91 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;distanceCalc
 </UL>
 
-<P><STRONG><a name="[f5]"></a>gpsDemo</STRONG> (Thumb, 160 bytes, Stack size 88 bytes, gps.o(i.gpsDemo))
+<P><STRONG><a name="[f4]"></a>gpsDemo</STRONG> (Thumb, 160 bytes, Stack size 88 bytes, gps.o(i.gpsDemo))
 <BR><BR>[Stack]<UL><LI>Max Depth = 208 + Unknown Stack Size
 <LI>Call Chain = gpsDemo &rArr; __2snprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put
-<LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay
+<LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay
 <LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2snprintf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[f7]"></a>initAndroidData</STRONG> (Thumb, 110 bytes, Stack size 24 bytes, bluetooth.o(i.initAndroidData))
+<P><STRONG><a name="[f6]"></a>initAndroidData</STRONG> (Thumb, 110 bytes, Stack size 24 bytes, bluetooth.o(i.initAndroidData))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = initAndroidData
 </UL>
-<BR>[Calls]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setData
+<BR>[Calls]<UL><LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setData
 </UL>
-<BR>[Called By]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_BT
+<BR>[Called By]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_BT
 </UL>
 
-<P><STRONG><a name="[f9]"></a>init_BT</STRONG> (Thumb, 174 bytes, Stack size 16 bytes, bluetooth.o(i.init_BT))
+<P><STRONG><a name="[f8]"></a>init_BT</STRONG> (Thumb, 174 bytes, Stack size 16 bytes, bluetooth.o(i.init_BT))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = init_BT &rArr; malloc &rArr; __Heap_Full &rArr; __Heap_ProvideMemory &rArr; free
 </UL>
-<BR>[Calls]<UL><LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initAndroidData
+<BR>[Calls]<UL><LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initAndroidData
 <LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;malloc
 </UL>
-<BR>[Called By]<UL><LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initialize
+<BR>[Called By]<UL><LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initialize
 </UL>
 
-<P><STRONG><a name="[fa]"></a>init_GPIO</STRONG> (Thumb, 180 bytes, Stack size 8 bytes, inits.o(i.init_GPIO))
+<P><STRONG><a name="[f9]"></a>init_GPIO</STRONG> (Thumb, 180 bytes, Stack size 8 bytes, inits.o(i.init_GPIO))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = init_GPIO
 </UL>
-<BR>[Calls]<UL><LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__NVIC_EnableIRQ
+<BR>[Calls]<UL><LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__NVIC_EnableIRQ
 </UL>
-<BR>[Called By]<UL><LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initialize
-</UL>
-
-<P><STRONG><a name="[102]"></a>init_LEDS</STRONG> (Thumb, 112 bytes, Stack size 0 bytes, leds.o(i.init_LEDS))
-<BR><BR>[Called By]<UL><LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initialize
+<BR>[Called By]<UL><LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initialize
 </UL>
 
-<P><STRONG><a name="[fd]"></a>init_PIT</STRONG> (Thumb, 100 bytes, Stack size 0 bytes, ultrasonic.o(i.init_PIT))
-<BR><BR>[Called By]<UL><LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_ultrasonic
+<P><STRONG><a name="[101]"></a>init_LEDS</STRONG> (Thumb, 112 bytes, Stack size 0 bytes, leds.o(i.init_LEDS))
+<BR><BR>[Called By]<UL><LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initialize
 </UL>
 
-<P><STRONG><a name="[fc]"></a>init_ultrasonic</STRONG> (Thumb, 126 bytes, Stack size 4 bytes, ultrasonic.o(i.init_ultrasonic))
+<P><STRONG><a name="[fc]"></a>init_PIT</STRONG> (Thumb, 100 bytes, Stack size 0 bytes, ultrasonic.o(i.init_PIT))
+<BR><BR>[Called By]<UL><LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_ultrasonic
+</UL>
+
+<P><STRONG><a name="[fb]"></a>init_ultrasonic</STRONG> (Thumb, 126 bytes, Stack size 4 bytes, ultrasonic.o(i.init_ultrasonic))
 <BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = init_ultrasonic
 </UL>
-<BR>[Calls]<UL><LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_PIT
+<BR>[Calls]<UL><LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_PIT
 </UL>
-<BR>[Called By]<UL><LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initialize
+<BR>[Called By]<UL><LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initialize
 </UL>
 
-<P><STRONG><a name="[fe]"></a>initialize</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, main.o(i.initialize))
+<P><STRONG><a name="[fd]"></a>initialize</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, main.o(i.initialize))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = initialize &rArr; init_BT &rArr; malloc &rArr; __Heap_Full &rArr; __Heap_ProvideMemory &rArr; free
 </UL>
-<BR>[Calls]<UL><LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_init
-<LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart0_init
-<LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_ultrasonic
-<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_LEDS
-<LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_GPIO
-<LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_BT
-<LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitPWM
+<BR>[Calls]<UL><LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_init
+<LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart0_init
+<LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_ultrasonic
+<LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_LEDS
+<LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_GPIO
+<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_BT
+<LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitPWM
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
 <P><STRONG><a name="[8c]"></a>main</STRONG> (Thumb, 306 bytes, Stack size 264 bytes, main.o(i.main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 1332 + Unknown Stack Size
+<BR><BR>[Stack]<UL><LI>Max Depth = 1324 + Unknown Stack Size
 <LI>Call Chain = main &rArr; distanceCalc &rArr; getGPS &rArr; __0sscanf &rArr; __vfscanf_char &rArr; __vfscanf &rArr; _scanf_real &rArr; _scanf_really_real &rArr; _fp_value &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put
-<LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpsDemo
-<LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetDutyCycle
-<LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RightDuty
-<LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LeftDuty
-<LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;waitForReady
-<LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnCalc
+<LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpsDemo
+<LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetDutyCycle
+<LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RightDuty
+<LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LeftDuty
+<LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;waitForReady
+<LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnCalc
 <LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;normalSet
-<LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initialize
+<LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initialize
 <LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;distanceCalc
 <LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo
-<LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay
-<LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calc
+<LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay
+<LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calc
 <LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
-<LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 <LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
@@ -1556,37 +1555,37 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_putchar
 </UL>
 <BR>[Called By]<UL><LI><a href="#[37]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART3_RX_TX_IRQHandler
-<LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpsDemo
+<LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;gpsDemo
 <LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getGPS
 <LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;distanceCalc
 <LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;demo
 </UL>
 
-<P><STRONG><a name="[f8]"></a>setData</STRONG> (Thumb, 160 bytes, Stack size 0 bytes, bluetooth.o(i.setData))
-<BR><BR>[Called By]<UL><LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initAndroidData
+<P><STRONG><a name="[f7]"></a>setData</STRONG> (Thumb, 160 bytes, Stack size 0 bytes, bluetooth.o(i.setData))
+<BR><BR>[Called By]<UL><LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initAndroidData
 </UL>
 
 <P><STRONG><a name="[10a]"></a>turn</STRONG> (Thumb, 342 bytes, Stack size 8 bytes, main.o(i.turn))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = turn
 </UL>
-<BR>[Called By]<UL><LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnCalc
+<BR>[Called By]<UL><LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnCalc
 </UL>
 
-<P><STRONG><a name="[106]"></a>turnCalc</STRONG> (Thumb, 142 bytes, Stack size 16 bytes, main.o(i.turnCalc))
+<P><STRONG><a name="[105]"></a>turnCalc</STRONG> (Thumb, 142 bytes, Stack size 16 bytes, main.o(i.turnCalc))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = turnCalc &rArr; __aeabi_d2iz
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LEDon
 <LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turn
 <LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
-<LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
+<LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
 <LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[ff]"></a>uart0_init</STRONG> (Thumb, 126 bytes, Stack size 0 bytes, uart.o(i.uart0_init))
-<BR><BR>[Called By]<UL><LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initialize
+<P><STRONG><a name="[fe]"></a>uart0_init</STRONG> (Thumb, 126 bytes, Stack size 0 bytes, uart.o(i.uart0_init))
+<BR><BR>[Called By]<UL><LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initialize
 </UL>
 
 <P><STRONG><a name="[f2]"></a>uart2_get_DistAngle</STRONG> (Thumb, 56 bytes, Stack size 8 bytes, gps.o(i.uart2_get_DistAngle))
@@ -1601,8 +1600,8 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_get_DistAngle
 </UL>
 
-<P><STRONG><a name="[100]"></a>uart2_init</STRONG> (Thumb, 126 bytes, Stack size 0 bytes, gps.o(i.uart2_init))
-<BR><BR>[Called By]<UL><LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initialize
+<P><STRONG><a name="[ff]"></a>uart2_init</STRONG> (Thumb, 126 bytes, Stack size 0 bytes, gps.o(i.uart2_init))
+<BR><BR>[Called By]<UL><LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initialize
 </UL>
 
 <P><STRONG><a name="[f0]"></a>uart2_put</STRONG> (Thumb, 22 bytes, Stack size 4 bytes, gps.o(i.uart2_put))
@@ -1623,15 +1622,15 @@ Global Symbols
 <LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put
 </UL>
 
-<P><STRONG><a name="[105]"></a>waitForReady</STRONG> (Thumb, 202 bytes, Stack size 8 bytes, main.o(i.waitForReady))
+<P><STRONG><a name="[104]"></a>waitForReady</STRONG> (Thumb, 202 bytes, Stack size 8 bytes, main.o(i.waitForReady))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = waitForReady &rArr; RightDuty
 </UL>
-<BR>[Calls]<UL><LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RightDuty
-<LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LeftDuty
+<BR>[Calls]<UL><LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RightDuty
+<LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LeftDuty
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LEDon
 <LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LEDoff
-<LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay
-<LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calc
+<LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay
+<LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calc
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -1715,11 +1714,10 @@ Global Symbols
 <LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_dcmp_Inf
 </UL>
 
-<P><STRONG><a name="[f4]"></a>__aeabi_d2iz</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, dfix.o(x$fpl$dfix))
+<P><STRONG><a name="[109]"></a>__aeabi_d2iz</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, dfix.o(x$fpl$dfix))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = __aeabi_d2iz
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getGPS
-<LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnCalc
+<BR>[Called By]<UL><LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnCalc
 </UL>
 
 <P><STRONG><a name="[118]"></a>_dfix</STRONG> (Thumb, 94 bytes, Stack size 32 bytes, dfix.o(x$fpl$dfix), UNUSED)
@@ -1728,7 +1726,6 @@ Global Symbols
 
 <P><STRONG><a name="[e9]"></a>__aeabi_i2d</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, dflt_clz.o(x$fpl$dflt))
 <BR><BR>[Called By]<UL><LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getUltrasonic
-<LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getGPS
 <LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;distanceCalc
 </UL>
 
@@ -1737,7 +1734,8 @@ Global Symbols
 <P><STRONG><a name="[eb]"></a>__aeabi_cdcmple</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, dleqf.o(x$fpl$dleqf))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = __aeabi_cdcmple
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;distanceCalc
+<BR>[Called By]<UL><LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getGPS
+<LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;distanceCalc
 </UL>
 
 <P><STRONG><a name="[119]"></a>_dcmple</STRONG> (Thumb, 120 bytes, Stack size 32 bytes, dleqf.o(x$fpl$dleqf), UNUSED)
@@ -1785,7 +1783,7 @@ Global Symbols
 <P><STRONG><a name="[de]"></a>__aeabi_cdrcmple</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, drleqf.o(x$fpl$drleqf))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __aeabi_cdrcmple
 </UL>
-<BR>[Called By]<UL><LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnCalc
+<BR>[Called By]<UL><LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnCalc
 <LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;distanceCalc
 <LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp___mathlib_tofloat
 </UL>
@@ -1799,7 +1797,7 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getUltrasonic
 <LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getGPS
-<LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnCalc
+<LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnCalc
 </UL>
 
 <P><STRONG><a name="[11d]"></a>_dsub</STRONG> (Thumb, 464 bytes, Stack size 32 bytes, daddsub_clz.o(x$fpl$dsub), UNUSED)
@@ -1893,8 +1891,8 @@ Global Symbols
 <H3>
 Local Symbols
 </H3>
-<P><STRONG><a name="[fb]"></a>__NVIC_EnableIRQ</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, inits.o(i.__NVIC_EnableIRQ))
-<BR><BR>[Called By]<UL><LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_GPIO
+<P><STRONG><a name="[fa]"></a>__NVIC_EnableIRQ</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, inits.o(i.__NVIC_EnableIRQ))
+<BR><BR>[Called By]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_GPIO
 </UL>
 
 <P><STRONG><a name="[11e]"></a>_dadd1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, daddsub_clz.o(x$fpl$dadd), UNUSED)

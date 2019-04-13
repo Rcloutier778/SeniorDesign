@@ -55,21 +55,23 @@ void getGPS(){
 
     uart2_put(phoneChar);
 
-    put("User lat: ");
-    put(phoneChar); //TODO
-    put("\r\n");
-
+    if (VERBOSE==2){
+        put("User lat: ");
+        put(phoneChar); //TODO
+        put("\r\n");
+    }
     uart2_putchar(',');
 
     snprintf(phoneChar,sizeof phoneChar, "%lf", phoneGPS[1]);
 
     uart2_put(phoneChar);
 
-
-    put("User long: ");
-    put(phoneChar); //TODO
-    put("\r\n"); 
-
+    if (VERBOSE==2){
+        put("User long: ");
+        put(phoneChar); //TODO
+        put("\r\n"); 
+    }
+    
     uart2_putchar(0);
 
     //Get distance and angle
@@ -79,18 +81,11 @@ void getGPS(){
     sscanf(angleChar, "%lf", &angle);    
     bt_toggle_interrupts(1);
     
-    distance = abs(distance-__distance_offset);
+    distance = distance - __distance_offset;
+    if (distance < 0.0) {distance=0.0;}
     
     
     LEDon(GREEN);
-    if(VERBOSE==2){
-        put("Got distance of: ");
-        put(distChar);
-        put("\r\n");
-        put("Got angle of: ");
-        put(angleChar);
-        put("\r\n");
-    }
 }
 
 void gpsDemo(void){

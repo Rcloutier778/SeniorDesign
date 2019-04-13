@@ -108,7 +108,7 @@ float location[2]={0.0f,0.0f};
 
 int control[10];
 int use_ultrasonic=0;
-int VERBOSE=0; //0 = none, 1 = dist/angle/pwm, 2 = everything
+int VERBOSE=1; //0 = none, 1 = dist/angle/pwm, 2 = everything
 
 
 /*
