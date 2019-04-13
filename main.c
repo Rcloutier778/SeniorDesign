@@ -183,7 +183,7 @@ int main(void){
 
         LeftDuty((int)LPWM,DC_freq);
         RightDuty((int)RPWM,DC_freq);
-
+        if (VERBOSE){put("\r\n");}
         delay(100);
     }
 }

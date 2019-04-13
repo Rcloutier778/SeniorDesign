@@ -79,7 +79,7 @@ void getGPS(){
     bt_toggle_interrupts(1);
     
     LEDon(GREEN);
-    if(VERBOSE){
+    if(VERBOSE==2){
         put("Got distance of: ");
         put(distChar);
         put("\r\n");

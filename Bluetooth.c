@@ -222,7 +222,7 @@ void UART3_RX_TX_IRQHandler(void){
             //put("\r\n");
             if (!strcmp(splitStream,"AX")){
                 splitStream = strtok(NULL, " ");
-                if(VERBOSE){
+                if(VERBOSE ==2){
                     put("BT Lat: ");
                     put(splitStream);
                     put("\r\n");
@@ -231,7 +231,7 @@ void UART3_RX_TX_IRQHandler(void){
                 data->avggpsx=d;
                 splitStream = strtok(NULL, " ");
                 splitStream = strtok(NULL, " ");
-                if(VERBOSE){
+                if(VERBOSE==2){
                     put("BT Long: ");
                     put(splitStream);
                     put("\r\n");
