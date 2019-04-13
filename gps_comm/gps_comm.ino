@@ -28,7 +28,7 @@ double gps_lat;
 double gps_long;
 double gps_course_deg;
 
-int VERBOSE=0;
+int VERBOSE=2;
 
 
 void loop() {
@@ -58,7 +58,7 @@ void loop() {
     k64.write(writechar);
     k64.write((byte)0x00);
 
-    if(VERBOSE){
+    if(VERBOSE==2){
       Serial.print("Distance to user: ");
       Serial.print(writechar);
       Serial.println(" ft");
@@ -91,11 +91,11 @@ void loop() {
     k64.write(writechar);
     k64.write((byte)0x00);
 
-    if(VERBOSE){
+    if(VERBOSE==2){
       Serial.print("Difference angle: ");
       Serial.println(writechar);
-      Serial.println();
     }
+    if (VERBOSE){Serial.println();}
   }
 }
 

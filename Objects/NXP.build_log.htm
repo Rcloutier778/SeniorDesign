@@ -27,53 +27,27 @@ Project File Date:  04/13/2019
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 5 (build 528)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Target 1'
-compiling Bluetooth.c...
-Bluetooth.c(317): warning:  #186-D: pointless comparison of unsigned integer with zero
-      if(ctrl >= 0 && ctrl <= 14){
-Bluetooth.c(205): warning:  #177-D: variable "c"  was declared but never referenced
-      char  c[255];
-Bluetooth.c: 2 warnings, 0 errors
 compiling GPS.c...
-GPS.c(147): warning:  #111-D: statement is unreachable
+GPS.c(151): warning:  #111-D: statement is unreachable
           snprintf(phoneChar,sizeof phoneChar, "%g", phoneGPS[0]);
-GPS.c(93): warning:  #177-D: variable "demoi"  was declared but never referenced
+GPS.c(97): warning:  #177-D: variable "demoi"  was declared but never referenced
       int demoi;
-GPS.c(94): warning:  #177-D: variable "demoj"  was declared but never referenced
+GPS.c(98): warning:  #177-D: variable "demoj"  was declared but never referenced
       int demoj;
-GPS.c(95): warning:  #177-D: variable "test"  was declared but never referenced
+GPS.c(99): warning:  #177-D: variable "test"  was declared but never referenced
       char test;
-GPS.c(96): warning:  #177-D: variable "k64"  was declared but never referenced
+GPS.c(100): warning:  #177-D: variable "k64"  was declared but never referenced
       char k64[255];
-GPS.c(97): warning:  #177-D: variable "from_ard"  was declared but never referenced
+GPS.c(101): warning:  #177-D: variable "from_ard"  was declared but never referenced
       char from_ard[255];
-GPS.c(102): warning:  #550-D: variable "tDistance"  was set but never used
+GPS.c(106): warning:  #550-D: variable "tDistance"  was set but never used
       float tDistance;
-GPS.c(103): warning:  #550-D: variable "tAngle"  was set but never used
+GPS.c(107): warning:  #550-D: variable "tAngle"  was set but never used
       float tAngle;
 GPS.c: 8 warnings, 0 errors
-compiling main.c...
-main.c(197): warning:  #177-D: variable "demoi"  was declared but never referenced
-      int demoi;
-main.c(198): warning:  #177-D: variable "demoj"  was declared but never referenced
-      int demoj;
-main.c(199): warning:  #177-D: variable "test"  was declared but never referenced
-      char test;
-main.c(200): warning:  #177-D: variable "k64"  was declared but never referenced
-      char k64[255];
-main.c(201): warning:  #177-D: variable "from_ard"  was declared but never referenced
-      char from_ard[255];
-main.c(202): warning:  #177-D: variable "phoneGPS"  was declared but never referenced
-      double phoneGPS[2]={0.0,0.0}; //GPS coords from phone
-main.c(203): warning:  #177-D: variable "phoneChar"  was declared but never referenced
-      char phoneChar[64];
-main.c(204): warning:  #177-D: variable "angleChar"  was declared but never referenced
-      char angleChar[64];
-main.c(205): warning:  #177-D: variable "distChar"  was declared but never referenced
-      char distChar[64];
-main.c: 9 warnings, 0 errors
 linking...
-Program Size: Code=20220 RO-data=1548 RW-data=252 ZI-data=5220  
-".\Objects\NXP.axf" - 0 Error(s), 19 Warning(s).
+Program Size: Code=20328 RO-data=1548 RW-data=252 ZI-data=5220  
+".\Objects\NXP.axf" - 0 Error(s), 8 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -97,8 +71,8 @@ Package Vendor: Keil
 <h2>Collection of Component Files used:</h2>
 
    * Component: Keil::Device:Startup:1.0.0
-      Source file:   Device\Source\ARM\startup_MK64F12.s
       Source file:   Device\Source\system_MK64F12.c
+      Source file:   Device\Source\ARM\startup_MK64F12.s
 
    * Component: ARM::CMSIS:CORE:5.0.2
 Build Time Elapsed:  00:00:01

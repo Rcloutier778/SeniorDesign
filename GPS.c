@@ -34,6 +34,7 @@ void getGPS(){
     char phoneChar[64];
     char distChar[64];
     char angleChar[64];
+    const double __distance_offset = 6.0;
 
     bt_toggle_interrupts(0);
     //Get GPS from Bluetooth  -- brian //TODO
@@ -77,6 +78,9 @@ void getGPS(){
     sscanf(distChar, "%lf", &distance);
     sscanf(angleChar, "%lf", &angle);    
     bt_toggle_interrupts(1);
+    
+    distance = abs(distance-__distance_offset);
+    
     
     LEDon(GREEN);
     if(VERBOSE==2){
