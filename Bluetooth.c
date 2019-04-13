@@ -309,7 +309,9 @@ void UART3_RX_TX_IRQHandler(void){
 
         //bt_getData();
         */
-        UART3_C2 |= UART_C2_RIE_MASK;
+        if (__allow_interrupts){
+            UART3_C2 |= UART_C2_RIE_MASK;
+        }
 
 
         return;
