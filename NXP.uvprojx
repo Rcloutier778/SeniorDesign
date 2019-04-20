@@ -470,6 +470,16 @@
               <FileType>5</FileType>
               <FilePath>.\GPS.h</FilePath>
             </File>
+            <File>
+              <FileName>camera.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\camera.c</FilePath>
+            </File>
+            <File>
+              <FileName>camera.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\camera.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

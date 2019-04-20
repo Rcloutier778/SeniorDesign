@@ -8,6 +8,7 @@
 ".\objects\leds.o"
 ".\objects\ultrasonic.o"
 ".\objects\gps.o"
+".\objects\camera.o"
 ".\objects\startup_mk64f12.o"
 ".\objects\system_mk64f12.o"
 --strict --scatter ".\Objects\NXP.sct"

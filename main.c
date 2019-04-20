@@ -26,6 +26,8 @@
  *    PTD1    Ultrasonic trigger
  PTD2    UART2_RX  arduino
  PTD3    UART2_TX  arduino
+ PTE24      uart4 pi
+ PTE25      uart4 pi
  *
  * Author:  Richard Cloutier
  * Created:  11/20/17
@@ -43,6 +45,7 @@
 #include "ultrasonic.h"
 #include "GPS.h"
 #include <stdlib.h>
+#include "camera.h"
 
 void initialize(void);
 void en_interrupts(void);
@@ -55,6 +58,8 @@ void distanceCalc(void);
 void demo(void);
 void turn(int turn_angle);
 void waitForReady(void);
+void spinToWin(void);
+
 
 const int DC_freq = 25000;
 const int BLUETOOTH=1;
@@ -258,7 +263,7 @@ void distanceCalc(void){
     getGPS();
     if (distance < distRange[0]){
         //Camera call here
-
+        getCamera();
         if (distance < distRange[0]){
             //Ultrasonic
             if (use_ultrasonic){
@@ -364,6 +369,20 @@ void normalSet(void){
     manualDelta[0]=0.0f;
     manualDelta[1]=0.0f;
 }
+
+/*If camera can't find user, spin to find user*/
+void spinToWin(void){
+    LEFT_DESIRED=20.0f;
+    RIGHT_DESIRED=-20.0f;
+    LPWM=calc(LPWM, LEFT_DESIRED, LEFT);
+    RPWM=calc(RPWM, RIGHT_DESIRED, RIGHT);
+    
+    if(VERBOSE){put("Spinning\r\n");}
+
+    LeftDuty((int)LPWM,DC_freq);
+    RightDuty((int)RPWM,DC_freq);
+}
+
 
 /*
    Calculate the PID PWM value based on the current PWM value,
