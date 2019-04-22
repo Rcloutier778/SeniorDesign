@@ -33,8 +33,8 @@ TODO: Don't calc distance or angle, average it with camera and ultrasonic.
 void getCamera(){
     double phoneGPS[2]={0.0,0.0}; //GPS coords from phone
     char phoneChar[64];
-    char distChar[64];
-    char angleChar[64];
+    char distChar[64]={0};
+    char angleChar[64]={0};
     const double __distance_offset = 6.0;
 
     bt_toggle_interrupts(0);
@@ -42,19 +42,29 @@ void getCamera(){
     
     LEDon(BLUE);
     for(;;){
+        put("Camera sending\r\n");
         uart4_put(0);
 
         //Get distance and angle
         uart4_get_DistAngle(distChar, angleChar);
-        
-        if (strncmp(distChar,"None", sizeof(distChar))==0){
+        if (distChar[0]==1){
+            put("Was none\r\n");
             spinToWin();
+            memset(distChar, 0, sizeof(distChar));
+            memset(angleChar, 0, sizeof(angleChar));
             delay(500);
             continue;
         }
-        sscanf(distChar, "%lf", &distance);
-        sscanf(angleChar, "%lf", &angle);    
+        break;
     }
+    put("\r\n");
+    put(distChar);
+    put("\r\n");
+    put(angleChar);
+    put("\r\n");
+    sscanf(distChar, "%lf", &distance);
+    sscanf(angleChar, "%lf", &angle);  
+    
     bt_toggle_interrupts(1);
     //TODO spin if not found
         //Do this on pi?
@@ -71,7 +81,7 @@ void uart4_init(void){
     uint16_t ubd, brfa;
 
     //Enable clock for UART
-    SIM_SCGC4 |= SIM_SCGC1_UART4_MASK;
+    SIM_SCGC1 |= SIM_SCGC1_UART4_MASK;
     SIM_SCGC5 |= SIM_SCGC5_PORTE_MASK;
 
     //Configure the port control register to alternative 3 (which is UART mode for K64)
@@ -158,7 +168,6 @@ void uart4_get(char *ptr_str){
         if(cu == 0){ //if entered character is character return
             return;
         }
-        //    uart_putchar(cu);
         ptr_str[lcv] = cu;
         lcv++;
     }
@@ -178,7 +187,6 @@ void uart4_get_DistAngle(char *ptr_str_dist, char *ptr_str_angle){
         if(cu == 0){ //if entered character is character return
             break;
         }
-        //    uart_putchar(cu);
         ptr_str_dist[lcv] = cu;
         lcv++;
     }
@@ -188,7 +196,6 @@ void uart4_get_DistAngle(char *ptr_str_dist, char *ptr_str_angle){
         if(cu == 0){ //if entered character is character return
             break;
         }
-        //    uart_putchar(cu);
         ptr_str_angle[lcv] = cu;
         lcv++;
     }

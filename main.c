@@ -252,6 +252,7 @@ void distanceCalc(void){
     const int distRange[2] = {10, 3}; //Minimum distance ranges for distance calc methods
     float desiredSpeed = 0.0f;
     char  c[255];
+    int use_gps=0;
 
     if(manualControl){
         LEFT_DESIRED=manualDelta[0];
@@ -261,12 +262,12 @@ void distanceCalc(void){
 
     //GPS
     getGPS();
-    if (distance < distRange[0]){
+    if ((distance < distRange[0]) || (use_gps==0)){
         //Camera call here
         getCamera();
         if (distance < distRange[0]){
             //Ultrasonic
-            if (use_ultrasonic){
+            if (use_ultrasonic && (fabs(angle)<10.0)){
                 distance=getUltrasonic();
             }
         }
@@ -303,7 +304,7 @@ void turnCalc(void){
 
     //TODO angle calculations for camera
 
-    if (abs(angle) > minAngle) {
+    if (fabs(angle) > minAngle) {
         /*
            Slows inner wheel. Then drive in reverse
            Max slow speed == -UB
@@ -443,6 +444,7 @@ void initialize(void){
     // Initialize UART
     uart0_init();    //Terminal
     uart2_init();   //arduino comm
+    uart4_init();
 
     // Initialize the FlexTimer
     InitPWM();

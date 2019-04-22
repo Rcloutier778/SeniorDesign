@@ -37,7 +37,7 @@ void loop() {
   double distance_user;
   double angle_user;
   double difference_angle;
-  int spoofGPS=0; //spoof gps coord
+  int spoofGPS=1; //spoof gps coord
   int spoofK64=0; //spoof k64 coord
   char writechar[255];
   
