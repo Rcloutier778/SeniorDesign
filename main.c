@@ -112,7 +112,7 @@ int direction=0;
 float location[2]={0.0f,0.0f};
 
 int control[10];
-int use_ultrasonic=0;
+int use_ultrasonic=1;
 int VERBOSE=1; //0 = none, 1 = dist/angle/pwm, 2 = everything
 
 
@@ -247,9 +247,9 @@ void demo(void){
    Adjusts desired speed accordingly
    */
 void distanceCalc(void){
-    const float maxDistance=30.0f; //Max distance == max speed
+    const float maxDistance=50.0f; //Max distance == max speed
     const float minDistance=1.0f;
-    const int distRange[2] = {10, 3}; //Minimum distance ranges for distance calc methods
+    const int distRange[2] = {30, 11}; //Minimum distance ranges for distance calc methods
     float desiredSpeed = 0.0f;
     char  c[255];
     int use_gps=0;
