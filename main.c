@@ -86,7 +86,7 @@ float KD; //25
 float PWMErrOld1[2] = {0.0,0.0}; //e(n-1)
 float PWMErrOld2[2] = {0.0,0.0}; //e(n-2)
 
-float LB= -30.0; //Lower bound of wheel speed
+float LB= -50.0; //Lower bound of wheel speed
 float UB=  50.0; //Upper bound of wheel speed
 
 //Desired PWM of left and right wheels
@@ -112,9 +112,9 @@ int direction=0;
 float location[2]={0.0f,0.0f};
 
 int control[10];
-int use_ultrasonic=1;
+int use_ultrasonic=0;
 int VERBOSE=1; //0 = none, 1 = dist/angle/pwm, 2 = everything
-
+int use_gps=0;
 
 /*
    Limit n to the lower and upper bounds only.
@@ -189,7 +189,7 @@ int main(void){
         LeftDuty((int)LPWM,DC_freq);
         RightDuty((int)RPWM,DC_freq);
         if (VERBOSE){put("\r\n");}
-        delay(100);
+        delay(10);
     }
 }
 
@@ -252,7 +252,6 @@ void distanceCalc(void){
     const int distRange[2] = {30, 11}; //Minimum distance ranges for distance calc methods
     float desiredSpeed = 0.0f;
     char  c[255];
-    int use_gps=0;
 
     if(manualControl){
         LEFT_DESIRED=manualDelta[0];
@@ -261,17 +260,24 @@ void distanceCalc(void){
     }
 
     //GPS
-    getGPS();
-    if ((distance < distRange[0]) || (use_gps==0)){
-        //Camera call here
-        getCamera();
-        if (distance < distRange[0]){
-            //Ultrasonic
-            if (use_ultrasonic && (fabs(angle)<10.0)){
-                distance=getUltrasonic();
+    if (use_gps){
+        getGPS();
+        if ((distance < distRange[0]) || (use_gps==0)){
+            //Camera call here
+            getCamera();
+            if (distance < distRange[0]){
+                //Ultrasonic
+                if (use_ultrasonic && (fabs(angle)<10.0)){
+                    distance=getUltrasonic();
+                }
             }
         }
     }
+    else{
+        getCamera();
+    }
+    
+
 
     if(VERBOSE){
         sprintf(c,"Distance: %lf ft",distance);
@@ -327,20 +333,20 @@ void turn(int turn_angle){
     //Angle at which the inner wheel will be set to negative pwm of outer wheel
     const int maxAngle=180;
     //Angle at which reverse braking will start. Inner wheel pwm == 0 at this point.
-    const int revBrakeAngle=45;
+    const int revBrakeAngle=20;
 
     if(turn_angle > 0){ //Right turn
         if (turn_angle <= revBrakeAngle){
             RIGHT_DESIRED = (LEFT_DESIRED*(revBrakeAngle-turn_angle))/revBrakeAngle;
         }else{ //reverse braking
-            RIGHT_DESIRED = -LEFT_DESIRED*(turn_angle-revBrakeAngle)/(maxAngle-revBrakeAngle);
+            RIGHT_DESIRED = -1.5*LEFT_DESIRED*(turn_angle-revBrakeAngle)/(maxAngle-revBrakeAngle);
         }
         clip(RIGHT_DESIRED,LB,UB);
     }else if(turn_angle < 0){ //Left
         if (abs(turn_angle) <= revBrakeAngle){
             LEFT_DESIRED = (RIGHT_DESIRED*(revBrakeAngle-abs(turn_angle)))/revBrakeAngle;
         }else{ //reverse braking
-            LEFT_DESIRED = -RIGHT_DESIRED*(abs(turn_angle)-revBrakeAngle)/(maxAngle-revBrakeAngle);
+            LEFT_DESIRED = -1.5*RIGHT_DESIRED*(abs(turn_angle)-revBrakeAngle)/(maxAngle-revBrakeAngle);
         }
         clip(LEFT_DESIRED,LB,UB);
     }

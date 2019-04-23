@@ -64,7 +64,7 @@ double getUltrasonic(void){
     PIT_TFLG0 |= PIT_TFLG_TIF_MASK;
     while(ultrasonic_state != 3);
 
-    ultrasonic_distance=((ultrasonic_counter/148.0)*SCALE_FACTOR)-1;
+    ultrasonic_distance=(((ultrasonic_counter/148.0)*SCALE_FACTOR)-1)/12.0;
     return ultrasonic_distance;
 }
 

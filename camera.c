@@ -52,7 +52,7 @@ void getCamera(){
             spinToWin();
             memset(distChar, 0, sizeof(distChar));
             memset(angleChar, 0, sizeof(angleChar));
-            delay(500);
+            delay(100);
             continue;
         }
         break;
@@ -69,7 +69,7 @@ void getCamera(){
     //TODO spin if not found
         //Do this on pi?
     
-    distance = distance - __distance_offset;
+    //distance = distance - __distance_offset;
     if (distance < 0.0) {distance=0.0;}
     
     

@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\NXP.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\NXP.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060300: Last Updated: Mon Apr 22 22:14:04 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060300: Last Updated: Tue Apr 23 09:23:27 2019
 <BR><P>
 <H3>Maximum Stack Usage =       1808 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -756,8 +756,8 @@ Global Symbols
 
 <P><STRONG><a name="[d4]"></a>strcmp</STRONG> (Thumb, 128 bytes, Stack size 0 bytes, strcmpv7m.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[37]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART3_RX_TX_IRQHandler
-<LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_get_lc_numeric
 <LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_get_lc_ctype
+<LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_get_lc_numeric
 </UL>
 
 <P><STRONG><a name="[151]"></a>__use_two_region_memory</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
@@ -1401,7 +1401,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[e6]"></a>distanceCalc</STRONG> (Thumb, 406 bytes, Stack size 320 bytes, main.o(i.distanceCalc))
+<P><STRONG><a name="[e6]"></a>distanceCalc</STRONG> (Thumb, 426 bytes, Stack size 320 bytes, main.o(i.distanceCalc))
 <BR><BR>[Stack]<UL><LI>Max Depth = 1048 + Unknown Stack Size
 <LI>Call Chain = distanceCalc &rArr; getGPS &rArr; __0sscanf &rArr; __vfscanf_char &rArr; __vfscanf &rArr; _scanf_real &rArr; _scanf_really_real &rArr; _fp_value &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
 </UL>
@@ -1431,7 +1431,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_narrow
 </UL>
 
-<P><STRONG><a name="[e9]"></a>getCamera</STRONG> (Thumb, 258 bytes, Stack size 160 bytes, camera.o(i.getCamera))
+<P><STRONG><a name="[e9]"></a>getCamera</STRONG> (Thumb, 230 bytes, Stack size 160 bytes, camera.o(i.getCamera))
 <BR><BR>[Stack]<UL><LI>Max Depth = 656<LI>Call Chain = getCamera &rArr; __0sscanf &rArr; __vfscanf_char &rArr; __vfscanf &rArr; _scanf_real &rArr; _scanf_really_real &rArr; _fp_value &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart4_put
@@ -1442,7 +1442,6 @@ Global Symbols
 <LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;spinToWin
 <LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay
 <LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmple
-<LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
 <LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 <LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__0sscanf
 </UL>
@@ -1453,29 +1452,29 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 728 + Unknown Stack Size
 <LI>Call Chain = getGPS &rArr; __0sscanf &rArr; __vfscanf_char &rArr; __vfscanf &rArr; _scanf_real &rArr; _scanf_really_real &rArr; _fp_value &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
 </UL>
-<BR>[Calls]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_putchar
-<LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_put
-<LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_get_DistAngle
+<BR>[Calls]<UL><LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_putchar
+<LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_put
+<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_get_DistAngle
 <LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bt_toggle_interrupts
 <LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LEDon
 <LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmple
 <LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmpeq
-<LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
+<LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
 <LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__0sscanf
 <LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2snprintf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;distanceCalc
 </UL>
 
-<P><STRONG><a name="[ec]"></a>getUltrasonic</STRONG> (Thumb, 236 bytes, Stack size 40 bytes, ultrasonic.o(i.getUltrasonic))
-<BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = getUltrasonic &rArr; __aeabi_dmul
+<P><STRONG><a name="[ec]"></a>getUltrasonic</STRONG> (Thumb, 252 bytes, Stack size 48 bytes, ultrasonic.o(i.getUltrasonic))
+<BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = getUltrasonic &rArr; __aeabi_dmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
 <LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
 <LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
-<LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
+<LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
 <LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
 </UL>
 <BR>[Called By]<UL><LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;distanceCalc
@@ -1607,21 +1606,27 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getCamera
 </UL>
 
-<P><STRONG><a name="[10f]"></a>turn</STRONG> (Thumb, 342 bytes, Stack size 8 bytes, main.o(i.turn))
-<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = turn
+<P><STRONG><a name="[10e]"></a>turn</STRONG> (Thumb, 430 bytes, Stack size 64 bytes, main.o(i.turn))
+<BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = turn &rArr; __aeabi_dmul
+</UL>
+<BR>[Calls]<UL><LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
+<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
+<LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
+<LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
+<LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
 </UL>
 <BR>[Called By]<UL><LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnCalc
 </UL>
 
 <P><STRONG><a name="[10a]"></a>turnCalc</STRONG> (Thumb, 158 bytes, Stack size 24 bytes, main.o(i.turnCalc))
-<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = turnCalc &rArr; __aeabi_d2iz
+<BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = turnCalc &rArr; turn &rArr; __aeabi_dmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LEDon
-<LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turn
+<LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turn
 <LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_fabs
 <LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
-<LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
-<LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
+<LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
+<LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -1630,7 +1635,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initialize
 </UL>
 
-<P><STRONG><a name="[f9]"></a>uart2_get_DistAngle</STRONG> (Thumb, 56 bytes, Stack size 8 bytes, gps.o(i.uart2_get_DistAngle))
+<P><STRONG><a name="[f8]"></a>uart2_get_DistAngle</STRONG> (Thumb, 56 bytes, Stack size 8 bytes, gps.o(i.uart2_get_DistAngle))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = uart2_get_DistAngle
 </UL>
 <BR>[Calls]<UL><LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_getchar
@@ -1639,23 +1644,23 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[110]"></a>uart2_getchar</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, gps.o(i.uart2_getchar))
-<BR><BR>[Called By]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_get_DistAngle
+<BR><BR>[Called By]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_get_DistAngle
 </UL>
 
 <P><STRONG><a name="[104]"></a>uart2_init</STRONG> (Thumb, 126 bytes, Stack size 0 bytes, gps.o(i.uart2_init))
 <BR><BR>[Called By]<UL><LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initialize
 </UL>
 
-<P><STRONG><a name="[f7]"></a>uart2_put</STRONG> (Thumb, 22 bytes, Stack size 4 bytes, gps.o(i.uart2_put))
+<P><STRONG><a name="[f6]"></a>uart2_put</STRONG> (Thumb, 22 bytes, Stack size 4 bytes, gps.o(i.uart2_put))
 <BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = uart2_put
 </UL>
-<BR>[Calls]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_putchar
+<BR>[Calls]<UL><LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_putchar
 </UL>
 <BR>[Called By]<UL><LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getGPS
 </UL>
 
-<P><STRONG><a name="[f8]"></a>uart2_putchar</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, gps.o(i.uart2_putchar))
-<BR><BR>[Called By]<UL><LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_put
+<P><STRONG><a name="[f7]"></a>uart2_putchar</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, gps.o(i.uart2_putchar))
+<BR><BR>[Called By]<UL><LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart2_put
 <LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getGPS
 </UL>
 
@@ -1727,6 +1732,7 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[37]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART3_RX_TX_IRQHandler
 <LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getUltrasonic
+<LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turn
 <LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;distanceCalc
 <LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_narrow
 </UL>
@@ -1763,6 +1769,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = __aeabi_ddiv
 </UL>
 <BR>[Called By]<UL><LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getUltrasonic
+<LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turn
 <LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;distanceCalc
 </UL>
 
@@ -1784,7 +1791,7 @@ Global Symbols
 <LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_dcmp_Inf
 </UL>
 
-<P><STRONG><a name="[10e]"></a>__aeabi_d2iz</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, dfix.o(x$fpl$dfix))
+<P><STRONG><a name="[10f]"></a>__aeabi_d2iz</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, dfix.o(x$fpl$dfix))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = __aeabi_d2iz
 </UL>
 <BR>[Called By]<UL><LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnCalc
@@ -1796,6 +1803,7 @@ Global Symbols
 
 <P><STRONG><a name="[e8]"></a>__aeabi_i2d</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, dflt_clz.o(x$fpl$dflt))
 <BR><BR>[Called By]<UL><LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getUltrasonic
+<LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turn
 <LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;distanceCalc
 </UL>
 
@@ -1822,6 +1830,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = __aeabi_dmul
 </UL>
 <BR>[Called By]<UL><LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getUltrasonic
+<LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turn
 <LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;distanceCalc
 <LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_underflow
 <LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_overflow
@@ -1863,12 +1872,11 @@ Global Symbols
 <BR><BR>[Calls]<UL><LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_dcmple_InfNaN
 </UL>
 
-<P><STRONG><a name="[f6]"></a>__aeabi_dsub</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, daddsub_clz.o(x$fpl$dsub))
+<P><STRONG><a name="[f9]"></a>__aeabi_dsub</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, daddsub_clz.o(x$fpl$dsub))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = __aeabi_dsub
 </UL>
 <BR>[Called By]<UL><LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getUltrasonic
 <LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getGPS
-<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getCamera
 <LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnCalc
 </UL>
 
@@ -1881,6 +1889,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __aeabi_f2d
 </UL>
 <BR>[Called By]<UL><LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getUltrasonic
+<LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turn
 <LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;distanceCalc
 </UL>
